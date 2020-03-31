@@ -1,0 +1,6 @@
+export enum MESSAGE_TYPE {
+  ERROR,
+  SUCCESS,
+  INFO,
+  WORNING
+}
