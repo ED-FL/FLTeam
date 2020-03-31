@@ -48,7 +48,7 @@ __webpack_require__(190);
 /***/ 157:
 /***/ (function(module, exports) {
 
-var app = angular.module('app', ['ngRoute', 'toastr']);
+var app = angular.module('app', ['ngRoute', 'toastr', 'ngMaterial']);
 app.run(function ($rootScope, $location) {
     $rootScope.$on("$routeChangeError", function (e, next, prev, err) {
         if (err === "AUTH_REQUIRED") {
@@ -391,7 +391,7 @@ angular.module('app').component('login', {
 /***/ 173:
 /***/ (function(module, exports) {
 
-module.exports = "<h1>Please Login</h1>\r\n\r\n<p>Enter your attendee email address</p>\r\n<form class=\"form\">\r\n  <div class=\"row\">\r\n    <div class=\"form-group col-sm-6\">\r\n      <input type=\"text\" autofocus placeholder=\"Email Address\" ng-model=\"$ctrl.email\" class=\"form-control\">\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6\">\r\n      <button class=\"btn btn-primary\" ng-click=\"$ctrl.login()\">Login</button>\r\n    </div>\r\n  </div>\r\n</form>";
+module.exports = "<h1>Please Login</h1>\r\n\r\n<p>Enter your attendee email address</p>\r\n<form class=\"form\">\r\n  <div class=\"row\">\r\n    <div class=\"form-group col-sm-6\">\r\n      <input type=\"text\" autofocus placeholder=\"Email Address\" ng-model=\"$ctrl.email\" class=\"form-control\">\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6\">\r\n      <md-button ng-click=\"$ctrl.login()\">Login</md-button>\r\n    </div>\r\n  </div>\r\n</form>";
 
 /***/ }),
 
