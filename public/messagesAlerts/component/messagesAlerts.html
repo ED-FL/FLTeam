@@ -1,0 +1,19 @@
+<div>
+  <md-button ng-click="showLastMessage()"><md-icon>alarm</md-icon></md-button>
+  <md-button ng-click="showAllMessages()"
+    ><md-icon>alarm_add</md-icon></md-button
+  >
+  <md-button ng-click="dontShowMessages()"
+    ><md-icon>alarm_off</md-icon></md-button
+  >
+</div>
+<div>
+  <md-list>
+    <md-list-item ng-repeat="item in $ctrl.currentAlerts">
+      <div class="md-list-item-text">
+        <md-icon>error</md-icon>
+        <p>{{item}}</p>
+      </div></md-list-item
+    >
+  </md-list>
+</div>
