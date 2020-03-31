@@ -50,11 +50,16 @@ var nameParser_service_1 = __webpack_require__(80);
 var unreviewedTalk_component_1 = __webpack_require__(81);
 var talkDuration_pipe_1 = __webpack_require__(195);
 var profile_component_1 = __webpack_require__(82);
+var toastr_service_1 = __webpack_require__(197);
+var nav_component_1 = __webpack_require__(198);
 function getLocation(angularOneInjector) {
     return angularOneInjector.get('$location');
 }
 function getCurrentIdentity(angularOneInjector) {
     return angularOneInjector.get('currentIdentity');
+}
+function getToastr() {
+    return toastr;
 }
 var AppModule = (function () {
     function AppModule() {
@@ -73,12 +78,14 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             unreviewedTalk_component_1.UnreviewedTalkComponent,
             talkDuration_pipe_1.TalkDurationPipe,
-            profile_component_1.ProfileComponent
+            profile_component_1.ProfileComponent,
+            nav_component_1.NavComponent
         ],
         providers: [
             nameParser_service_1.NameParser,
             { provide: '$location', useFactory: getLocation, deps: ['$injector'] },
-            { provide: 'currentIdentity', useFactory: getCurrentIdentity, deps: ['$injector'] }
+            { provide: 'currentIdentity', useFactory: getCurrentIdentity, deps: ['$injector'] },
+            { provide: toastr_service_1.TOASTR_TOKEN, useFactory: getToastr }
         ],
         bootstrap: [
             app_component_1.AppComponent
@@ -162,7 +169,64 @@ exports.TalkDurationPipe = TalkDurationPipe;
 /***/ 196:
 /***/ (function(module, exports) {
 
-module.exports = "<nav></nav>\r\n\r\n<h1>User Profile</h1>\r\n\r\n<form class=\"form-inline\" #form=\"ngForm\">\r\n  <label for=\"firstName\">First Name</label>\r\n  <input type=\"text\" id=\"firstName\" placeholder=\"First Name\" \r\n   class=\"form-control\" [ngModel]=\"currentIdentity.currentUser.firstName\" \r\n   name=\"firstName\">\r\n\r\n  <label for=\"lastName\">Last Name</label>\r\n  <input type=\"text\" id=\"lastName\" placeholder=\"Last Name\" \r\n   class=\"form-control\" [ngModel]=\"currentIdentity.currentUser.lastName\" \r\n   name=\"lastName\">\r\n\r\n  <br><br>\r\n  <button class=\"btn btn-primary btn-sm\" (click)=\"save(form.value)\">Save</button>\r\n  <button class=\"btn btn-warning btn-sm\" (click)=\"cancel()\">Cancel</button>\r\n</form>";
+module.exports = "<app-nav></app-nav>\r\n\r\n<h1>User Profile</h1>\r\n\r\n<form class=\"form-inline\" #form=\"ngForm\">\r\n  <label for=\"firstName\">First Name</label>\r\n  <input type=\"text\" id=\"firstName\" placeholder=\"First Name\" \r\n   class=\"form-control\" [ngModel]=\"currentIdentity.currentUser.firstName\" \r\n   name=\"firstName\">\r\n\r\n  <label for=\"lastName\">Last Name</label>\r\n  <input type=\"text\" id=\"lastName\" placeholder=\"Last Name\" \r\n   class=\"form-control\" [ngModel]=\"currentIdentity.currentUser.lastName\" \r\n   name=\"lastName\">\r\n\r\n  <br><br>\r\n  <button class=\"btn btn-primary btn-sm\" (click)=\"save(form.value)\">Save</button>\r\n  <button class=\"btn btn-warning btn-sm\" (click)=\"cancel()\">Cancel</button>\r\n</form>";
+
+/***/ }),
+
+/***/ 197:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(1);
+exports.TOASTR_TOKEN = new core_1.InjectionToken('toastr');
+
+
+/***/ }),
+
+/***/ 198:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__(1);
+var static_1 = __webpack_require__(52);
+var NavComponent = (function (_super) {
+    __extends(NavComponent, _super);
+    function NavComponent(elementRef, injector) {
+        return _super.call(this, 'nav', elementRef, injector) || this;
+    }
+    return NavComponent;
+}(static_1.UpgradeComponent));
+NavComponent = __decorate([
+    core_1.Directive({
+        selector: 'app-nav'
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef, core_1.Injector])
+], NavComponent);
+exports.NavComponent = NavComponent;
+
 
 /***/ }),
 
@@ -275,16 +339,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(1);
+var toastr_service_1 = __webpack_require__(197);
 var ProfileComponent = (function () {
-    /*$location, toastr, currentIdentity*/
-    function ProfileComponent($location, currentIdentity) {
+    function ProfileComponent($location, currentIdentity, toastr) {
         this.$location = $location;
         this.currentIdentity = currentIdentity;
-        // this.currentIdentity = { currentUser: { firstName: "ela", lastName: "dror" } };
+        this.toastr = toastr;
     }
     ProfileComponent.prototype.save = function (newProfile) {
         this.currentIdentity.updateUser(newProfile);
-        // toastr.success('Profile Saved!');
+        this.toastr.success('Profile Saved!');
     };
     ProfileComponent.prototype.cancel = function () {
         this.$location.path('/home');
@@ -298,7 +362,8 @@ ProfileComponent = __decorate([
     }),
     __param(0, core_1.Inject('$location')),
     __param(1, core_1.Inject('currentIdentity')),
-    __metadata("design:paramtypes", [Object, Object])
+    __param(2, core_1.Inject(toastr_service_1.TOASTR_TOKEN)),
+    __metadata("design:paramtypes", [Object, Object, Object])
 ], ProfileComponent);
 exports.ProfileComponent = ProfileComponent;
 

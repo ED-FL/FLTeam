@@ -10,14 +10,20 @@ import { NameParser } from "./admin/nameParser.service";
 import { UnreviewedTalkComponent } from "./home/unreviewedTalk.component";
 import { TalkDurationPipe } from "./common/talkDuration.pipe";
 import { ProfileComponent } from "./profile/profile.component";
+import { TOASTR_TOKEN } from "./toastr/toastr.service";
+import { NavComponent } from "./nav/nav.component";
 
-function getLocation(angularOneInjector: any){
-return angularOneInjector.get('$location');
+function getLocation(angularOneInjector: any) {
+  return angularOneInjector.get('$location');
 }
 
-function getCurrentIdentity(angularOneInjector: any){
+function getCurrentIdentity(angularOneInjector: any) {
   return angularOneInjector.get('currentIdentity');
-  }
+}
+
+function getToastr() {
+  return toastr;
+}
 
 @NgModule({
   imports: [
@@ -30,12 +36,14 @@ function getCurrentIdentity(angularOneInjector: any){
     AppComponent,
     UnreviewedTalkComponent,
     TalkDurationPipe,
-    ProfileComponent
+    ProfileComponent, 
+    NavComponent
   ],
   providers: [
     NameParser,
-    {provide: '$location', useFactory: getLocation, deps: ['$injector']},
-    {provide: 'currentIdentity', useFactory: getCurrentIdentity, deps: ['$injector']}
+    { provide: '$location', useFactory: getLocation, deps: ['$injector'] },
+    { provide: 'currentIdentity', useFactory: getCurrentIdentity, deps: ['$injector'] },
+    { provide: TOASTR_TOKEN, useFactory: getToastr }
   ],
   bootstrap: [
     AppComponent
