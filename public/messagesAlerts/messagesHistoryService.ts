@@ -1,25 +1,26 @@
-import { Queue } from "queue-typescript";
 import { Message } from "./message";
+import * as angular from "angular";
 
-const size: number = 20;
+angular.module("app").service(
+  "messagesHistory",
+  class MessagesHistoryService {
+    private messages: Array<Message>;
 
-export class MessagesHistoryService {
-  private messages: Queue<Message>;
+    constructor() {
+      this.messages = new Array<Message>();
+    }
 
-  constructor() {
-    this.messages = new Queue<Message>();
+    addMessage(message: Message): void {
+      this.messages.push(message);
+    }
+
+    getTopMessages(count: number): Array<Message> {
+      let size = this.messages.length - count;
+      return this.messages.slice(Math.max(size, 0));
+    }
+
+    getAllMessages(): Array<Message> {
+      return this.messages;
+    }
   }
-
-  public addMessage(message: Message): void {
-    this.messages.enqueue(message);
-  }
-
-  public removeMessage(): Message {
-    return this.messages.dequeue();
-  }
-
-  public getMessages(): Queue<Message> {
-    // use size
-    return this.messages;
-  }
-}
+);
