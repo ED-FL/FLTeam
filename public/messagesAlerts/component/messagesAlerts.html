@@ -1,11 +1,28 @@
 <div>
-  <md-button ng-click="showLastMessage()"><md-icon>alarm</md-icon></md-button>
-  <md-button ng-click="showAllMessages()"
-    ><md-icon>alarm_add</md-icon></md-button
-  >
-  <md-button ng-click="dontShowMessages()"
-    ><md-icon>alarm_off</md-icon></md-button
-  >
+  <md-menu>
+    <md-button ng-click="$mdMenu.open($event)">
+      <md-icon>{{$ctrl.currentIcon}}</md-icon>
+    </md-button>
+    <md-menu-content width="1">
+      <md-menu-item>
+        <md-button ng-click="$ctrl.showLastMessage()">
+          <md-icon>alarm</md-icon>
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button ng-click="$ctrl.showAllMessages()">
+          <md-icon>alarm_add</md-icon>
+        </md-button>
+      </md-menu-item>
+      <md-menu-divider></md-menu-divider>
+      <md-menu-item>
+        <md-button ng-click="$ctrl.dontShowMessages()">
+          <md-icon>alarm_off</md-icon>
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
 </div>
 <div>
   <md-list>
