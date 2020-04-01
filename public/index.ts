@@ -21,4 +21,5 @@ import "./sessions/sessionDetailWithVotes";
 import "./components/detailPanel";
 import "./components/talkDuration";
 import "./components/zoomIn";
-import "./messagesAlerts/component/messagesAlerts";
+import "./messagesAlerts/component/alert";
+import "./messagesAlerts/component/messages";

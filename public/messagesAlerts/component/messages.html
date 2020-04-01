@@ -26,11 +26,8 @@
 </div>
 <div>
   <md-list>
-    <md-list-item ng-repeat="item in $ctrl.currentAlerts">
-      <div class="md-list-item-text">
-        <md-icon>error</md-icon>
-        <p>{{item}}</p>
-      </div></md-list-item
-    >
+    <md-list-item class="item" ng-repeat="message in $ctrl.currentMessages">
+      <alert></alert>
+    </md-list-item>
   </md-list>
 </div>
