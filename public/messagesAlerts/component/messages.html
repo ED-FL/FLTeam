@@ -4,21 +4,9 @@
       <md-icon>{{$ctrl.currentIcon}}</md-icon>
     </md-button>
     <md-menu-content width="1">
-      <md-menu-item>
-        <md-button ng-click="$ctrl.showLastMessage()">
-          <md-icon>alarm</md-icon>
-        </md-button>
-      </md-menu-item>
-      <md-menu-divider></md-menu-divider>
-      <md-menu-item>
-        <md-button ng-click="$ctrl.showAllMessages()">
-          <md-icon>alarm_add</md-icon>
-        </md-button>
-      </md-menu-item>
-      <md-menu-divider></md-menu-divider>
-      <md-menu-item>
-        <md-button ng-click="$ctrl.dontShowMessages()">
-          <md-icon>alarm_off</md-icon>
+      <md-menu-item ng-repeat="alarm in $ctrl.alarmsService.getAlarms()">
+        <md-button ng-click="$crrl.onAlarmChanged(alarm)">
+          <md-icon>{{ $ctrl.alarmsService.getAlarmIcon(alarm)}}</md-icon>
         </md-button>
       </md-menu-item>
     </md-menu-content>

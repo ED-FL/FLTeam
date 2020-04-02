@@ -6,7 +6,6 @@ angular.module("app").component("messages", {
   bindings: {},
   controller: function(messagesHistory, alarmsService) {
     this.$onInit = function() {
-      this.enumAlarm = ALARM_TYPE;
       this.showAllMessages(ALARM_TYPE.ALL);
     };
 
@@ -14,7 +13,7 @@ angular.module("app").component("messages", {
       $mdMenu.open(ev);
     };
 
-    this.showMessages = function(type: ALARM_TYPE) {
+    this.onAlarmChanged = function(type: ALARM_TYPE) {
       this.currentIcon = this.alarmsService.getAlarmIcon(type);
       this.numMessages = this.alarmsService.getAlarmNumMessages(type);
     };

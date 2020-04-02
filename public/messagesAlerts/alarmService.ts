@@ -25,6 +25,15 @@ angular.module("app").service(
   "alarmsService",
   class AlarmsService {
     constructor() {}
+
+    getAlarms = function() {
+      let alarms = [];
+      for (let value in ALARM_TYPE) {
+        alarms.push(value);
+      }
+      return alarms;
+    };
+
     getAlarmIcon = function(type: ALARM_TYPE) {
       return alarms[type].icon;
     };
