@@ -1,4 +1,5 @@
 import { Message } from "./message";
+import { MESSAGE_TYPE } from "./MESSAGE_TYPE";
 import * as angular from "angular";
 
 angular.module("app").service(
@@ -14,6 +15,10 @@ angular.module("app").service(
       this.messages.push(message);
     }
 
+    removeLastMessage() {
+      return this.messages.shift();
+    }
+
     getTopMessages(count: number): Array<Message> {
       let size = this.messages.length - count;
       return this.messages.slice(Math.max(size, 0));
@@ -21,6 +26,10 @@ angular.module("app").service(
 
     getAllMessages(): Array<Message> {
       return this.messages;
+    }
+
+    getMessagesByType(type: MESSAGE_TYPE) {
+      return this.messages.filter(message => message.getType() === type);
     }
   }
 );

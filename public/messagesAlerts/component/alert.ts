@@ -1,28 +1,31 @@
 import { MESSAGE_TYPE } from "../MESSAGE_TYPE";
 import * as angular from "angular";
 
-const types = {
+const messagesTypes = {
   [MESSAGE_TYPE.ERROR]: {
     icon: "error",
-    styleClass: "error"
+    styleClass: "error-message"
   },
   [MESSAGE_TYPE.SUCCESS]: {
     icon: "done",
-    styleClass: "success"
+    styleClass: "success-message"
   },
   [MESSAGE_TYPE.LOADING]: {
     icon: "autorenew",
-    styleClass: "loading"
+    styleClass: "loading-message"
   }
 };
 
-angular.module("app").component("message", {
+angular.module("app").component("alert", {
   templateUrl: "./alert.html",
   bindings: {
-    //message: "="
+    message: "="
   },
   controller: function() {
-    this.stlye = types[MESSAGE_TYPE.SUCCESS].styleClass;
-    this.icon = types[MESSAGE_TYPE.SUCCESS].icon;
+    this.$onInit = function() {
+      let type = this.message.getType();
+      this.style = messagesTypes[type].styleClass;
+      this.icon = messagesTypes[type].icon;
+    };
   }
 });

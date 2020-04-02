@@ -26,8 +26,10 @@
 </div>
 <div>
   <md-list>
-    <md-list-item class="item" ng-repeat="message in $ctrl.currentMessages">
-      <alert></alert>
+    <md-list-item
+      ng-repeat="message in $ctrl.messagesHistory.getTopMessages($ctrl.numMessages)"
+    >
+      <alert message="message"></alert>
     </md-list-item>
   </md-list>
 </div>
