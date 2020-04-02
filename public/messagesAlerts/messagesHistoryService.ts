@@ -1,5 +1,5 @@
 import { Message } from "./message";
-import { MESSAGE_TYPE } from "./MESSAGE_TYPE";
+import { MESSAGE_TYPE } from "./messageTypeService";
 import * as angular from "angular";
 
 angular.module("app").service(

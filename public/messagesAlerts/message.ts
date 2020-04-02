@@ -1,4 +1,4 @@
-import { MESSAGE_TYPE } from "./MESSAGE_TYPE";
+import { MESSAGE_TYPE } from "./messageTypeService";
 
 export class Message {
   private content: string;

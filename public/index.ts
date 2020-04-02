@@ -22,6 +22,7 @@ import "./components/detailPanel";
 import "./components/talkDuration";
 import "./components/zoomIn";
 import "./messagesAlerts/messagesHistoryService";
+import "./messagesAlerts/messageTypeService";
 import "./messagesAlerts/alarmService";
 import "./messagesAlerts/component/messages";
 import "./messagesAlerts/component/alert";
