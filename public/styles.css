@@ -24,8 +24,8 @@ body {
   opacity: 0.9;
 }
 
-.loading.message {
-  background-color: #445bd1;
+.loading-message {
+  background-color: #99bbff;
 }
 
 .success-message {

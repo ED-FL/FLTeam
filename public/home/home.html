@@ -1,12 +1,13 @@
 <nav></nav>
+<test></test>
 <messages></messages>
-<h2 style="margin-top:30px">Unreviewed Sessions</h2>
+<h2 style="margin-top: 30px;">Unreviewed Sessions</h2>
 <unreviewed-talk
   [session]="$ctrl.currentSessionToReview"
   (vote-no)="$ctrl.voteNo()"
   (vote-yes)="$ctrl.voteYes()"
 ></unreviewed-talk>
-<hr style="margin-top:20px" />
+<hr style="margin-top: 20px;" />
 <h3>
   Your Sessions
   <a zoom-in class="btn btn-primary btn-xs" href="#/createsession"

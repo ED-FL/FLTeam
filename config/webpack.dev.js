@@ -39,6 +39,9 @@ module.exports = {
       }
     ]
   },
+  externals: {
+    angular: "angular",
+  },
 
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({

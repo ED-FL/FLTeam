@@ -3,7 +3,7 @@ import { MESSAGE_TYPE } from "./messageTypeService";
 import * as angular from "angular";
 
 angular.module("app").service(
-  "messagesHistory",
+  "messagesHistoryService",
   class MessagesHistoryService {
     private messages: Array<Message>;
 
@@ -21,7 +21,8 @@ angular.module("app").service(
 
     getTopMessages(count: number): Array<Message> {
       let size = this.messages.length - count;
-      return this.messages.slice(Math.max(size, 0));
+      let topMessages = this.messages.slice(Math.max(size, 0));
+      return topMessages.reverse();
     }
 
     getAllMessages(): Array<Message> {

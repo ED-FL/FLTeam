@@ -1,10 +1,5 @@
 <!--class="md-list-item-text"-->
-<div
-  ng-class="$ctrl.messagesTypes.getMessageStyle($ctrl.message.getType())"
-  class="item"
->
-  <md-icon
-    >{{$ctrl.messagesTypes.getMessageIcon($ctrl.message.getType())}}</md-icon
-  >
+<div ng-class="$ctrl.messageType.getMessageStyle($ctrl.type)" class="item">
+  <md-icon>{{$ctrl.messageType.getMessageIcon($ctrl.type)}}</md-icon>
   {{$ctrl.message.getContent()}}
 </div>

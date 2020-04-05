@@ -4,18 +4,22 @@ import * as angular from "angular";
 angular.module("app").component("messages", {
   templateUrl: "./messages.html",
   bindings: {},
-  controller: function(messagesHistory, alarmsService) {
-    this.$onInit = function() {
-      this.showAllMessages(ALARM_TYPE.ALL);
+  controller: function (alarmsService, messagesHistoryService) {
+    this.$onInit = function () {
+      this.alarms = alarmsService;
+      this.messagesHistory = messagesHistoryService;
+
+      this.onAlarmChanged(ALARM_TYPE.ALL);
     };
 
-    this.openMenu = function($mdMenu, ev) {
+    this.openMenu = function ($mdMenu, ev) {
       $mdMenu.open(ev);
     };
 
-    this.onAlarmChanged = function(type: ALARM_TYPE) {
-      this.currentIcon = this.alarmsService.getAlarmIcon(type);
-      this.numMessages = this.alarmsService.getAlarmNumMessages(type);
+    this.onAlarmChanged = function (type: ALARM_TYPE) {
+      let enumType = type as ALARM_TYPE;
+      this.currentIcon = this.alarms.getAlarmIcon(enumType);
+      this.numMessages = this.alarms.getAlarmNumMessages(enumType);
     };
-  }
+  },
 });

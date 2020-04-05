@@ -24,5 +24,6 @@ import "./components/zoomIn";
 import "./messagesAlerts/messagesHistoryService";
 import "./messagesAlerts/messageTypeService";
 import "./messagesAlerts/alarmService";
+import "./messagesAlerts/tests/test";
 import "./messagesAlerts/component/messages";
 import "./messagesAlerts/component/alert";
