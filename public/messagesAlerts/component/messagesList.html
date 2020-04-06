@@ -1,5 +1,5 @@
 <div class="messages-alarts-container">
-  <md-list class="messages-list">
+  <md-list>
     <div class="first-raw">
       <md-menu>
         <md-button ng-click="$mdMenu.open($event)">
@@ -22,5 +22,6 @@
     >
       <single-message message="message"></single-message>
     </md-list-item>
+    <div ng-if="$ctrl.hasLoading()" class="last-raw">other things loading</div>
   </md-list>
 </div>

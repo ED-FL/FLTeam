@@ -1,4 +1,5 @@
 import { ALARM_TYPE } from "../alartOptionsService";
+import { MESSAGE_TYPE } from "../messageTypeService";
 import * as angular from "angular";
 
 angular.module("app").component("messagesList", {
@@ -21,5 +22,13 @@ angular.module("app").component("messagesList", {
       this.numMessages = this.alarms.getAlarmNumMessages(type);
       this.currentTitle = this.alarms.getAlarmTitle(type);
     };
+
+    this.hasLoading = function () {
+      return (
+        this.messagesHistory.getMessagesByType(MESSAGE_TYPE.LOADING).length > 0
+      );
+    };
+
+    this.title = function () {};
   },
 });
