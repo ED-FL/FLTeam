@@ -27,3 +27,4 @@ import "./messagesAlerts/alartOptionsService";
 import "./messagesAlerts/tests/test";
 import "./messagesAlerts/component/messagesList";
 import "./messagesAlerts/component/singleMessage";
+import "./messagesAlerts/component/alarm";

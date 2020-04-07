@@ -1,0 +1,14 @@
+<md-menu>
+  <md-button ng-click="$mdMenu.open($event)">
+    <md-tooltip>{{$ctrl.currentTitle}}</md-tooltip>
+    <md-icon>{{$ctrl.currentIcon}}</md-icon>
+  </md-button>
+  <md-menu-content width="1">
+    <md-menu-item ng-repeat="alarm in $ctrl.alarms.getAlarms()">
+      <md-button ng-click="$ctrl.onAlarmChanged(alarm)">
+        <md-icon>{{$ctrl.alarms.getAlarmIcon(alarm)}}</md-icon>
+        {{$ctrl.alarms.getAlarmTitle(alarm)}}
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>

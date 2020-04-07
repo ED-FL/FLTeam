@@ -1,11 +1,8 @@
 .messages-alarts-container {
   width: 250px;
   box-shadow: 2px 2px 4px 1px grey;
-  border-style: solid;
-  border-width: 1px;
   display: flex;
   flex-direction: column;
-  position: relative;
   padding-bottom: 5px;
 }
 
@@ -14,6 +11,7 @@
 }
 
 .last-raw {
+  border-top: 1px solid black;
 }
 
 /* angular matirial changes */
@@ -45,8 +43,6 @@ md-icon {
   height: 53px;
   text-align: center;
   color: white;
-  position: absolute;
-  top: 0px;
   display: flex;
   flex-direction: row;
 }
@@ -59,21 +55,3 @@ md-icon {
 .message-item-content {
   width: 85%;
 }
-
-/* .item.ng-move,
-.item.ng-enter,
-.item.ng-leave {
-  transition: all linear 3s;
-}
-
-.item.ng-leave.ng-leave-active,
-.item.ng-move,
-.item.ng-enter {
-  opacity: 0;
-}
-
-.item.ng-leave,
-.item.ng-move.ng-move-active,
-.item.ng-enter.ng-enter-active {
-  opacity: 1;
-} */

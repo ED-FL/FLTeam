@@ -1,27 +1,14 @@
 <div class="messages-alarts-container">
+  <div class="first-raw">
+    <alarm handle-action="$ctrl.doAction(num)"></alarm>
+    system messages
+  </div>
   <md-list>
-    <div class="first-raw">
-      <md-menu>
-        <md-button ng-click="$mdMenu.open($event)">
-          <md-tooltip>{{$ctrl.currentTitle}}</md-tooltip>
-          <md-icon>{{$ctrl.currentIcon}}</md-icon>
-        </md-button>
-        <md-menu-content width="1">
-          <md-menu-item ng-repeat="alarm in $ctrl.alarms.getAlarms()">
-            <md-button ng-click="$ctrl.onAlarmChanged(alarm)">
-              <md-icon>{{$ctrl.alarms.getAlarmIcon(alarm)}}</md-icon>
-              {{$ctrl.alarms.getAlarmTitle(alarm)}}
-            </md-button>
-          </md-menu-item>
-        </md-menu-content>
-      </md-menu>
-      system messages
-    </div>
-    <md-list-item
+    <md-list-items
       ng-repeat="message in $ctrl.messagesHistory.getTopMessages($ctrl.numMessages)"
     >
       <single-message message="message"></single-message>
     </md-list-item>
-    <div ng-if="$ctrl.hasLoading()" class="last-raw">other things loading</div>
   </md-list>
+  <div class="last-raw" ng-if="$ctrl.hasLoading()" >other things loading</div>
 </div>
