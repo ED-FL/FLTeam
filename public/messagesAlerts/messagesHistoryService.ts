@@ -11,12 +11,17 @@ angular.module("app").service(
       this.messages = new Array<Message>();
     }
 
-    addMessage(message: Message): void {
+    addMessage(message: Message) {
+      if (!message.isFirstMessage()) {
+        this.removeIrrelevantMessages(message.getSeriesId());
+      }
       this.messages.push(message);
     }
 
-    removeLastMessage() {
-      return this.messages.shift();
+    removeIrrelevantMessages(seriesId: string) {
+      this.messages = this.messages.filter(
+        (message) => message.getSeriesId() !== seriesId
+      );
     }
 
     getTopMessages(count: number): Array<Message> {
@@ -30,7 +35,7 @@ angular.module("app").service(
     }
 
     getMessagesByType(type: MESSAGE_TYPE) {
-      return this.messages.filter(message => message.getType() === type);
+      return this.messages.filter((message) => message.getType() === type);
     }
   }
 );
