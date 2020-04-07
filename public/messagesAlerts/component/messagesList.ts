@@ -16,7 +16,7 @@ angular.module("app").component("messagesList", {
       this.lastMessageIcon = messageTypeService.getMessageIcon(
         MESSAGE_TYPE.LOADING
       );
-      this.lastMessageContent = "פריטים נוספים בטעינה";
+      this.lastMessageContent = "שים לב : ישנם פרטים נוספים בטעינה";
       this.lastMessageStyle = "last-message";
     };
 

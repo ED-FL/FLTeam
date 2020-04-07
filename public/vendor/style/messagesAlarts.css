@@ -6,8 +6,17 @@
 }
 
 .first-message {
+  justify-content: flex-end;
   border-bottom: 1px solid black;
   display: flex;
+}
+
+.alarm {
+  order: 1;
+}
+
+.main-title-text {
+  align-self: center;
 }
 
 .last-message {
@@ -51,8 +60,11 @@ md-list {
   margin-left: 0px;
   padding-left: 2px;
   width: 15%;
+  align-self: center;
+  order: 1;
 }
 
 .message-item-content {
   width: 85%;
+  align-self: center;
 }

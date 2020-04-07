@@ -10,17 +10,17 @@ const alarms = {
   [ALARM_TYPE.ALL]: {
     icon: "alarm_add",
     numMessages: 7,
-    title: "show all messages",
+    title: "כל ההתרעות",
   },
   [ALARM_TYPE.NO]: {
     icon: "alarm_off",
     numMessages: 0,
-    title: "dont show messages",
+    title: "ללא התרעות",
   },
   [ALARM_TYPE.LAST]: {
     icon: "alarm",
     numMessages: 1,
-    title: "show last message",
+    title: "התראה אחרונה",
   },
 };
 
