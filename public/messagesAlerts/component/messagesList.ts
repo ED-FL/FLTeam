@@ -26,10 +26,10 @@ angular.module("app").component("messagesList", {
     };
 
     this.showLastMessage = function () {
-      return (
-        this.currentalarmType == ALARM_TYPE.LAST &&
-        this.messagesHistory.getMessagesByType(MESSAGE_TYPE.LOADING).length > 0
-      );
+      if (this.currentalarmType == ALARM_TYPE.LAST) {
+        return this.messagesHistory.getHiddenLoadingMessages().length > 0;
+      }
+      return false;
     };
   },
 });
