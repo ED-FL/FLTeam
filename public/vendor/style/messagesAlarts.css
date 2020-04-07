@@ -3,25 +3,19 @@
   box-shadow: 2px 2px 4px 1px grey;
   display: flex;
   flex-direction: column;
-  padding-bottom: 5px;
 }
 
-.first-raw {
+.edges-raw {
   border-bottom: 1px solid black;
-}
-
-.last-raw {
-  border-top: 1px solid black;
+  width: 100%;
+  height: 53px;
+  text-align: center;
 }
 
 /* angular matirial changes */
 md-list-item,
 md-list {
   padding: 0px !important;
-}
-
-md-icon {
-  margin-left: 0px;
 }
 
 /* single message */
@@ -48,6 +42,7 @@ md-icon {
 }
 
 .message-item-icon {
+  margin-left: 0px;
   padding-left: 2px;
   width: 15%;
 }
