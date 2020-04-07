@@ -1,14 +1,24 @@
-<div class="messages-alarts-container">
-  <div class="edges-raw">
-    <alarm handle-action="$ctrl.doAction(num)"></alarm>
-    system messages
+<div dir="ltr" class="messages-alarts-container">
+  <div class="first-message">
+    <alarm handle-action="$ctrl.doAction(num,type)"></alarm>
+    <div>הודעות מערכת</div>
   </div>
   <md-list>
     <md-list-items
       ng-repeat="message in $ctrl.messagesHistory.getTopMessages($ctrl.numMessages)"
     >
-      <single-message message="message"></single-message>
+      <single-message
+       visibility ="$ctrl.messageTypes.getMessageStyle(message.getType())"
+       content="message.getContent()"
+       icon = "$ctrl.messageTypes.getMessageIcon(message.getType())">
+      </single-message>
     </md-list-item>
   </md-list>
-  <div class="edges-raw" ng-if="$ctrl.hasLoading()" >other things loading</div>
+  <div class="edges-raw" ng-if="$ctrl.showLastMessage()" >
+    <single-message
+    visibility = "$ctrl.lastMessageStyle"
+    content= "$ctrl.lastMessageContent"
+    icon = "$ctrl.lastMessageIcon">
+   </single-message>
+  </div>
 </div>

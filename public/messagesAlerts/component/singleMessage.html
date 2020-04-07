@@ -1,9 +1,6 @@
-<div
-  ng-class="$ctrl.messageType.getMessageStyle($ctrl.type)"
-  class="message-item"
->
+<div ng-class="$ctrl.visibility" class="message-item">
   <div class="message-item-icon">
-    <md-icon>{{$ctrl.messageType.getMessageIcon($ctrl.type)}}</md-icon>
+    <md-icon>{{$ctrl.icon}}</md-icon>
   </div>
-  <div class="message-item-content">{{$ctrl.message.getContent()}}</div>
+  <div class="message-item-content">{{$ctrl.content}}</div>
 </div>

@@ -11,17 +11,17 @@ angular.module("app").component("test", {
     };
 
     this.addErrorMessage = function () {
-      const message = new Message("error message", MESSAGE_TYPE.ERROR);
+      const message = new Message("הודעת שגיאה", MESSAGE_TYPE.ERROR);
       this.messagesHistory.addMessage(message);
     };
 
     this.addSucsessMessage = function () {
-      const message = new Message("success message", MESSAGE_TYPE.SUCCESS);
+      const message = new Message("הודעת הצלחה", MESSAGE_TYPE.SUCCESS);
       this.messagesHistory.addMessage(message);
     };
 
     this.addLoadingMessage = function () {
-      const message = new Message("loading message", MESSAGE_TYPE.LOADING);
+      const message = new Message("הודעת טעינה", MESSAGE_TYPE.LOADING);
       this.messagesHistory.addMessage(message);
     };
   },

@@ -20,7 +20,7 @@ angular.module("app").component("alarm", {
       this.currentIcon = this.alarms.getAlarmIcon(type);
       this.currentTitle = this.alarms.getAlarmTitle(type);
       let numMessages = this.alarms.getAlarmNumMessages(type);
-      this.handleAction({ num: numMessages });
+      this.handleAction({ num: numMessages, type: type });
     };
   },
 });
