@@ -68,3 +68,9 @@ md-list {
   width: 85%;
   align-self: center;
 }
+
+/* alarm */
+
+.alarm-icon {
+  margin-left: 5px;
+}
