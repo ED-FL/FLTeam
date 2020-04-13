@@ -87,6 +87,10 @@ angular.module('app').config(function($routeProvider) {
         currentAuth: routeResolvers.waitForAuth
       }
     })
+    .when('/searchTree', {
+    template: '<search-tree-perent></search-tree-perent>',
+    resolve: {}
+  })
     .when('/logout', {
       template: '<logout></logout>'
     })

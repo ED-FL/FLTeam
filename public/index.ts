@@ -21,3 +21,5 @@ import "./sessions/sessionDetailWithVotes";
 import "./components/detailPanel";
 import "./components/talkDuration";
 import "./components/zoomIn";
+import "./searchTree/searchTreePerent";
+import "./searchTree/searchTree";
