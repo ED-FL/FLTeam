@@ -29,8 +29,8 @@ __webpack_require__(186);
 __webpack_require__(188);
 __webpack_require__(190);
 __webpack_require__(191);
-__webpack_require__(200);
-__webpack_require__(202);
+__webpack_require__(192);
+__webpack_require__(196);
 
 
 /***/ }),
@@ -789,7 +789,66 @@ angular.module('app').directive('zoomIn', function () {
 
 /***/ }),
 
-/***/ 199:
+/***/ 192:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var angular = __webpack_require__(193);
+var SearchTreeImplement_1 = __webpack_require__(205);
+angular.module('app').component('searchTreePerent', {
+    template: __webpack_require__(195),
+    bindings: {},
+    controller: function () {
+        this.tree = SearchTreeImplement_1.exampleObject;
+    }
+});
+
+
+/***/ }),
+
+/***/ 193:
+/***/ (function(module, exports) {
+
+module.exports = angular;
+
+/***/ }),
+
+/***/ 195:
+/***/ (function(module, exports) {
+
+module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
+
+/***/ }),
+
+/***/ 196:
+/***/ (function(module, exports, __webpack_require__) {
+
+angular.module('app').component('searchTree', {
+    template: __webpack_require__(197),
+    bindings: {
+        tree: '='
+    },
+    controller: function () {
+        var _this = this;
+        this.logObject = function () {
+            console.log(_this.tree);
+        };
+    }
+});
+
+
+/***/ }),
+
+/***/ 197:
+/***/ (function(module, exports) {
+
+module.exports = "<button ng-click=\"$ctrl.logObject()\">logObject</button>\r\n\r\n";
+
+/***/ }),
+
+/***/ 205:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -819,58 +878,9 @@ var NewTag = (function () {
     return NewTag;
 }());
 exports.NewTag = NewTag;
-
-
-/***/ }),
-
-/***/ 200:
-/***/ (function(module, exports, __webpack_require__) {
-
-var SearchTree = __webpack_require__(199).SearchTree;
-var NewTag = __webpack_require__(199).NewTag;
-angular.module('app').component('searchTreePerent', {
-    template: __webpack_require__(201),
-    bindings: {},
-    controller: function () {
-        this.tree = exampleObject;
-    }
-});
-var exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1"),
+exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1"),
             new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2")])], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1")]), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [])], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1")]);
 
-
-/***/ }),
-
-/***/ 201:
-/***/ (function(module, exports) {
-
-module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
-
-/***/ }),
-
-/***/ 202:
-/***/ (function(module, exports, __webpack_require__) {
-
-angular.module('app').component('searchTree', {
-    template: __webpack_require__(203),
-    bindings: {
-        tree: '='
-    },
-    controller: function () {
-        var _this = this;
-        this.logObject = function () {
-            console.log(_this.tree);
-        };
-    }
-});
-
-
-/***/ }),
-
-/***/ 203:
-/***/ (function(module, exports) {
-
-module.exports = "<button ng-click=\"$ctrl.logObject()\">logObject</button>\r\n\r\n";
 
 /***/ })
 

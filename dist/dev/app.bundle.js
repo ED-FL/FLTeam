@@ -1,6 +1,6 @@
 webpackJsonp([3],{
 
-/***/ 192:
+/***/ 198:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ webpackJsonp([3],{
 Object.defineProperty(exports, "__esModule", { value: true });
 var platform_browser_dynamic_1 = __webpack_require__(73);
 var static_1 = __webpack_require__(30);
-var app_module_1 = __webpack_require__(193);
+var app_module_1 = __webpack_require__(199);
 var nameParser_service_1 = __webpack_require__(80);
 var unreviewedTalk_component_1 = __webpack_require__(81);
 var profile_component_1 = __webpack_require__(82);
@@ -28,7 +28,7 @@ platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1
 
 /***/ }),
 
-/***/ 193:
+/***/ 199:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45,13 +45,13 @@ var static_1 = __webpack_require__(30);
 var platform_browser_1 = __webpack_require__(13);
 var forms_1 = __webpack_require__(79);
 var http_1 = __webpack_require__(74);
-var app_component_1 = __webpack_require__(194);
+var app_component_1 = __webpack_require__(200);
 var nameParser_service_1 = __webpack_require__(80);
 var unreviewedTalk_component_1 = __webpack_require__(81);
-var talkDuration_pipe_1 = __webpack_require__(196);
+var talkDuration_pipe_1 = __webpack_require__(202);
 var profile_component_1 = __webpack_require__(82);
 var toastr_service_1 = __webpack_require__(83);
-var nav_component_1 = __webpack_require__(198);
+var nav_component_1 = __webpack_require__(204);
 function getLocation(angularOneInjector) {
     return angularOneInjector.get('$location');
 }
@@ -101,7 +101,7 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
-/***/ 194:
+/***/ 200:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -130,14 +130,14 @@ exports.AppComponent = AppComponent;
 
 /***/ }),
 
-/***/ 195:
+/***/ 201:
 /***/ (function(module, exports) {
 
 module.exports = "<div *ngIf=\"!!session\">\r\n  <div  class=\"panel panel-default\">\r\n    <div class=\"panel-heading\">\r\n      {{session.title}}\r\n    </div>\r\n    <div class=\"panel-body\">\r\n      <p><strong>{{session.length | talkDuration}}</strong></p>\r\n      <p>{{session.abstract}}</p>\r\n    </div>\r\n  </div>\r\n\r\n  <span>Are you interested in this session?</span>\r\n  <button class=\"btn btn-primary btn-xs\" (click)=\"yes()\">Yes</button>\r\n  <button class=\"btn btn-warning btn-xs\" (click)=\"no()\">No</button>\r\n</div>\r\n<div *ngIf=\"!session\" class=\"alert alert-success\" role=\"alert\"> \r\n  You have reviewed all the submitted sessions\r\n</div>";
 
 /***/ }),
 
-/***/ 196:
+/***/ 202:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -166,14 +166,14 @@ exports.TalkDurationPipe = TalkDurationPipe;
 
 /***/ }),
 
-/***/ 197:
+/***/ 203:
 /***/ (function(module, exports) {
 
 module.exports = "<app-nav></app-nav>\r\n\r\n<h1>User Profile</h1>\r\n\r\n<form class=\"form-inline\" #form=\"ngForm\">\r\n  <label for=\"firstName\">First Name</label>\r\n  <input type=\"text\" id=\"firstName\" placeholder=\"First Name\" \r\n   class=\"form-control\" [ngModel]=\"currentIdentity.currentUser.firstName\" \r\n   name=\"firstName\">\r\n\r\n  <label for=\"lastName\">Last Name</label>\r\n  <input type=\"text\" id=\"lastName\" placeholder=\"Last Name\" \r\n   class=\"form-control\" [ngModel]=\"currentIdentity.currentUser.lastName\" \r\n   name=\"lastName\">\r\n\r\n  <br><br>\r\n  <button class=\"btn btn-primary btn-sm\" (click)=\"save(form.value)\">Save</button>\r\n  <button class=\"btn btn-warning btn-sm\" (click)=\"cancel()\">Cancel</button>\r\n</form>";
 
 /***/ }),
 
-/***/ 198:
+/***/ 204:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -300,7 +300,7 @@ __decorate([
 UnreviewedTalkComponent = __decorate([
     core_1.Component({
         selector: 'unreviewed-talk',
-        template: __webpack_require__(195)
+        template: __webpack_require__(201)
     })
 ], UnreviewedTalkComponent);
 exports.UnreviewedTalkComponent = UnreviewedTalkComponent;
@@ -346,7 +346,7 @@ var ProfileComponent = (function () {
 ProfileComponent = __decorate([
     core_1.Component({
         selector: 'profile',
-        template: __webpack_require__(197),
+        template: __webpack_require__(203),
     }),
     __param(0, core_1.Inject('$location')),
     __param(1, core_1.Inject('currentIdentity')),
@@ -370,5 +370,5 @@ exports.TOASTR_TOKEN = new core_1.InjectionToken('toastr');
 
 /***/ })
 
-},[192]);
+},[198]);
 //# sourceMappingURL=app.bundle.js.map
