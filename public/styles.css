@@ -18,3 +18,12 @@ body {
 .btn-spaced {
  margin-right:15px; 
 }
+
+ul {
+  direction: rtl; 
+  list-style-type: none;
+}
+
+.tree-item {
+  cursor: pointer;
+}

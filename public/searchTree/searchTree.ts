@@ -4,9 +4,6 @@ angular.module('app').component('searchTree', {
         tree: '=' 
     },
     controller: function() {
-         this.logObject = () => {
-            console.log(this.tree);
-         }
 
          this.onItemClicked = function(data) {
             if(data.tagId) {

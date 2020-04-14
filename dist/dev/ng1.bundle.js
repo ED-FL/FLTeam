@@ -869,10 +869,6 @@ angular.module('app').component('searchTree', {
         tree: '='
     },
     controller: function () {
-        var _this = this;
-        this.logObject = function () {
-            console.log(_this.tree);
-        };
         this.onItemClicked = function (data) {
             if (data.tagId) {
                 console.log('tag');
