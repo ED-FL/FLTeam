@@ -9,13 +9,15 @@ export class SearchTree implements ISearchTree {
     parentFolderId: string;
     folders: ISearchTree[];
     tags: any[];
+    collapsed : boolean;
   
     constructor(folderId : string, 
                 folderName : string, 
                 owner: string, 
                 parentFolderId: string, 
                 folders: ISearchTree[], 
-                tags: INewTag[]) {
+                tags: INewTag[],
+                collapsed : boolean) {
   
   
       this.folderId = folderId;  
@@ -24,6 +26,7 @@ export class SearchTree implements ISearchTree {
       this.parentFolderId = parentFolderId;
       this.folders = folders;
       this.tags = tags;
+      this.collapsed = collapsed;
     }
   
   }
@@ -35,13 +38,15 @@ export class NewTag implements INewTag {
     extraInfo?: IExtraInfo;
     type: string;
     parentFolderId: string;
+    collapsed : boolean;
   
     constructor(tagId: string, 
       tagName: string,
       queryId: string,
       extraInfo: IExtraInfo,
       type: string,
-      parentFolderId: string) {
+      parentFolderId: string,
+      collapsed : boolean) {
     
         this.tagId = tagId;
         this.tagName = tagName;
@@ -49,6 +54,7 @@ export class NewTag implements INewTag {
         this.extraInfo = extraInfo;
         this.type = type;
         this.parentFolderId = parentFolderId;   
+        this.collapsed = collapsed;
       }
   }
 
@@ -68,17 +74,21 @@ export class NewTag implements INewTag {
         "yuval",
         "2-1",
         [],
-        [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1"), 
-        new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2")]
+        [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true), 
+        new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true)]
+        ,true
       )],
-      [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1")]
+      [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true)]
+      ,true
     ), new SearchTree(
       "2-2",
       "innerFolder-2-2",
       "yuval",
       "1",
       [],
-      []
+      [],
+      true
     )],
-    [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1")]
+    [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true)],
+    true
   );

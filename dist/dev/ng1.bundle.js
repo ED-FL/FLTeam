@@ -796,12 +796,12 @@ angular.module('app').directive('zoomIn', function () {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(193);
-var SearchTreeImplement_1 = __webpack_require__(205);
+var SearchTreeImplement_1 = __webpack_require__(194);
 angular.module('app').component('searchTreePerent', {
     template: __webpack_require__(195),
     bindings: {},
     controller: function () {
-        this.tree = SearchTreeImplement_1.exampleObject;
+        this.tree = [SearchTreeImplement_1.exampleObject];
     }
 });
 
@@ -812,6 +812,44 @@ angular.module('app').component('searchTreePerent', {
 /***/ (function(module, exports) {
 
 module.exports = angular;
+
+/***/ }),
+
+/***/ 194:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SearchTree = (function () {
+    function SearchTree(folderId, folderName, owner, parentFolderId, folders, tags, collapsed) {
+        this.folderId = folderId;
+        this.folderName = folderName;
+        this.owner = owner;
+        this.parentFolderId = parentFolderId;
+        this.folders = folders;
+        this.tags = tags;
+        this.collapsed = collapsed;
+    }
+    return SearchTree;
+}());
+exports.SearchTree = SearchTree;
+var NewTag = (function () {
+    function NewTag(tagId, tagName, queryId, extraInfo, type, parentFolderId, collapsed) {
+        this.tagId = tagId;
+        this.tagName = tagName;
+        this.queryId = queryId;
+        this.extraInfo = extraInfo;
+        this.type = type;
+        this.parentFolderId = parentFolderId;
+        this.collapsed = collapsed;
+    }
+    return NewTag;
+}());
+exports.NewTag = NewTag;
+exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true),
+            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true)], true)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true)], true), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true)], true);
+
 
 /***/ }),
 
@@ -835,6 +873,18 @@ angular.module('app').component('searchTree', {
         this.logObject = function () {
             console.log(_this.tree);
         };
+        this.onItemClicked = function (data) {
+            if (data.tagId) {
+                console.log('tag');
+                return;
+            }
+            data.folders.forEach(function (item) {
+                item.collapsed = !item.collapsed;
+            });
+            data.tags.forEach(function (item) {
+                item.collapsed = !item.collapsed;
+            });
+        };
     }
 });
 
@@ -844,43 +894,7 @@ angular.module('app').component('searchTree', {
 /***/ 197:
 /***/ (function(module, exports) {
 
-module.exports = "<button ng-click=\"$ctrl.logObject()\">logObject</button>\r\n\r\n";
-
-/***/ }),
-
-/***/ 205:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var SearchTree = (function () {
-    function SearchTree(folderId, folderName, owner, parentFolderId, folders, tags) {
-        this.folderId = folderId;
-        this.folderName = folderName;
-        this.owner = owner;
-        this.parentFolderId = parentFolderId;
-        this.folders = folders;
-        this.tags = tags;
-    }
-    return SearchTree;
-}());
-exports.SearchTree = SearchTree;
-var NewTag = (function () {
-    function NewTag(tagId, tagName, queryId, extraInfo, type, parentFolderId) {
-        this.tagId = tagId;
-        this.tagName = tagName;
-        this.queryId = queryId;
-        this.extraInfo = extraInfo;
-        this.type = type;
-        this.parentFolderId = parentFolderId;
-    }
-    return NewTag;
-}());
-exports.NewTag = NewTag;
-exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1"),
-            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2")])], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1")]), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [])], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1")]);
-
+module.exports = "<ul> \r\n    <li ng-repeat=\"data in $ctrl.tree\" ng-include=\"'tree-item-renderer'\"></li>\r\n</ul>\r\n\r\n<script type=\"text/ng-template\" id=\"tree-item-renderer\">\r\n\r\n    <!-- <img ng-if=\"data.folderName\" src=\"/img/folder.png\"> -->\r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.folderName}}</span> \r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.tagName}}</span> \r\n    <ul>\r\n        <li ng-repeat=\"data in data.folders track by data.folderId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n        <li ng-repeat=\"data in data.tags track by data.tagId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n    </ul>\r\n    \r\n</script>";
 
 /***/ })
 

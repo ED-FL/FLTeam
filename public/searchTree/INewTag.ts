@@ -7,6 +7,7 @@ export interface INewTag {
     extraInfo?: IExtraInfo;
     type: string;
     parentFolderId: string;
+    collapsed : boolean;
 }
 
 export interface IExtraInfo {
