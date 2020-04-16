@@ -1,15 +1,5 @@
 <ul> 
-    <li ng-repeat="data in $ctrl.tree" ng-include="'tree-item-renderer'"></li>
+    <li>
+        <folder-handling data="$ctrl.tree"></folder-handling>
+    </li>
 </ul>
-
-<script type="text/ng-template" id="tree-item-renderer">
-
-    <!-- <img ng-if="data.folderName" src="/folder.png"> -->
-    <span class="tree-item" ng-click="$ctrl.onItemClicked(data)"> {{data.folderName}}</span> 
-    <span class="tree-item" ng-click="$ctrl.onItemClicked(data)"> {{data.tagName}}</span> 
-    <ul>
-        <li ng-repeat="data in data.folders track by data.folderId" ng-hide="data.collapsed" ng-include="'tree-item-renderer'"></li>
-        <li ng-repeat="data in data.tags track by data.tagId" ng-hide="data.collapsed" ng-include="'tree-item-renderer'"></li>
-    </ul>
-    
-</script>

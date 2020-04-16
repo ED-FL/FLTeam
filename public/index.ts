@@ -23,3 +23,5 @@ import "./components/talkDuration";
 import "./components/zoomIn";
 import "./searchTree/searchTreePerent";
 import "./searchTree/searchTree";
+import "./searchTree/folderHandling";
+import "./searchTree/tagsHandling";

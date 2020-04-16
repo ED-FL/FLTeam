@@ -1,6 +1,5 @@
-webpackJsonp([2],{
-
-/***/ 156:
+webpackJsonp([2],Array(156).concat([
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31,11 +30,12 @@ __webpack_require__(190);
 __webpack_require__(191);
 __webpack_require__(192);
 __webpack_require__(196);
+__webpack_require__(206);
+__webpack_require__(208);
 
 
 /***/ }),
-
-/***/ 157:
+/* 157 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -46,8 +46,7 @@ __webpack_require__(196);
 
 
 /***/ }),
-
-/***/ 158:
+/* 158 */
 /***/ (function(module, exports) {
 
 var app = angular.module('app', ['ngRoute', 'toastr', 'ngMaterial']);
@@ -67,8 +66,7 @@ app.config(['$locationProvider', function ($locationProvider) {
 
 
 /***/ }),
-
-/***/ 159:
+/* 159 */
 /***/ (function(module, exports) {
 
 angular.module('app').config(function ($routeProvider) {
@@ -169,8 +167,7 @@ angular.module('app').config(function ($routeProvider) {
 
 
 /***/ }),
-
-/***/ 160:
+/* 160 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('adminLogin', {
@@ -196,15 +193,13 @@ angular.module('app').component('adminLogin', {
 
 
 /***/ }),
-
-/***/ 161:
+/* 161 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>Admin Login</h1>\r\n\r\n<form class=\"form\">\r\n  <div class=\"row\">\r\n  <div class=\"form-group col-sm-6\">\r\n    <input type=\"text\" autofocus placeholder=\"Email Address\" ng-model=\"$ctrl.email\" class=\"form-control\">\r\n  </div>\r\n  </div>\r\n  <div class=\"row\">\r\n  <div class=\"form-group col-sm-6\">\r\n    <input type=\"password\" placeholder=\"Password\" ng-model=\"$ctrl.password\" class=\"form-control\">\r\n  </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6\">\r\n    <button class=\"btn btn-primary\" ng-click=\"$ctrl.login()\">Login</button>\r\n    </div>\r\n  </div>\r\n</form>";
 
 /***/ }),
-
-/***/ 162:
+/* 162 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('results', {
@@ -224,15 +219,13 @@ angular.module('app').component('results', {
 
 
 /***/ }),
-
-/***/ 163:
+/* 163 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n<h1>Results</h1>\r\n\r\n<session-detail-with-votes session=\"session\" ng-repeat=\"session in $ctrl.sessionsByVoteDesc\"></session-detail-with-votes>\r\n\r\n";
 
 /***/ }),
-
-/***/ 164:
+/* 164 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('createUsers', {
@@ -258,15 +251,13 @@ angular.module('app').component('createUsers', {
 
 
 /***/ }),
-
-/***/ 165:
+/* 165 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n\r\n<h1>Create Users</h1>\r\n<p>Enter Email Addresses here. One on each line, First and Last Name Pipe Separated</p>\r\n<textarea name=\"emailAddresses\" id=\"\" cols=\"30\" rows=\"10\" class=\"form-control\" \r\n  placeholder=\"Email Addresses\" ng-model=\"$ctrl.namesblob\"></textarea>\r\n<br>\r\n<button class=\"btn btn-primary\" ng-click=\"$ctrl.import()\">Create Users</button>\r\n";
 
 /***/ }),
-
-/***/ 166:
+/* 166 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('userList', {
@@ -290,15 +281,13 @@ angular.module('app').component('userList', {
 
 
 /***/ }),
-
-/***/ 167:
+/* 167 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n<h1>User List</h1>\r\n\r\n<a ng-href=\"#/admin/users/{{user.id}}\" zoom-in \r\n  class=\"btn btn-primary btn-spaced\" \r\n  ng-repeat=\"user in $ctrl.users\">\r\n  {{user.firstName}}\r\n  {{user.lastName}}\r\n</a>\r\n";
 
 /***/ }),
-
-/***/ 168:
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('userDetails', {
@@ -317,15 +306,13 @@ angular.module('app').component('userDetails', {
 
 
 /***/ }),
-
-/***/ 169:
+/* 169 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n<div class=\"jumbotron\">\r\n  <h1>{{$ctrl.user.firstName}} {{$ctrl.user.lastName}}\r\n    <span class=\"badge\" ng-show=\"$ctrl.user.isAdmin\">Admin</span>\r\n  </h1>\r\n  <p>{{$ctrl.user.email}}</p>\r\n</div>";
 
 /***/ }),
-
-/***/ 170:
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('nav', {
@@ -340,15 +327,13 @@ angular.module('app').component('nav', {
 
 
 /***/ }),
-
-/***/ 171:
+/* 171 */
 /***/ (function(module, exports) {
 
 module.exports = "<div \r\n  class=\"navbar navbar-fixed-top navbar-inverse\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\"><a href=\"/\" class=\"navbar-brand\">Lightning Talks</a></div>\r\n    <div class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li><a href=\"#/\">Home <span class=\"badge\">{{$ctrl.unreviewedSessionCount.value}}</span> </a></li>\r\n        <li><a href=\"#/createsession\">Create Session</a></li>\r\n        <li><a href=\"#/profile\">Profile</a></li>\r\n        <li><a href=\"#/admin/createusers\" ng-show=\"$ctrl.currentUser.isAdmin\">Create Users</a></li>\r\n        <li><a href=\"#/admin/results\" ng-show=\"$ctrl.currentUser.isAdmin\">Results</a></li>\r\n        <li><a href=\"#/users\" ng-show=\"$ctrl.currentUser.isAdmin\">Users</a></li>\r\n        <li><a href=\"#/searchTree\">Search Tree</a></li>\r\n        <li><a href=\"#/logout\">Logout</a></li>\r\n      </ul>\r\n      \r\n      <ul class=\"nav navbar-right navbar nav\">\r\n        <li class=\"navbar-text\">\r\n          Welcome {{$ctrl.currentUser.firstName}} {{$ctrl.currentUser.lastName}}\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</div>\r\n";
 
 /***/ }),
-
-/***/ 172:
+/* 172 */
 /***/ (function(module, exports) {
 
 angular.module('app').component('logout', {
@@ -360,8 +345,7 @@ angular.module('app').component('logout', {
 
 
 /***/ }),
-
-/***/ 173:
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('login', {
@@ -393,15 +377,13 @@ angular.module('app').component('login', {
 
 
 /***/ }),
-
-/***/ 174:
+/* 174 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>Please Login</h1>\r\n\r\n<p>Enter your attendee email address</p>\r\n<form class=\"form\">\r\n  <div class=\"row\">\r\n    <div class=\"form-group col-sm-6\">\r\n      <input type=\"text\" autofocus placeholder=\"Email Address\" ng-model=\"$ctrl.email\" class=\"form-control\">\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6\">\r\n      <md-button ng-click=\"$ctrl.login()\">Login</md-button>\r\n    </div>\r\n  </div>\r\n</form>";
 
 /***/ }),
-
-/***/ 175:
+/* 175 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('auth', (function () {
@@ -470,8 +452,7 @@ angular.module('app').service('auth', (function () {
 
 
 /***/ }),
-
-/***/ 176:
+/* 176 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('currentIdentity', (function () {
@@ -506,8 +487,7 @@ angular.module('app').service('currentIdentity', (function () {
 
 
 /***/ }),
-
-/***/ 177:
+/* 177 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('users', (function () {
@@ -530,8 +510,7 @@ angular.module('app').service('users', (function () {
 
 
 /***/ }),
-
-/***/ 178:
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('home', {
@@ -571,15 +550,13 @@ angular.module('app').component('home', {
 
 
 /***/ }),
-
-/***/ 179:
+/* 179 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n\r\n<h2 style=\"margin-top:30px\">Unreviewed Sessions</h2>\r\n<unreviewed-talk [session]=\"$ctrl.currentSessionToReview\" (vote-no)=\"$ctrl.voteNo()\" (vote-yes)=\"$ctrl.voteYes()\"></unreviewed-talk>\r\n<hr style=\"margin-top:20px\">\r\n<h3>Your Sessions\r\n<a zoom-in class=\"btn btn-primary btn-xs\" href=\"#/createsession\">Create a New Session</a>\r\n</h3>\r\n\r\n<div ng-repeat=\"session in $ctrl.userSessions\">\r\n  <session-detail session=\"session\" initial-collapsed=\"true\"></session-detail>\r\n</div>\r\n";
 
 /***/ }),
-
-/***/ 180:
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('createNewSession', {
@@ -606,15 +583,13 @@ angular.module('app').component('createNewSession', {
 
 
 /***/ }),
-
-/***/ 181:
+/* 181 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n\r\n<h1>Create New Session</h1>\r\n\r\n<form class=\"form\">\r\n  <div class=\"form-group\">\r\n    Give your session a title\r\n    <input required type=\"text\" placeholder=\"Title\" ng-model=\"$ctrl.title\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    Enter a length, from 2 minutes to 30 minutes\r\n    <input required type=\"number\" placeholder=\"Length in Minutes\" \r\n      ng-model=\"$ctrl.length\" class=\"form-control\" min=\"2\" max=\"30\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    Describe your session\r\n    <textarea required name=\"\" id=\"\" cols=\"30\" rows=\"4\" \r\n      ng-model=\"$ctrl.abstract\" class=\"form-control\"\r\n      placeholder=\"Abstract\"></textarea>\r\n  </div>\r\n  \r\n  <div class=\"row\">\r\n    <div class=\"col-sm-3\">\r\n      <button class=\" btn btn-primary btn-sm\" ng-click=\"$ctrl.create()\">Create</button>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<h2>Your Other Sessions</h2>\r\n<div ng-repeat=\"session in $ctrl.userSessions\">\r\n  <session-detail session=\"session\" initial-collapsed=\"false\"></session-detail>\r\n</div>";
 
 /***/ }),
-
-/***/ 182:
+/* 182 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('sessions', (function () {
@@ -660,8 +635,7 @@ angular.module('app').service('sessions', (function () {
 
 
 /***/ }),
-
-/***/ 183:
+/* 183 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('unreviewedSessionCount', (function () {
@@ -682,8 +656,7 @@ angular.module('app').service('unreviewedSessionCount', (function () {
 
 
 /***/ }),
-
-/***/ 184:
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('sessionDetail', {
@@ -698,15 +671,13 @@ angular.module('app').component('sessionDetail', {
 
 
 /***/ }),
-
-/***/ 185:
+/* 185 */
 /***/ (function(module, exports) {
 
 module.exports = "<detail-panel collapsed=\"{{$ctrl.initialCollapsed}}\" title=\"{{$ctrl.session.title}}\">\r\n  <strong>{{$ctrl.session.length | talkDuration}}</strong>\r\n  <p><small>{{$ctrl.session.abstract}}</small></p>  \r\n</detail-panel>\r\n";
 
 /***/ }),
-
-/***/ 186:
+/* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('sessionDetailWithVotes', {
@@ -721,15 +692,13 @@ angular.module('app').component('sessionDetailWithVotes', {
 
 
 /***/ }),
-
-/***/ 187:
+/* 187 */
 /***/ (function(module, exports) {
 
 module.exports = "<detail-panel collapsed=\"{{$ctrl.initialCollapsed}}\" title=\"{{$ctrl.session.title}}\">\r\n  <strong>{{$ctrl.session.voteCount}} votes</strong>\r\n  <p>{{$ctrl.session.length | talkDuration}}</p>\r\n  <p><small>{{$ctrl.session.abstract}}</small></p>  \r\n</detail-panel>\r\n";
 
 /***/ }),
-
-/***/ 188:
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('detailPanel', {
@@ -749,15 +718,13 @@ angular.module('app').component('detailPanel', {
 
 
 /***/ }),
-
-/***/ 189:
+/* 189 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"panel panel-primary\">\r\n  <div class=\"panel-heading pointable\" ng-click=\"$ctrl.collapse()\">\r\n    <span>{{$ctrl.title}}</span>\r\n  </div>\r\n  <div class=\"panel-body\" ng-hide=\"$ctrl.collapsed\" ng-transclude>\r\n  </div>\r\n</div>";
 
 /***/ }),
-
-/***/ 190:
+/* 190 */
 /***/ (function(module, exports) {
 
 angular.module('app').filter('talkDuration', function () {
@@ -768,8 +735,7 @@ angular.module('app').filter('talkDuration', function () {
 
 
 /***/ }),
-
-/***/ 191:
+/* 191 */
 /***/ (function(module, exports) {
 
 angular.module('app').directive('zoomIn', function () {
@@ -788,8 +754,7 @@ angular.module('app').directive('zoomIn', function () {
 
 
 /***/ }),
-
-/***/ 192:
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -801,21 +766,19 @@ angular.module('app').component('searchTreePerent', {
     template: __webpack_require__(195),
     bindings: {},
     controller: function () {
-        this.tree = [SearchTreeImplement_1.exampleObject];
+        this.tree = SearchTreeImplement_1.exampleObject;
     }
 });
 
 
 /***/ }),
-
-/***/ 193:
+/* 193 */
 /***/ (function(module, exports) {
 
 module.exports = angular;
 
 /***/ }),
-
-/***/ 194:
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -852,15 +815,13 @@ exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new 
 
 
 /***/ }),
-
-/***/ 195:
+/* 195 */
 /***/ (function(module, exports) {
 
 module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
 
 /***/ }),
-
-/***/ 196:
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('searchTree', {
@@ -868,12 +829,39 @@ angular.module('app').component('searchTree', {
     bindings: {
         tree: '='
     },
+    controller: function () { }
+});
+
+
+/***/ }),
+/* 197 */
+/***/ (function(module, exports) {
+
+module.exports = "<ul> \r\n    <li>\r\n        <folder-handling data=\"$ctrl.tree\"></folder-handling>\r\n    </li>\r\n</ul>";
+
+/***/ }),
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+angular.module('app')
+    .component('folderHandling', {
+    template: __webpack_require__(207),
+    bindings: {
+        data: '='
+    },
     controller: function () {
-        this.onItemClicked = function (data) {
-            if (data.tagId) {
-                console.log('tag');
-                return;
-            }
+        var $ctrl = this;
+        $ctrl.onItemClicked = function (data) {
+            console.log('this: ', this);
+            console.log(data);
             data.folders.forEach(function (item) {
                 item.collapsed = !item.collapsed;
             });
@@ -886,13 +874,37 @@ angular.module('app').component('searchTree', {
 
 
 /***/ }),
-
-/***/ 197:
+/* 207 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n    <li ng-repeat=\"data in $ctrl.tree\" ng-include=\"'tree-item-renderer'\"></li>\r\n</ul>\r\n\r\n<script type=\"text/ng-template\" id=\"tree-item-renderer\">\r\n\r\n    <!-- <img ng-if=\"data.folderName\" src=\"/folder.png\"> -->\r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.folderName}}</span> \r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.tagName}}</span> \r\n    <ul>\r\n        <li ng-repeat=\"data in data.folders track by data.folderId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n        <li ng-repeat=\"data in data.tags track by data.tagId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n    </ul>\r\n    \r\n</script>";
+module.exports = "<!-- <img src=\"/folder.png\"> -->\r\n<span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked($ctrl.data)\"> {{$ctrl.data.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"data in $ctrl.data.folders track by data.folderId\" ng-hide=\"data.collapsed\">\r\n        <folder-handling data=\"data\"></folder-handling>\r\n    </li>\r\n    <tags-handling data=\"$ctrl.data\"></tags-handling>\r\n</ul>\r\n";
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+angular.module('app')
+    .component('tagsHandling', {
+    template: __webpack_require__(209),
+    bindings: {
+        data: '='
+    },
+    controller: function () {
+        var $ctrl = this;
+        $ctrl.onItemClicked = function (data) {
+            console.log(data);
+            console.log('go to tag link: ', data.tagName);
+        };
+    }
+});
+
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports) {
+
+module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked($ctrl.data)\"> {{$ctrl.data.tagName}}</span> \r\n\r\n<li ng-repeat=\"data in $ctrl.data.tags track by data.tagId\" ng-hide=\"data.collapsed\">\r\n    <tags-handling data=\"data\"></tags-handling>\r\n</li>\r\n";
 
 /***/ })
-
-},[156]);
+]),[156]);
 //# sourceMappingURL=ng1.bundle.js.map
