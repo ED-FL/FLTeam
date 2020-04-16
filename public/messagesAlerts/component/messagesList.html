@@ -1,7 +1,7 @@
-<div dir="ltr" class="messages-alarts-container">
-  <div class="first-message">
+<div dir="ltr" ng-class="$ctrl.showOnlyAlarm() ? 'no-alarm-container' : 'messages-alarts-container'">
+  <div ng-class="$ctrl.showOnlyAlarm() ? '' : 'first-message'">
     <alarm class="alarm" handle-action="$ctrl.doAction(num,type)"></alarm>
-    <div class="main-title-text">הודעות מערכת</div>
+    <div ng-show="$ctrl.showOnlyAlarm() == false" class="main-title-text">הודעות מערכת</div>
   </div>
   <md-list>
     <md-list-items

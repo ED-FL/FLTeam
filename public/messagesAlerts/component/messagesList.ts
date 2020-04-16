@@ -25,6 +25,10 @@ angular.module("app").component("messagesList", {
       this.currentalarmType = type;
     };
 
+    this.showOnlyAlarm = function () {
+      return this.currentalarmType == ALARM_TYPE.NO;
+    };
+
     this.showLastMessage = function () {
       if (this.currentalarmType == ALARM_TYPE.LAST) {
         return this.messagesHistory.getHiddenLoadingMessages().length > 0;

@@ -5,6 +5,10 @@
   flex-direction: column;
 }
 
+.no-alarm-container {
+  width: 104px;
+}
+
 .first-message {
   justify-content: flex-end;
   border-bottom: 1px solid black;
