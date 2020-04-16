@@ -890,7 +890,7 @@ angular.module('app').component('searchTree', {
 /***/ 197:
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n    <li ng-repeat=\"data in $ctrl.tree\" ng-include=\"'tree-item-renderer'\"></li>\r\n</ul>\r\n\r\n<script type=\"text/ng-template\" id=\"tree-item-renderer\">\r\n\r\n    <!-- <img ng-if=\"data.folderName\" src=\"/img/folder.png\"> -->\r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.folderName}}</span> \r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.tagName}}</span> \r\n    <ul>\r\n        <li ng-repeat=\"data in data.folders track by data.folderId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n        <li ng-repeat=\"data in data.tags track by data.tagId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n    </ul>\r\n    \r\n</script>";
+module.exports = "<ul> \r\n    <li ng-repeat=\"data in $ctrl.tree\" ng-include=\"'tree-item-renderer'\"></li>\r\n</ul>\r\n\r\n<script type=\"text/ng-template\" id=\"tree-item-renderer\">\r\n\r\n    <!-- <img ng-if=\"data.folderName\" src=\"/folder.png\"> -->\r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.folderName}}</span> \r\n    <span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked(data)\"> {{data.tagName}}</span> \r\n    <ul>\r\n        <li ng-repeat=\"data in data.folders track by data.folderId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n        <li ng-repeat=\"data in data.tags track by data.tagId\" ng-hide=\"data.collapsed\" ng-include=\"'tree-item-renderer'\"></li>\r\n    </ul>\r\n    \r\n</script>";
 
 /***/ })
 
