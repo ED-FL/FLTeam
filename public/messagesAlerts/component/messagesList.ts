@@ -16,7 +16,6 @@ angular.module("app").component("messagesList", {
       this.lastMessageIcon = messageTypeService.getMessageIcon(
         MESSAGE_TYPE.LOADING
       );
-      this.lastMessageContent = "שים לב : ישנם פרטים נוספים בטעינה";
       this.lastMessageStyle = "last-message";
     };
 
@@ -31,7 +30,13 @@ angular.module("app").component("messagesList", {
 
     this.showLastMessage = function () {
       if (this.currentalarmType == ALARM_TYPE.LAST) {
-        return this.messagesHistory.getHiddenLoadingMessages().length > 0;
+        let numHiddenLoading = this.messagesHistory.getHiddenLoadingMessages()
+          .length;
+
+        this.lastMessageContent =
+          "ישנם " + numHiddenLoading + " פריטים נוספים בטעינה";
+
+        return numHiddenLoading > 0;
       }
       return false;
     };

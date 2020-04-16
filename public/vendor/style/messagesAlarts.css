@@ -33,6 +33,11 @@ md-list {
   padding: 0px !important;
 }
 
+md-menu-item > .md-button,
+md-menu-content {
+  padding: 0px !important;
+}
+
 /* single message */
 
 .error-message {
@@ -73,12 +78,7 @@ md-list {
   align-self: center;
 }
 
-/* alarm */
-
-md-menu-item > .md-button,
-md-menu-content {
-  padding: 0px !important;
-}
+/* alarm item*/
 
 .alarm-item-container {
   display: flex;
