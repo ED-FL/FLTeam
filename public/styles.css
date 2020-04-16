@@ -22,8 +22,15 @@ body {
 ul {
   direction: rtl; 
   list-style-type: none;
+  line-height: 25px;
+  font-size:18px;
 }
 
 .tree-item {
   cursor: pointer;
+}
+
+.material-icons{
+  display: inline-flex;
+  vertical-align: top;
 }

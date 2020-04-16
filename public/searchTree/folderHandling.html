@@ -1,5 +1,4 @@
-<!-- <img src="/folder.png"> -->
-<span class="tree-item" ng-click="$ctrl.onItemClicked($ctrl.data)"> {{$ctrl.data.folderName}}</span> 
+<span class="tree-item" ng-click="$ctrl.onItemClicked($ctrl.data)"><span class="material-icons">folder</span> {{$ctrl.data.folderName}}</span> 
 <ul>
     <li ng-repeat="data in $ctrl.data.folders track by data.folderId" ng-hide="data.collapsed">
         <folder-handling data="data"></folder-handling>
