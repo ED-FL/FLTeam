@@ -75,6 +75,12 @@ md-list {
 
 /* alarm */
 
-.alarm-icon {
-  margin-left: 5px;
+md-menu-item > .md-button,
+md-menu-content {
+  padding: 0px !important;
+}
+
+.alarm-item-container {
+  display: flex;
+  width: 160px;
 }

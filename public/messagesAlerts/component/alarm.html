@@ -3,13 +3,15 @@
     <md-tooltip>{{$ctrl.currentTitle}}</md-tooltip>
     <md-icon>{{$ctrl.currentIcon}}</md-icon>
   </md-button>
-  <md-menu-content width="1">
+  <md-menu-content>
     <md-menu-item ng-repeat="alarm in $ctrl.alarms.getAlarms()">
-      <md-button class="alarm-option" ng-click="$ctrl.onAlarmChanged(alarm)">
-        {{$ctrl.alarms.getAlarmTitle(alarm)}}
-        <md-icon class="alarm-icon"
-          >{{$ctrl.alarms.getAlarmIcon(alarm)}}</md-icon
-        >
+      <md-button ng-click="$ctrl.onAlarmChanged(alarm)">
+        <span class="alarm-item-container">
+          <p>{{$ctrl.alarms.getAlarmTitle(alarm)}}</p>
+          <md-icon>
+            {{$ctrl.alarms.getAlarmIcon(alarm)}}
+          </md-icon>
+        </span>
       </md-button>
     </md-menu-item>
   </md-menu-content>
