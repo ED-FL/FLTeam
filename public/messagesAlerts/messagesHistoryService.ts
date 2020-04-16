@@ -27,7 +27,7 @@ angular.module("app").service(
     getTopMessages(count: number): Array<Message> {
       let size = this.messages.length - count;
       let topMessages = this.messages.slice(Math.max(size, 0));
-      return topMessages; //.reverse();
+      return topMessages.reverse();
     }
 
     getAllMessages(): Array<Message> {
