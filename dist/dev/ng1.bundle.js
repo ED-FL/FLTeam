@@ -30,8 +30,8 @@ __webpack_require__(190);
 __webpack_require__(191);
 __webpack_require__(192);
 __webpack_require__(196);
-__webpack_require__(206);
-__webpack_require__(208);
+__webpack_require__(198);
+__webpack_require__(200);
 
 
 /***/ }),
@@ -840,28 +840,18 @@ angular.module('app').component('searchTree', {
 module.exports = "<ul> \r\n    <li>\r\n        <folder-handling data=\"$ctrl.tree\"></folder-handling>\r\n    </li>\r\n</ul>";
 
 /***/ }),
-/* 198 */,
-/* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app')
     .component('folderHandling', {
-    template: __webpack_require__(207),
+    template: __webpack_require__(199),
     bindings: {
         data: '='
     },
     controller: function () {
         var $ctrl = this;
         $ctrl.onItemClicked = function (data) {
-            console.log('this: ', this);
-            console.log(data);
             data.folders.forEach(function (item) {
                 item.collapsed = !item.collapsed;
             });
@@ -874,33 +864,32 @@ angular.module('app')
 
 
 /***/ }),
-/* 207 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = "<!-- <img src=\"/folder.png\"> -->\r\n<span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked($ctrl.data)\"> {{$ctrl.data.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"data in $ctrl.data.folders track by data.folderId\" ng-hide=\"data.collapsed\">\r\n        <folder-handling data=\"data\"></folder-handling>\r\n    </li>\r\n    <tags-handling data=\"$ctrl.data\"></tags-handling>\r\n</ul>\r\n";
 
 /***/ }),
-/* 208 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app')
     .component('tagsHandling', {
-    template: __webpack_require__(209),
+    template: __webpack_require__(201),
     bindings: {
         data: '='
     },
     controller: function () {
         var $ctrl = this;
         $ctrl.onItemClicked = function (data) {
-            console.log(data);
-            console.log('go to tag link: ', data.tagName);
+            console.log('go to tag link: ', data);
         };
     }
 });
 
 
 /***/ }),
-/* 209 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked($ctrl.data)\"> {{$ctrl.data.tagName}}</span> \r\n\r\n<li ng-repeat=\"data in $ctrl.data.tags track by data.tagId\" ng-hide=\"data.collapsed\">\r\n    <tags-handling data=\"data\"></tags-handling>\r\n</li>\r\n";
