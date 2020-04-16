@@ -6,21 +6,28 @@ angular.module("app").component("alarm", {
   bindings: {
     handleAction: "&",
   },
-  controller: function (alartOptionsService) {
-    this.$onInit = function () {
+  controller: class Alarm {
+    alarms;
+    handleAction;
+    currentIcon: string;
+    currentTitle: string;
+
+    constructor(alartOptionsService) {
       this.alarms = alartOptionsService;
+    }
+    $onInit() {
       this.onAlarmChanged(ALARM_TYPE.ALL);
-    };
+    }
 
-    this.openMenu = function ($mdMenu, ev) {
+    private openMenu($mdMenu, ev) {
       $mdMenu.open(ev);
-    };
+    }
 
-    this.onAlarmChanged = function (type: ALARM_TYPE) {
+    public onAlarmChanged(type: ALARM_TYPE) {
       this.currentIcon = this.alarms.getAlarmIcon(type);
       this.currentTitle = this.alarms.getAlarmTitle(type);
       let numMessages = this.alarms.getAlarmNumMessages(type);
       this.handleAction({ num: numMessages, type: type });
-    };
+    }
   },
 });

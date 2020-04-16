@@ -24,12 +24,12 @@ const messagesTypes = {
 angular.module("app").service(
   "messageTypeService",
   class MessageTypeService {
-    getMessageIcon = function (type: MESSAGE_TYPE) {
+    public getMessageIcon(type: MESSAGE_TYPE) {
       return messagesTypes[type].icon;
-    };
+    }
 
-    getMessageStyle = function (type: MESSAGE_TYPE) {
+    public getMessageStyle(type: MESSAGE_TYPE) {
       return messagesTypes[type].styleClass;
-    };
+    }
   }
 );

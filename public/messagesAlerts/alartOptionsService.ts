@@ -27,20 +27,20 @@ const alarms = {
 angular.module("app").service(
   "alartOptionsService",
   class AlartOptionsService {
-    getAlarms = function () {
+    public getAlarms() {
       return [ALARM_TYPE.ALL, ALARM_TYPE.LAST, ALARM_TYPE.NO];
-    };
+    }
 
-    getAlarmIcon = function (type: ALARM_TYPE) {
+    public getAlarmIcon(type: ALARM_TYPE) {
       return alarms[type].icon;
-    };
+    }
 
-    getAlarmNumMessages = function (type: ALARM_TYPE) {
+    public getAlarmNumMessages(type: ALARM_TYPE) {
       return alarms[type].numMessages;
-    };
+    }
 
-    getAlarmTitle = function (type: ALARM_TYPE) {
+    public getAlarmTitle(type: ALARM_TYPE) {
       return alarms[type].title;
-    };
+    }
   }
 );

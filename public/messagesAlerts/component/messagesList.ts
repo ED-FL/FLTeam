@@ -5,30 +5,41 @@ import * as angular from "angular";
 angular.module("app").component("messagesList", {
   templateUrl: "./messagesList.html",
   bindings: {},
-  controller: function (messagesHistoryService, messageTypeService) {
-    this.$onInit = function () {
+  controller: class MessagesList {
+    messagesHistory;
+    messageTypes;
+    lastMessageIcon: string;
+    lastMessageStyle: string;
+    currentalarmType: ALARM_TYPE;
+    numMessages: number;
+    lastMessageContent: string;
+
+    constructor(messagesHistoryService, messageTypeService) {
       this.messagesHistory = messagesHistoryService;
       this.messageTypes = messageTypeService;
+    }
+
+    $onInit = function () {
       this.initLastMessage();
     };
 
-    this.initLastMessage = function () {
-      this.lastMessageIcon = messageTypeService.getMessageIcon(
+    private initLastMessage() {
+      this.lastMessageIcon = this.messageTypes.getMessageIcon(
         MESSAGE_TYPE.LOADING
       );
       this.lastMessageStyle = "last-message";
-    };
+    }
 
-    this.doAction = function (num, type) {
+    private doAction(num, type) {
       this.numMessages = num;
       this.currentalarmType = type;
-    };
+    }
 
-    this.showOnlyAlarm = function () {
+    public showOnlyAlarm() {
       return this.currentalarmType == ALARM_TYPE.NO;
-    };
+    }
 
-    this.showLastMessage = function () {
+    public showLastMessage() {
       if (this.currentalarmType == ALARM_TYPE.LAST) {
         let numHiddenLoading = this.messagesHistory.getHiddenLoadingMessages()
           .length;
@@ -39,6 +50,6 @@ angular.module("app").component("messagesList", {
         return numHiddenLoading > 0;
       }
       return false;
-    };
+    }
   },
 });

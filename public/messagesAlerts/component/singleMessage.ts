@@ -5,5 +5,5 @@ angular.module("app").component("singleMessage", {
     content: "<",
     icon: "<",
   },
-  controller: function () {},
+  controller: class SingleMessage {},
 });
