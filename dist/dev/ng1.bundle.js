@@ -767,6 +767,10 @@ angular.module('app').component('searchTreePerent', {
     bindings: {},
     controller: function () {
         this.tree = SearchTreeImplement_1.exampleObject;
+        var $ctrl = this;
+        $ctrl.handleAction = function (action) {
+            action.visit();
+        };
     }
 });
 
@@ -818,7 +822,7 @@ exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new 
 /* 195 */
 /***/ (function(module, exports) {
 
-module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
+module.exports = "<search-tree tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></search-tree>\r\n";
 
 /***/ }),
 /* 196 */
@@ -827,7 +831,8 @@ module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
 angular.module('app').component('searchTree', {
     template: __webpack_require__(197),
     bindings: {
-        tree: '='
+        tree: '=',
+        handleAction: "&"
     },
     controller: function () { }
 });
@@ -837,27 +842,38 @@ angular.module('app').component('searchTree', {
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </li>\r\n</ul>";
+module.exports = "<ul> \r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction(action)\"></folder-handling>\r\n    </li>\r\n</ul>";
 
 /***/ }),
 /* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var angular = __webpack_require__(193);
+var deleteFolderAction_1 = __webpack_require__(209);
 angular.module('app')
     .component('folderHandling', {
     template: __webpack_require__(199),
     bindings: {
-        tree: '='
+        tree: '=',
+        handleAction: "="
     },
     controller: function () {
+        var _this = this;
         var $ctrl = this;
         $ctrl.onFolderClicked = function (folder) {
+            // this.onFolderDeleted(folder);
             folder.folders.forEach(function (folder) {
                 folder.collapsed = !folder.collapsed;
             });
             folder.tags.forEach(function (tag) {
                 tag.collapsed = !tag.collapsed;
             });
+        };
+        $ctrl.onFolderDeleted = function (folder) {
+            _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
         };
     }
 });
@@ -893,6 +909,32 @@ angular.module('app')
 /***/ (function(module, exports) {
 
 module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\"></tags-handling>\r\n</li>";
+
+/***/ }),
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var deleteFolderAction = (function () {
+    function deleteFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    deleteFolderAction.prototype.visit = function () {
+        console.log('folder deleted: ' + this.folderId);
+    };
+    return deleteFolderAction;
+}());
+exports.deleteFolderAction = deleteFolderAction;
+
 
 /***/ })
 ]),[156]);

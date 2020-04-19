@@ -1,7 +1,8 @@
 angular.module('app').component('searchTree', {
     templateUrl: './searchTree.html',
     bindings: {
-        tree: '=' 
+        tree: '=',
+        handleAction: "&"
     },
     controller: function() {}
 })
