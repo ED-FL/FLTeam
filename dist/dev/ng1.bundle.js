@@ -867,7 +867,7 @@ angular.module('app')
 /* 199 */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\"><span class=\"material-icons\">folder</span> {{$ctrl.tree.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"data in $ctrl.tree.folders track by data.folderId\" ng-hide=\"data.collapsed\">\r\n        <folder-handling tree=\"data\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>\r\n";
+module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\"><span class=\"material-icons\">folder</span> {{$ctrl.tree.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>\r\n";
 
 /***/ }),
 /* 200 */
