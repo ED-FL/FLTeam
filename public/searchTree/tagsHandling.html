@@ -1,5 +1,5 @@
-<span class="tree-item" ng-click="$ctrl.onItemClicked($ctrl.data)"> {{$ctrl.data.tagName}}</span> 
+<span class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)"> {{$ctrl.tree.tagName}}</span> 
 
-<li ng-repeat="data in $ctrl.data.tags track by data.tagId" ng-hide="data.collapsed">
-    <tags-handling data="data"></tags-handling>
+<li ng-repeat="tag in $ctrl.tree.tags track by tag.tagId" ng-hide="tag.collapsed">
+    <tags-handling tree="tag"></tags-handling>
 </li>

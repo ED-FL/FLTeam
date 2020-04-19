@@ -2,22 +2,21 @@ angular.module('app')
 .component('folderHandling', {
     templateUrl: './folderHandling.html',
     bindings: {
-        data : '='
+        tree : '='
     },
     controller: function() {
 
         var $ctrl = this;
 
-        $ctrl.onItemClicked = function(data) {
+        $ctrl.onFolderClicked = (folder): void => {
             
-            data.folders.forEach(item => {
-                item.collapsed = !item.collapsed;
+            folder.folders.forEach(folder => {
+                folder.collapsed = !folder.collapsed;
             });
 
-            data.tags.forEach(item => {
-                item.collapsed = !item.collapsed;
+            folder.tags.forEach(tag => {
+                tag.collapsed = !tag.collapsed;
             });
-        };
-        
+        };    
     }
 })

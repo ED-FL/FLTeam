@@ -5,10 +5,3 @@ angular.module('app').component('searchTree', {
     },
     controller: function() {}
 })
-
-
-
-
-
-
-

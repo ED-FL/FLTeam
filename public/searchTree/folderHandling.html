@@ -1,7 +1,7 @@
-<span class="tree-item" ng-click="$ctrl.onItemClicked($ctrl.data)"><span class="material-icons">folder</span> {{$ctrl.data.folderName}}</span> 
+<span class="tree-item" ng-click="$ctrl.onFolderClicked($ctrl.tree)"><span class="material-icons">folder</span> {{$ctrl.tree.folderName}}</span> 
 <ul>
-    <li ng-repeat="data in $ctrl.data.folders track by data.folderId" ng-hide="data.collapsed">
-        <folder-handling data="data"></folder-handling>
+    <li ng-repeat="data in $ctrl.tree.folders track by data.folderId" ng-hide="data.collapsed">
+        <folder-handling tree="data"></folder-handling>
     </li>
-    <tags-handling data="$ctrl.data"></tags-handling>
+    <tags-handling tree="$ctrl.tree"></tags-handling>
 </ul>

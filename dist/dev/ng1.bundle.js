@@ -837,7 +837,7 @@ angular.module('app').component('searchTree', {
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n    <li>\r\n        <folder-handling data=\"$ctrl.tree\"></folder-handling>\r\n    </li>\r\n</ul>";
+module.exports = "<ul> \r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </li>\r\n</ul>";
 
 /***/ }),
 /* 198 */
@@ -847,16 +847,16 @@ angular.module('app')
     .component('folderHandling', {
     template: __webpack_require__(199),
     bindings: {
-        data: '='
+        tree: '='
     },
     controller: function () {
         var $ctrl = this;
-        $ctrl.onItemClicked = function (data) {
-            data.folders.forEach(function (item) {
-                item.collapsed = !item.collapsed;
+        $ctrl.onFolderClicked = function (folder) {
+            folder.folders.forEach(function (folder) {
+                folder.collapsed = !folder.collapsed;
             });
-            data.tags.forEach(function (item) {
-                item.collapsed = !item.collapsed;
+            folder.tags.forEach(function (tag) {
+                tag.collapsed = !tag.collapsed;
             });
         };
     }
@@ -867,7 +867,7 @@ angular.module('app')
 /* 199 */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked($ctrl.data)\"><span class=\"material-icons\">folder</span> {{$ctrl.data.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"data in $ctrl.data.folders track by data.folderId\" ng-hide=\"data.collapsed\">\r\n        <folder-handling data=\"data\"></folder-handling>\r\n    </li>\r\n    <tags-handling data=\"$ctrl.data\"></tags-handling>\r\n</ul>\r\n";
+module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\"><span class=\"material-icons\">folder</span> {{$ctrl.tree.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"data in $ctrl.tree.folders track by data.folderId\" ng-hide=\"data.collapsed\">\r\n        <folder-handling tree=\"data\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>\r\n";
 
 /***/ }),
 /* 200 */
@@ -877,12 +877,12 @@ angular.module('app')
     .component('tagsHandling', {
     template: __webpack_require__(201),
     bindings: {
-        data: '='
+        tree: '='
     },
     controller: function () {
         var $ctrl = this;
-        $ctrl.onItemClicked = function (data) {
-            console.log('go to tag link: ', data);
+        $ctrl.onTagClicked = function (tag) {
+            console.log('go to tag link: ', tag);
         };
     }
 });
@@ -892,7 +892,7 @@ angular.module('app')
 /* 201 */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onItemClicked($ctrl.data)\"> {{$ctrl.data.tagName}}</span> \r\n\r\n<li ng-repeat=\"data in $ctrl.data.tags track by data.tagId\" ng-hide=\"data.collapsed\">\r\n    <tags-handling data=\"data\"></tags-handling>\r\n</li>\r\n";
+module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\"></tags-handling>\r\n</li>";
 
 /***/ })
 ]),[156]);

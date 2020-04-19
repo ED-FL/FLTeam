@@ -2,14 +2,14 @@ angular.module('app')
 .component('tagsHandling', {
     templateUrl: './tagsHandling.html',
     bindings: {
-        data : '='
+        tree : '='
     },
     controller: function() {
 
         var $ctrl = this;
 
-        $ctrl.onItemClicked = function(data) {
-            console.log('go to tag link: ', data);  
+        $ctrl.onTagClicked = (tag): void => {
+            console.log('go to tag link: ', tag);  
         };
     }
 })
