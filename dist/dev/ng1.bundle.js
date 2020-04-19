@@ -767,6 +767,10 @@ angular.module('app').component('searchTreePerent', {
     bindings: {},
     controller: function () {
         this.tree = SearchTreeImplement_1.exampleObject;
+        var $ctrl = this;
+        $ctrl.handleAction = function (action) {
+            action.visit();
+        };
     }
 });
 
@@ -818,7 +822,7 @@ exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new 
 /* 195 */
 /***/ (function(module, exports) {
 
-module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
+module.exports = "<search-tree tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></search-tree>\r\n";
 
 /***/ }),
 /* 196 */
@@ -827,7 +831,8 @@ module.exports = "<search-tree tree=\"$ctrl.tree\"></search-tree>\r\n";
 angular.module('app').component('searchTree', {
     template: __webpack_require__(197),
     bindings: {
-        tree: '='
+        tree: '=',
+        handleAction: "&"
     },
     controller: function () { }
 });
@@ -837,27 +842,38 @@ angular.module('app').component('searchTree', {
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n    <div>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </div>\r\n</ul>";
+module.exports = "<ul> \r\n<<<<<<< HEAD:public/searchTree/searchTree/searchTree.html\r\n    <div>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </div>\r\n=======\r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction(action)\"></folder-handling>\r\n    </li>\r\n>>>>>>> f90ee02306efa02c42709ccaedd0b82c8bb81b18:public/searchTree/searchTree.html\r\n</ul>";
 
 /***/ }),
 /* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var angular = __webpack_require__(193);
+var deleteFolderAction_1 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./actions/deleteFolderAction\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 angular.module('app')
     .component('folderHandling', {
     template: __webpack_require__(199),
     bindings: {
-        tree: '='
+        tree: '=',
+        handleAction: "="
     },
     controller: function () {
+        var _this = this;
         var $ctrl = this;
         $ctrl.onFolderClicked = function (folder) {
+            // this.onFolderDeleted(folder);
             folder.folders.forEach(function (folder) {
                 folder.collapsed = !folder.collapsed;
             });
             folder.tags.forEach(function (tag) {
                 tag.collapsed = !tag.collapsed;
             });
+        };
+        $ctrl.onFolderDeleted = function (folder) {
+            _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
         };
     }
 });
