@@ -837,7 +837,7 @@ angular.module('app').component('searchTree', {
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </li>\r\n</ul>";
+module.exports = "<ul> \r\n    <div>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </div>\r\n</ul>";
 
 /***/ }),
 /* 198 */
