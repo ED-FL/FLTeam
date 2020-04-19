@@ -1,5 +1,5 @@
 import * as angular from "angular";
-import { deleteFolderAction } from "./actions/deleteFolderAction";
+import { deleteFolderAction } from "../actions/deleteFolderAction";
 
 angular.module('app')
 .component('folderHandling', {

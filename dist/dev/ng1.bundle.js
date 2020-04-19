@@ -842,7 +842,7 @@ angular.module('app').component('searchTree', {
 /* 197 */
 /***/ (function(module, exports) {
 
-module.exports = "<ul> \r\n<<<<<<< HEAD:public/searchTree/searchTree/searchTree.html\r\n    <div>\r\n        <folder-handling tree=\"$ctrl.tree\"></folder-handling>\r\n    </div>\r\n=======\r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction(action)\"></folder-handling>\r\n    </li>\r\n>>>>>>> f90ee02306efa02c42709ccaedd0b82c8bb81b18:public/searchTree/searchTree.html\r\n</ul>";
+module.exports = "<ul> \r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction(action)\"></folder-handling>\r\n    </li>\r\n</ul>";
 
 /***/ }),
 /* 198 */
@@ -852,7 +852,7 @@ module.exports = "<ul> \r\n<<<<<<< HEAD:public/searchTree/searchTree/searchTree.
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(193);
-var deleteFolderAction_1 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./actions/deleteFolderAction\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var deleteFolderAction_1 = __webpack_require__(209);
 angular.module('app')
     .component('folderHandling', {
     template: __webpack_require__(199),
@@ -883,7 +883,7 @@ angular.module('app')
 /* 199 */
 /***/ (function(module, exports) {
 
-module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\"><span class=\"material-icons\">folder</span> {{$ctrl.tree.folderName}}</span> \r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>\r\n";
+module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\">\r\n    <span class=\"material-icons\" ng-show=\"$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed\">folder</span>\r\n    <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n    {{$ctrl.tree.folderName}}\r\n</span>\r\n\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>\r\n";
 
 /***/ }),
 /* 200 */
@@ -909,6 +909,32 @@ angular.module('app')
 /***/ (function(module, exports) {
 
 module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\"></tags-handling>\r\n</li>";
+
+/***/ }),
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var deleteFolderAction = (function () {
+    function deleteFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    deleteFolderAction.prototype.visit = function () {
+        console.log('folder deleted: ' + this.folderId);
+    };
+    return deleteFolderAction;
+}());
+exports.deleteFolderAction = deleteFolderAction;
+
 
 /***/ })
 ]),[156]);

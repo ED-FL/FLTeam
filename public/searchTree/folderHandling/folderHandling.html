@@ -1,4 +1,9 @@
-<span class="tree-item" ng-click="$ctrl.onFolderClicked($ctrl.tree)"><span class="material-icons">folder</span> {{$ctrl.tree.folderName}}</span> 
+<span class="tree-item" ng-click="$ctrl.onFolderClicked($ctrl.tree)">
+    <span class="material-icons" ng-show="$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed">folder</span>
+    <span class="material-icons" ng-show="!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed">folder_open</span> 
+    {{$ctrl.tree.folderName}}
+</span>
+
 <ul>
     <li ng-repeat="folder in $ctrl.tree.folders track by folder.folderId" ng-hide="folder.collapsed">
         <folder-handling tree="folder"></folder-handling>

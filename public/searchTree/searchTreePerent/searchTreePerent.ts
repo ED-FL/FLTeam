@@ -1,6 +1,6 @@
 import * as angular from "angular";
 import { exampleObject } from "./SearchTreeImplement"
-import { ISearchTreeAction } from "./actions/ISearchTreeAction";
+import { ISearchTreeAction } from "../actions/ISearchTreeAction";
 
 angular.module('app').component('searchTreePerent', {
   templateUrl: './searchTreePerent.html',
