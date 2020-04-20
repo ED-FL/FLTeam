@@ -28,9 +28,14 @@ ul {
 
 .tree-item {
   cursor: pointer;
+  width: 200px;
 }
 
 .material-icons{
   display: inline-flex;
   vertical-align: top;
+}
+
+md-menu-item>.md-button {
+  text-align: right;
 }

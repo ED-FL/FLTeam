@@ -1,9 +1,31 @@
-<span class="tree-item" ng-click="$ctrl.onFolderClicked($ctrl.tree)">
-    <span class="material-icons" ng-show="$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed">folder</span>
-    <span class="material-icons" ng-show="!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed">folder_open</span> 
-    {{$ctrl.tree.folderName}}
-</span>
-
+<div ng-cloak>       
+    <md-menu>
+        <div id="open-menu-button" class="md-icon-button tree-item" ng-click="$ctrl.onFolderClicked($ctrl.tree)" ng-right-click="$ctrl.openMenu($mdMenu, $event, $ctrl.tree)">         
+            <div class="tree-item">
+                <span class="material-icons" ng-show="$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed">folder</span>
+                <span class="material-icons" ng-show="!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed">folder_open</span> 
+                {{$ctrl.tree.folderName}}
+            </div>
+        </div>
+        <md-menu-content width="3">
+            <md-menu-item>
+                <md-button ng-click="$ctrl.delete()">
+                    מחק
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="$ctrl.rename()">
+                    משהו אחר
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="$ctrl.duplicate()">
+                    שכפל
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div>
 <ul>
     <li ng-repeat="folder in $ctrl.tree.folders track by folder.folderId" ng-hide="folder.collapsed">
         <folder-handling tree="folder"></folder-handling>

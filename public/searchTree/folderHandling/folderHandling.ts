@@ -14,7 +14,7 @@ angular.module('app')
 
         $ctrl.onFolderClicked = (folder): void => {
            // this.onFolderDeleted(folder);
-
+            
             folder.folders.forEach(folder => {
                 folder.collapsed = !folder.collapsed;
             });
@@ -28,9 +28,13 @@ angular.module('app')
             this.handleAction(new deleteFolderAction(folder.folderId));
         };   
 
-        $ctrl.openMenu = function($mdMenu, ev) {        
-            console.log($mdMenu, ev);            
+        $ctrl.openMenu = function($mdMenu, ev, currentFolder) {        
+            console.log($mdMenu, ev, currentFolder);            
             $mdMenu.open(ev);
         };
+
+        $ctrl.delete = () => {
+            console.log('delete');
+        }
     }
 })
