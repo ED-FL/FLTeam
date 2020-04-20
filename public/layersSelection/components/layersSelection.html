@@ -1,0 +1,22 @@
+<div dir="rtl">
+  <div dir="ltr">
+    <md-button ng-click="cancel()">
+      <md-icon>close</md-icon>
+    </md-button>
+  </div>
+  <div>
+    <md-input-container class="md-block" flex-gt-sm>
+      <label>חפש שכבה</label>
+      <input ng-model="$ctrl.searchText" />
+    </md-input-container>
+  </div>
+
+  <div ng-repeat="item in $ctrl.sources">
+    <source-layers source="item.source" layers="item.layers"></source-layers>
+  </div>
+
+  <div>
+    <md-button type="reset">נקה בחירה</md-button>
+    <md-button type="submit">שמור</md-button>
+  </div>
+</div>
