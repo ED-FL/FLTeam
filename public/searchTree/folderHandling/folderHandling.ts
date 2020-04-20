@@ -24,7 +24,7 @@ angular.module('app')
             });
         };    
 
-        $ctrl.onFolderDeleted = (folder): void => {            
+        $ctrl.onFolderDeleted = (folder): void => {                        
             this.handleAction(new deleteFolderAction(folder.folderId));
         };   
 
@@ -32,9 +32,5 @@ angular.module('app')
             console.log($mdMenu, ev, currentFolder);            
             $mdMenu.open(ev);
         };
-
-        $ctrl.delete = () => {
-            console.log('delete');
-        }
     }
 })

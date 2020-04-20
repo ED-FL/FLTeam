@@ -9,11 +9,11 @@ angular.module("app")
 				$scope.$apply(function() {
                     event.preventDefault();
 					if(attrs.ngRightClick !== undefined){
-						var fn = $parse(attrs.ngRightClick);
+                        var fn = $parse(attrs.ngRightClick);                      
 						fn($scope, {$event:event});
 					}
-  	          });
-  		  });
+  	            });
+  		    });
     	}
     }
 }]);
