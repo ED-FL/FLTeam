@@ -1,12 +1,11 @@
 angular.module("app")
-.directive('ngRightClick', ["$parse", function($parse) {
+.directive('ngRightClick', ["$parse", ($parse) => {
     return {
     	restrict: 'A',
-    	controller: function () {},
-    	link: function($scope,element,attrs) {
+    	link: ($scope, element, attrs) => {
 
-			element.bind('contextmenu', function(event) {
-				$scope.$apply(function() {
+			element.bind('contextmenu', (event) => {                
+				$scope.$apply(() => {
                     event.preventDefault();
 					if(attrs.ngRightClick !== undefined){
                         var fn = $parse(attrs.ngRightClick);                      

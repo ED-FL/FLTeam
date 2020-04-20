@@ -28,7 +28,7 @@ angular.module('app')
             this.handleAction(new deleteFolderAction(folder.folderId));
         };   
 
-        $ctrl.openMenu = function($mdMenu, ev, currentFolder) {        
+        $ctrl.openMenu = ($mdMenu, ev, currentFolder): void => {        
             console.log($mdMenu, ev, currentFolder);            
             $mdMenu.open(ev);
         };
