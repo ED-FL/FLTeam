@@ -1,9 +1,13 @@
 <div dir="rtl">
-  <div dir="ltr">
-    <md-button ng-click="cancel()">
-      <md-icon>close</md-icon>
-    </md-button>
+  <div>
+    <div dir="ltr">
+      <md-button ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+    <h3>בחירת שכבות לחיפוש גיאוגרפי</h3>
   </div>
+
   <div>
     <md-input-container class="md-block" flex-gt-sm>
       <label>חפש שכבה</label>
@@ -12,11 +16,16 @@
   </div>
 
   <div ng-repeat="item in $ctrl.sources">
-    <source-layers source="item.source" layers="item.layers"></source-layers>
+    <source-layers
+      source="$ctrl.convertToListItem([item.source])[0]"
+      layers="$ctrl.convertToListItem(item.layers)"
+      can-select-all="item.canSelectAll"
+      max-selected-layers="item.maxSelectedLayers"
+    ></source-layers>
   </div>
 
   <div>
-    <md-button type="reset">נקה בחירה</md-button>
     <md-button type="submit">שמור</md-button>
+    <md-button type="reset">נקה בחירה</md-button>
   </div>
 </div>

@@ -1,18 +1,26 @@
-import { ISourceOptions } from "../ISourceOptions";
+import { ISourceOption, IOption } from "../ISourceOptions";
+import { IListItem } from "../IListItem";
 import * as angular from "angular";
 
 angular.module("app").component("layersSelection", {
   templateUrl: "./layersSelection.html",
   bindings: {},
   controller: class LayersSelectionCtrl {
-    sources: Array<ISourceOptions>;
+    sources: Array<ISourceOption>;
     searchText: string;
 
-    constructor() {
+    selectionService;
+
+    constructor(layerSelectionService) {
+      this.selectionService = layerSelectionService;
+    }
+
+    $onInit() {
       this.getAllLayers();
     }
 
     private getAllLayers() {
+      //this.sources = this.selectionService.getAllLayers();
       this.sources = [
         {
           source: {
@@ -29,6 +37,8 @@ angular.module("app").component("layersSelection", {
               id: "12",
             },
           ],
+          canSelectAll: false,
+          maxSelectedLayers: 1,
         },
         {
           source: {
@@ -45,10 +55,27 @@ angular.module("app").component("layersSelection", {
               id: "22",
             },
           ],
+          canSelectAll: true,
         },
       ];
     }
 
-    private layersSelected() {}
+    private convertToListItem(options: Array<IOption>): Array<IListItem> {
+      let listItems = new Array<IListItem>();
+
+      for (let option of options) {
+        listItems.push({
+          name: option.displayName,
+          id: option.id,
+          isSelected: false,
+        });
+      }
+
+      return listItems;
+    }
+
+    private onSave() {}
+
+    private onReset() {}
   },
 });

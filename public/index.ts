@@ -21,5 +21,6 @@ import "./sessions/sessionDetailWithVotes";
 import "./components/detailPanel";
 import "./components/talkDuration";
 import "./components/zoomIn";
+import "./layersSelection/layerSelectionService";
 import "./layersSelection/components/sourceLayers";
 import "./layersSelection/components/layersSelection";

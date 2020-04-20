@@ -3,7 +3,9 @@ export interface IOption {
   id: string;
 }
 
-export interface ISourceOptions {
+export interface ISourceOption {
   source: IOption;
+  canSelectAll: boolean;
+  maxSelectedLayers?: number;
   layers: Array<IOption>;
 }
