@@ -27,5 +27,10 @@ angular.module('app')
         $ctrl.onFolderDeleted = (folder): void => {            
             this.handleAction(new deleteFolderAction(folder.folderId));
         };   
+
+        $ctrl.openMenu = function($mdMenu, ev) {        
+            console.log($mdMenu, ev);            
+            $mdMenu.open(ev);
+        };
     }
 })

@@ -114,6 +114,7 @@ __webpack_require__(193);
 __webpack_require__(196);
 __webpack_require__(198);
 __webpack_require__(201);
+__webpack_require__(210);
 
 
 /***/ }),
@@ -951,6 +952,10 @@ angular.module('app')
         $ctrl.onFolderDeleted = function (folder) {
             _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
         };
+        $ctrl.openMenu = function ($mdMenu, ev) {
+            console.log($mdMenu, ev);
+            $mdMenu.open(ev);
+        };
     }
 });
 
@@ -1004,6 +1009,37 @@ angular.module('app')
 /***/ (function(module, exports) {
 
 module.exports = "<span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\"></tags-handling>\r\n</li>";
+
+/***/ }),
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */
+/***/ (function(module, exports) {
+
+angular.module("app")
+    .directive('ngRightClick', ["$parse", function ($parse) {
+        return {
+            restrict: 'A',
+            controller: function () { },
+            link: function ($scope, element, attrs) {
+                element.bind('contextmenu', function (event) {
+                    $scope.$apply(function () {
+                        event.preventDefault();
+                        if (attrs.ngRightClick !== undefined) {
+                            var fn = $parse(attrs.ngRightClick);
+                            fn($scope, { $event: event });
+                        }
+                    });
+                });
+            }
+        };
+    }]);
+
 
 /***/ })
 ]),[157]);
