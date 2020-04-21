@@ -1,21 +1,28 @@
 import { ISourcesOptionsDict } from "../interfaces/ISourceOptions";
-import { ISourcesSelectionsDict } from "../interfaces/ISourceSelections";
-import { ISoucesListItems, IListItems } from "../interfaces/ISoucesListItems";
+import {
+  ISourcesSelectionsDict,
+  ISourceSelection,
+} from "../interfaces/ISourceSelections";
+import {
+  ISoucesListItems,
+  ILayersListItems,
+  ISouceListItems,
+} from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
-angular.module("app").component("layersSelection", {
+angular.module("app").component("geoSearchSelection", {
   templateUrl: "./geoSearchSelection.html",
   bindings: {},
-  controller: class LayersSelectionCtrl {
+  controller: class GeoSearchSelectionCtrl {
     selectionService;
     converterService;
 
     sources: ISoucesListItems;
     searchText: string;
 
-    constructor(layerSelectionService, layerItemConverterService) {
+    constructor(layerSelectionService, objectConverterService) {
       this.selectionService = layerSelectionService;
-      this.converterService = layerItemConverterService;
+      this.converterService = objectConverterService;
     }
 
     $onInit() {
@@ -23,42 +30,68 @@ angular.module("app").component("layersSelection", {
     }
 
     private initAllSources(): ISoucesListItems {
-      let sources: ISourcesOptionsDict = this.selectionService.getAllLayers();
+      let sources: ISourcesOptionsDict = this.selectionService.getAllSources();
       return this.converterService.convertOptionsToListItems(sources);
     }
 
     private onSave(): ISourcesSelectionsDict {
-      return this.converterService.convertListItemsToReasult(this.sources);
+      let reasults: ISourcesSelectionsDict = {};
+      for (let source in this.sources) {
+        let value = this.sources[source];
+        reasults[source] = this.saveSource(value);
+      }
+      return reasults;
     }
 
-    private onChangeAllSelections(selection: boolean) {
-      for (let sourceId in this.sources) {
-        let value = this.sources[sourceId];
-        value.isSourceSelected = selection;
-        if (selection && !value.canSelectAll) {
-          this.changeLayersSelection(
-            selection,
-            value.layers,
-            value.maxSelectedLayers
-          );
-        } else {
-          this.changeLayersSelection(selection, value.layers);
+    private saveSource(source: ISouceListItems): ISourceSelection {
+      let result: ISourceSelection;
+      if (source.isSourceSelected && source.canSelectAll) {
+        result.isAllSelected = true;
+      } else {
+        result.isAllSelected = false;
+        result.layersIds = new Array<string>();
+        for (let layerId in source.layers) {
+          result.layersIds.push(layerId);
         }
+      }
+      return result;
+    }
+
+    public onChangeAllSelections(selection: boolean) {
+      for (let sourceId in this.sources) {
+        this.changeSourceSelection(this.sources[sourceId], selection);
+      }
+    }
+
+    private changeSourceSelection(
+      sources: ISouceListItems,
+      selection: boolean
+    ) {
+      sources.isSourceSelected = selection;
+      if (selection && !sources.canSelectAll) {
+        this.changeLayersSelection(
+          selection,
+          sources.layers,
+          sources.maxSelectedLayers
+        );
+      } else {
+        this.changeLayersSelection(selection, sources.layers);
       }
     }
 
     private changeLayersSelection(
       selection: boolean,
-      layers: Array<IListItems>,
+      layers: ILayersListItems,
       numElements?: number
     ) {
       if (numElements) {
         for (let i = 0; i < numElements; i++) {
-          layers[i].isSelected = selection;
+          Object.values(layers)[i].isSelected = selection;
         }
       } else {
-        for (let layer of layers) {
-          layer.isSelected = selection;
+        for (let layer in layers) {
+          let value = layers[layer];
+          value.isSelected = selection;
         }
       }
     }

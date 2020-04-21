@@ -1,10 +1,10 @@
 <div>
   <md-checkbox ng-click="$ctrl.toggleAll()">
-    <span>{{$ctrl.source.name}}</span>
+    <span>{{$ctrl.source.sourceName}}</span>
   </md-checkbox>
 </div>
-<div ng-repeat="layer in $ctrl.layers">
+<div ng-repeat="(layerId,value) in $ctrl.source.layers">
   <md-checkbox ng-click="$ctrl.toggle(layer)">
-    {{ layer.name }}
+    {{ value.displayName }}
   </md-checkbox>
 </div>

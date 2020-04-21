@@ -15,9 +15,10 @@
     </md-input-container>
   </div>
 
-  <div ng-repeat="item in $ctrl.sources">
+  <div ng-repeat="(id,item) in $ctrl.sources">
     <source
-     source = "$ctrl.sources[item]"
+     source-id = "id"
+     source = "item"
     ></source>
   </div>
 

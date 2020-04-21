@@ -1,14 +1,26 @@
+import { ISouceListItems } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
-angular.module("app").component("sourceLayers", {
+angular.module("app").component("source", {
   templateUrl: "./source.html",
-  bindings: {},
-  controller: class SourceLayersCtrl {
+  bindings: {
+    sourceId: "<",
+    source: "=",
+  },
+  controller: class SourceCtrl {
+    sourceId: string;
+    source: ISouceListItems;
+
     constructor() {}
     $onInit() {}
 
     public toggleAll() {}
 
-    private toggle(layer) {}
+    private toggle(layer) {
+      if (this.source.maxSelectedLayers) {
+      } else {
+        this.source.layers[layer];
+      }
+    }
   },
 });

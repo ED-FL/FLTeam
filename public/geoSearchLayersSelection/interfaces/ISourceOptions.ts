@@ -1,13 +1,12 @@
 export interface ILayerOption {
-  displayName: string;
-  id: string;
+  [layerId: string]: { displayName: string };
 }
 
 export interface ISourceOption {
   sourceName: string;
   canSelectAll: boolean;
   maxSelectedLayers?: number;
-  layers: Array<ILayerOption>;
+  layers: ILayerOption;
 }
 
 export interface ISourcesOptionsDict {

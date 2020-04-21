@@ -3,23 +3,21 @@ import {
   ISourceOption,
   ILayerOption,
 } from "../interfaces/ISourceOptions";
-import { ISoucesListItems, IListItems } from "../interfaces/ISoucesListItems";
-import { ISourcesSelectionsDict } from "../interfaces/ISourceSelections";
+import {
+  ISoucesListItems,
+  ILayersListItems,
+} from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
 angular.module("app").service(
-  "layerItemConverterService",
-  class LayerItemConverterService {
+  "objectConverterService",
+  class ObjectConverterService {
     constructor() {}
-
-    public convertListItemsToReasult(): ISourcesSelectionsDict {
-      return null;
-    }
 
     public convertOptionsToListItems(
       sources: ISourcesOptionsDict
     ): ISoucesListItems {
-      let listItemsSources: ISoucesListItems;
+      let listItemsSources: ISoucesListItems = {};
       for (let source in sources) {
         let value = sources[source];
         this.convertSourceToListItem(source, value, listItemsSources);
@@ -33,25 +31,25 @@ angular.module("app").service(
       value: ISourceOption,
       listItemsSources: ISoucesListItems
     ) {
-      listItemsSources[source].sourceName = value.sourceName;
-      listItemsSources[source].isSourceSelected = false;
-      listItemsSources[source].canSelectAll = value.canSelectAll;
-      listItemsSources[source].maxSelectedLayers = value.maxSelectedLayers;
-      listItemsSources[source].layers = this.convertLayersToListItems(
-        value.layers
-      );
+      listItemsSources[source] = {
+        sourceName: value.sourceName,
+        isSourceSelected: false,
+        canSelectAll: value.canSelectAll,
+        maxSelectedLayers: value.maxSelectedLayers,
+        layers: this.convertLayersToListItems(value.layers),
+      };
     }
 
-    private convertLayersToListItems(
-      layers: Array<ILayerOption>
-    ): Array<IListItems> {
-      let listItems = new Array<IListItems>();
-      for (let layer of layers) {
-        listItems.push({
+    private convertLayersToListItems(layers: ILayerOption): ILayersListItems {
+      let listItems: ILayersListItems = {};
+
+      for (let layer in layers) {
+        let value = layers[layer];
+
+        listItems[layer] = {
           isSelected: false,
-          displayName: layer.displayName,
-          id: layer.id,
-        });
+          displayName: value.displayName,
+        };
       }
       return listItems;
     }

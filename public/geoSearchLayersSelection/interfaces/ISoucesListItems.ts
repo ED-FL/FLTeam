@@ -1,7 +1,10 @@
-import { ILayerOption } from "./ISourceOptions";
-
-export interface IListItems extends ILayerOption {
+export interface ILayerListItem {
+  displayName: string;
   isSelected: boolean;
+}
+
+export interface ILayersListItems {
+  [layerId: string]: ILayerListItem;
 }
 
 export interface ISouceListItems {
@@ -9,7 +12,7 @@ export interface ISouceListItems {
   isSourceSelected: boolean;
   canSelectAll: boolean;
   maxSelectedLayers?: number;
-  layers?: Array<IListItems>;
+  layers?: ILayersListItems;
 }
 
 export interface ISoucesListItems {
