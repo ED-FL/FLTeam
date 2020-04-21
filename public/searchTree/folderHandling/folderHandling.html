@@ -2,7 +2,8 @@
     <md-menu>
         <div id="open-menu-button" class="md-icon-button tree-item" ng-click="$ctrl.onFolderClicked($ctrl.tree)" ng-right-click="$ctrl.openMenu($mdMenu, $event)">         
             <div class="tree-item">
-                <span class="material-icons" ng-show="$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed">folder</span>
+                <span class="material-icons" ng-show="$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)">folder_shared</span>
+                <span class="material-icons" ng-show="!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)">folder</span>
                 <span class="material-icons" ng-show="!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed">folder_open</span> 
                 {{$ctrl.tree.folderName}}
             </div>

@@ -1,10 +1,37 @@
-webpackJsonp([2],Array(80).concat([
-/* 80 */
+webpackJsonp([2],Array(53).concat([
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = angular;
 
 /***/ }),
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
 /* 81 */,
 /* 82 */,
 /* 83 */,
@@ -113,8 +140,8 @@ __webpack_require__(192);
 __webpack_require__(193);
 __webpack_require__(196);
 __webpack_require__(198);
-__webpack_require__(201);
-__webpack_require__(203);
+__webpack_require__(206);
+__webpack_require__(214);
 
 
 /***/ }),
@@ -843,7 +870,7 @@ angular.module('app').directive('zoomIn', function () {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var angular = __webpack_require__(80);
+var angular = __webpack_require__(53);
 var SearchTreeImplement_1 = __webpack_require__(194);
 angular.module('app').component('searchTreePerent', {
     template: __webpack_require__(195),
@@ -932,16 +959,16 @@ module.exports = "<ul> \r\n    <li>\r\n        <folder-handling tree=\"$ctrl.tre
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var angular = __webpack_require__(80);
-var editFolderAction_1 = __webpack_require__(212);
-var deleteFolderAction_1 = __webpack_require__(211);
-var shareFolderAction_1 = __webpack_require__(213);
-var duplicateFolderAction_1 = __webpack_require__(214);
-var removeSharingFolderAction_1 = __webpack_require__(221);
-var sharingInfoFolderAction_1 = __webpack_require__(222);
+var angular = __webpack_require__(53);
+var editFolderAction_1 = __webpack_require__(199);
+var deleteFolderAction_1 = __webpack_require__(200);
+var shareFolderAction_1 = __webpack_require__(201);
+var duplicateFolderAction_1 = __webpack_require__(202);
+var removeSharingFolderAction_1 = __webpack_require__(203);
+var sharingInfoFolderAction_1 = __webpack_require__(204);
 angular.module('app')
     .component('folderHandling', {
-    template: __webpack_require__(200),
+    template: __webpack_require__(205),
     bindings: {
         tree: '=',
         handleAction: "="
@@ -983,11 +1010,42 @@ angular.module('app')
 
 
 /***/ }),
-/* 199 */,
-/* 200 */
-/***/ (function(module, exports) {
+/* 199 */
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onRemoveSharing($ctrl.tree)\">\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var editFolderAction = (function () {
+    function editFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    editFolderAction.prototype.visit = function () {
+        console.log('folder edited: ' + this.folderId);
+    };
+    return editFolderAction;
+}());
+exports.editFolderAction = editFolderAction;
+
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var deleteFolderAction = (function () {
+    function deleteFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    deleteFolderAction.prototype.visit = function () {
+        console.log('folder deleted: ' + this.folderId);
+    };
+    return deleteFolderAction;
+}());
+exports.deleteFolderAction = deleteFolderAction;
+
 
 /***/ }),
 /* 201 */
@@ -996,16 +1054,98 @@ module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"op
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var angular = __webpack_require__(80);
-var editTagAction_1 = __webpack_require__(215);
-var deleteTagAction_1 = __webpack_require__(216);
-var exportTagAction_1 = __webpack_require__(217);
-var displayKMLTagAction_1 = __webpack_require__(218);
-var startRuleTagAction_1 = __webpack_require__(219);
-var stopRuleTagAction_1 = __webpack_require__(220);
+var shareFolderAction = (function () {
+    function shareFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    shareFolderAction.prototype.visit = function () {
+        console.log('folder shared: ' + this.folderId);
+    };
+    return shareFolderAction;
+}());
+exports.shareFolderAction = shareFolderAction;
+
+
+/***/ }),
+/* 202 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var duplicateFolderAction = (function () {
+    function duplicateFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    duplicateFolderAction.prototype.visit = function () {
+        console.log('folder duplicated: ' + this.folderId);
+    };
+    return duplicateFolderAction;
+}());
+exports.duplicateFolderAction = duplicateFolderAction;
+
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var removeSharingFolderAction = (function () {
+    function removeSharingFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    removeSharingFolderAction.prototype.visit = function () {
+        console.log('folder sharing removed: ' + this.folderId);
+    };
+    return removeSharingFolderAction;
+}());
+exports.removeSharingFolderAction = removeSharingFolderAction;
+
+
+/***/ }),
+/* 204 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var sharingInfoFolderAction = (function () {
+    function sharingInfoFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    sharingInfoFolderAction.prototype.visit = function () {
+        console.log('folder sharing info: ' + this.folderId);
+    };
+    return sharingInfoFolderAction;
+}());
+exports.sharingInfoFolderAction = sharingInfoFolderAction;
+
+
+/***/ }),
+/* 205 */
+/***/ (function(module, exports) {
+
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder_shared</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onRemoveSharing($ctrl.tree)\">\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
+
+/***/ }),
+/* 206 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var angular = __webpack_require__(53);
+var editTagAction_1 = __webpack_require__(207);
+var deleteTagAction_1 = __webpack_require__(208);
+var exportTagAction_1 = __webpack_require__(209);
+var displayKMLTagAction_1 = __webpack_require__(210);
+var startRuleTagAction_1 = __webpack_require__(211);
+var stopRuleTagAction_1 = __webpack_require__(212);
 angular.module('app')
     .component('tagsHandling', {
-    template: __webpack_require__(202),
+    template: __webpack_require__(213),
     bindings: {
         tree: '=',
         handleAction: '='
@@ -1044,13 +1184,127 @@ angular.module('app')
 
 
 /***/ }),
-/* 202 */
+/* 207 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var editTagAction = (function () {
+    function editTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    editTagAction.prototype.visit = function () {
+        console.log('tag edited: ' + this.tagId);
+    };
+    return editTagAction;
+}());
+exports.editTagAction = editTagAction;
+
+
+/***/ }),
+/* 208 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var deleteTagAction = (function () {
+    function deleteTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    deleteTagAction.prototype.visit = function () {
+        console.log('tag deleted: ' + this.tagId);
+    };
+    return deleteTagAction;
+}());
+exports.deleteTagAction = deleteTagAction;
+
+
+/***/ }),
+/* 209 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var exportTagAction = (function () {
+    function exportTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    exportTagAction.prototype.visit = function () {
+        console.log('tag exported: ' + this.tagId);
+    };
+    return exportTagAction;
+}());
+exports.exportTagAction = exportTagAction;
+
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var displayKMLTagAction = (function () {
+    function displayKMLTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    displayKMLTagAction.prototype.visit = function () {
+        console.log('tag kml displayd: ' + this.tagId);
+    };
+    return displayKMLTagAction;
+}());
+exports.displayKMLTagAction = displayKMLTagAction;
+
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var startRuleTagAction = (function () {
+    function startRuleTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    startRuleTagAction.prototype.visit = function () {
+        console.log('tag rule sterted: ' + this.tagId);
+    };
+    return startRuleTagAction;
+}());
+exports.startRuleTagAction = startRuleTagAction;
+
+
+/***/ }),
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var stopRuleTagAction = (function () {
+    function stopRuleTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    stopRuleTagAction.prototype.visit = function () {
+        console.log('tag rule stoped: ' + this.tagId);
+    };
+    return stopRuleTagAction;
+}());
+exports.stopRuleTagAction = stopRuleTagAction;
+
+
+/***/ }),
+/* 213 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagDeleted($ctrl.tree)\">\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && $ctrl.tree.isRuleStopped\">         \r\n                <span class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped\">\r\n                <span class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                    pause_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
 
 /***/ }),
-/* 203 */
+/* 214 */
 /***/ (function(module, exports) {
 
 angular.module("app")
@@ -1070,241 +1324,6 @@ angular.module("app")
             }
         };
     }]);
-
-
-/***/ }),
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var deleteFolderAction = (function () {
-    function deleteFolderAction(folderId) {
-        this.folderId = folderId;
-    }
-    deleteFolderAction.prototype.visit = function () {
-        console.log('folder deleted: ' + this.folderId);
-    };
-    return deleteFolderAction;
-}());
-exports.deleteFolderAction = deleteFolderAction;
-
-
-/***/ }),
-/* 212 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var editFolderAction = (function () {
-    function editFolderAction(folderId) {
-        this.folderId = folderId;
-    }
-    editFolderAction.prototype.visit = function () {
-        console.log('folder edited: ' + this.folderId);
-    };
-    return editFolderAction;
-}());
-exports.editFolderAction = editFolderAction;
-
-
-/***/ }),
-/* 213 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var shareFolderAction = (function () {
-    function shareFolderAction(folderId) {
-        this.folderId = folderId;
-    }
-    shareFolderAction.prototype.visit = function () {
-        console.log('folder shared: ' + this.folderId);
-    };
-    return shareFolderAction;
-}());
-exports.shareFolderAction = shareFolderAction;
-
-
-/***/ }),
-/* 214 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var duplicateFolderAction = (function () {
-    function duplicateFolderAction(folderId) {
-        this.folderId = folderId;
-    }
-    duplicateFolderAction.prototype.visit = function () {
-        console.log('folder duplicated: ' + this.folderId);
-    };
-    return duplicateFolderAction;
-}());
-exports.duplicateFolderAction = duplicateFolderAction;
-
-
-/***/ }),
-/* 215 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var editTagAction = (function () {
-    function editTagAction(tagId) {
-        this.tagId = tagId;
-    }
-    editTagAction.prototype.visit = function () {
-        console.log('tag edited: ' + this.tagId);
-    };
-    return editTagAction;
-}());
-exports.editTagAction = editTagAction;
-
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var deleteTagAction = (function () {
-    function deleteTagAction(tagId) {
-        this.tagId = tagId;
-    }
-    deleteTagAction.prototype.visit = function () {
-        console.log('tag deleted: ' + this.tagId);
-    };
-    return deleteTagAction;
-}());
-exports.deleteTagAction = deleteTagAction;
-
-
-/***/ }),
-/* 217 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var exportTagAction = (function () {
-    function exportTagAction(tagId) {
-        this.tagId = tagId;
-    }
-    exportTagAction.prototype.visit = function () {
-        console.log('tag exported: ' + this.tagId);
-    };
-    return exportTagAction;
-}());
-exports.exportTagAction = exportTagAction;
-
-
-/***/ }),
-/* 218 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var displayKMLTagAction = (function () {
-    function displayKMLTagAction(tagId) {
-        this.tagId = tagId;
-    }
-    displayKMLTagAction.prototype.visit = function () {
-        console.log('tag kml displayd: ' + this.tagId);
-    };
-    return displayKMLTagAction;
-}());
-exports.displayKMLTagAction = displayKMLTagAction;
-
-
-/***/ }),
-/* 219 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var startRuleTagAction = (function () {
-    function startRuleTagAction(tagId) {
-        this.tagId = tagId;
-    }
-    startRuleTagAction.prototype.visit = function () {
-        console.log('tag rule sterted: ' + this.tagId);
-    };
-    return startRuleTagAction;
-}());
-exports.startRuleTagAction = startRuleTagAction;
-
-
-/***/ }),
-/* 220 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var stopRuleTagAction = (function () {
-    function stopRuleTagAction(tagId) {
-        this.tagId = tagId;
-    }
-    stopRuleTagAction.prototype.visit = function () {
-        console.log('tag rule stoped: ' + this.tagId);
-    };
-    return stopRuleTagAction;
-}());
-exports.stopRuleTagAction = stopRuleTagAction;
-
-
-/***/ }),
-/* 221 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var removeSharingFolderAction = (function () {
-    function removeSharingFolderAction(folderId) {
-        this.folderId = folderId;
-    }
-    removeSharingFolderAction.prototype.visit = function () {
-        console.log('folder sharing removed: ' + this.folderId);
-    };
-    return removeSharingFolderAction;
-}());
-exports.removeSharingFolderAction = removeSharingFolderAction;
-
-
-/***/ }),
-/* 222 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var sharingInfoFolderAction = (function () {
-    function sharingInfoFolderAction(folderId) {
-        this.folderId = folderId;
-    }
-    sharingInfoFolderAction.prototype.visit = function () {
-        console.log('folder sharing info: ' + this.folderId);
-    };
-    return sharingInfoFolderAction;
-}());
-exports.sharingInfoFolderAction = sharingInfoFolderAction;
 
 
 /***/ })
