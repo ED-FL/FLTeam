@@ -880,7 +880,7 @@ var SearchTree = (function () {
 }());
 exports.SearchTree = SearchTree;
 var NewTag = (function () {
-    function NewTag(tagId, tagName, queryId, extraInfo, type, parentFolderId, collapsed, isRule, isRuleStopped) {
+    function NewTag(tagId, tagName, queryId, extraInfo, type, parentFolderId, collapsed, isRule, isRuleStopped, hasKml) {
         this.tagId = tagId;
         this.tagName = tagName;
         this.queryId = queryId;
@@ -890,12 +890,13 @@ var NewTag = (function () {
         this.collapsed = collapsed;
         this.isRule = isRule;
         this.isRuleStopped = isRuleStopped;
+        this.hasKml = hasKml;
     }
     return NewTag;
 }());
 exports.NewTag = NewTag;
-exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false),
-            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false)], true, true)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false)], true, false), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true, false)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true)], true, false);
+exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false, false),
+            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false)], true, true)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true)], true, false), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true, false)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true)], true, false);
 
 
 /***/ }),
@@ -1030,8 +1031,8 @@ angular.module('app')
         };
         $ctrl.onKMLclicked = function (tag) {
             _this.handleAction(new displayKMLTagAction_1.displayKMLTagAction(tag.tagId));
-            $ctrl.checkBoxKML = !$ctrl.checkBoxKML;
-            console.log($ctrl.checkBoxKML);
+            $ctrl.checkboxKML = !$ctrl.checkboxKML;
+            console.log($ctrl.checkboxKML);
         };
         $ctrl.onTagRuleStarted = function (tag) {
             _this.handleAction(new startRuleTagAction_1.startRuleTagAction(tag.tagId));
@@ -1047,7 +1048,7 @@ angular.module('app')
 /* 202 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event, $ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagDeleted($ctrl.tree)\">\r\n                     מחק\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkBoxKML\" ng-click=\"$ctrl.onKMLclicked($ctrl.tree)\" aria-label=\"Checkbox 1\">\r\n                        הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && $ctrl.tree.isRuleStopped\">         \r\n                <span class=\"material-icons\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\">\r\n                    play_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped\">\r\n                <span class=\"material-icons\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\">\r\n                    pause_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event, $ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagDeleted($ctrl.tree)\">\r\n                     מחק\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onKMLclicked($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                        הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && $ctrl.tree.isRuleStopped\">         \r\n                <span class=\"material-icons start-stop-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped\">\r\n                <span class=\"material-icons start-stop-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                    pause_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
 
 /***/ }),
 /* 203 */

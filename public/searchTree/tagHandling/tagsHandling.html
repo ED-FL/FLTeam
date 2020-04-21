@@ -18,18 +18,18 @@
                     ייצוא לרמזור
                 </md-button>
             </md-menu-item>
-            <md-menu-item ng-if="$ctrl.tree.isRule">
-                <md-checkbox ng-checked="$ctrl.checkBoxKML" ng-click="$ctrl.onKMLclicked($ctrl.tree)" aria-label="Checkbox 1">
+            <md-menu-item ng-if="$ctrl.tree.hasKml">
+                <md-checkbox ng-checked="$ctrl.checkboxKML" ng-click="$ctrl.onKMLclicked($ctrl.tree)" aria-label="checkboxKML">
                         הצג ישויות
                 </md-checkbox>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isRule && $ctrl.tree.isRuleStopped">         
-                <span class="material-icons" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)">
+                <span class="material-icons start-stop-icon" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)" title="הפעל חוק">
                     play_circle_filled
                 </span>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped">
-                <span class="material-icons" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)">
+                <span class="material-icons start-stop-icon" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)" title="הפסק חוק">
                     pause_circle_filled
                 </span>
             </md-menu-item>

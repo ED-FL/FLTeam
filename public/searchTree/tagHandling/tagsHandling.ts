@@ -44,8 +44,8 @@ angular.module('app')
         $ctrl.onKMLclicked = (tag) => { // checkbox
 
             this.handleAction(new displayKMLTagAction(tag.tagId));
-            $ctrl.checkBoxKML = !$ctrl.checkBoxKML;
-            console.log($ctrl.checkBoxKML);
+            $ctrl.checkboxKML = !$ctrl.checkboxKML;
+            console.log($ctrl.checkboxKML);
         }
 
         $ctrl.onTagRuleStarted = (tag) => { // !enable

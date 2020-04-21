@@ -10,6 +10,7 @@ export interface INewTag {
     collapsed : boolean;
     isRule : boolean;
     isRuleStopped : boolean;
+    hasKml : boolean;
 }
 
 export interface IExtraInfo {

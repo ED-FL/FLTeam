@@ -39,3 +39,16 @@ ul {
 md-menu-item>.md-button {
   text-align: right;
 }
+
+md-checkbox {
+  text-align: right;
+}
+
+md-checkbox .md-icon {
+  left: 20px;
+}
+
+.material-icons.start-stop-icon {
+  font-size: 40px;
+  text-align: center;
+}
