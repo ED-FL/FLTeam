@@ -1,7 +1,7 @@
 <div dir="rtl">
   <div>
     <div dir="ltr">
-      <md-button ng-click="cancel()">
+      <md-button ng-click="$ctrl.cancel()">
         <md-icon>close</md-icon>
       </md-button>
     </div>
@@ -17,15 +17,12 @@
 
   <div ng-repeat="item in $ctrl.sources">
     <source
-      source="$ctrl.convertToListItem([item.source])[0]"
-      layers="$ctrl.convertToListItem(item.layers)"
-      can-select-all="item.canSelectAll"
-      max-selected-layers="item.maxSelectedLayers"
+     source = "$ctrl.sources[item]"
     ></source>
   </div>
 
   <div>
-    <md-button type="submit">שמור</md-button>
-    <md-button type="reset">נקה בחירה</md-button>
+    <md-button onclick="$ctrl.onSave()">שמור</md-button>
+    <md-button onclick="$ctrl.onChangeAllSelections(false)">נקה בחירה</md-button>
   </div>
 </div>
