@@ -18,14 +18,14 @@ angular.module('app')
 
         var $ctrl = this;
 
-        $ctrl.checkBox = false;
+        $ctrl.checkboxKML = false;
 
         $ctrl.onTagClicked = (tag): void => {
             console.log('go to tag link: ', tag);  
         };
 
         
-        $ctrl.openMenu = ($mdMenu, event, currentTag): void => {                    
+        $ctrl.openMenu = ($mdMenu, event): void => {                    
             $mdMenu.open(event);
         };
 
@@ -41,14 +41,12 @@ angular.module('app')
             this.handleAction(new exportTagAction(tag.tagId));
         }        
         
-        $ctrl.onKMLclicked = (tag) => { // checkbox
-
+        $ctrl.onDisplayKmlTag = (tag) => {
             this.handleAction(new displayKMLTagAction(tag.tagId));
             $ctrl.checkboxKML = !$ctrl.checkboxKML;
-            console.log($ctrl.checkboxKML);
         }
 
-        $ctrl.onTagRuleStarted = (tag) => { // !enable
+        $ctrl.onTagRuleStarted = (tag) => {
             this.handleAction(new startRuleTagAction(tag.tagId));
         }
 

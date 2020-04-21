@@ -3,6 +3,8 @@ import { editFolderAction } from "../actions/folderActions/editFolderAction";
 import { deleteFolderAction } from "../actions/folderActions/deleteFolderAction";
 import { shareFolderAction } from "../actions/folderActions/shareFolderAction";
 import { duplicateFolderAction } from "../actions/folderActions/duplicateFolderAction";
+import { removeSharingFolderAction } from "../actions/folderActions/removeSharingFolderAction";
+import { sharingInfoFolderAction } from "../actions/folderActions/sharingInfoFolderAction";
 import ISearchTree from "../ISearchTree";
 
 angular.module('app')
@@ -17,8 +19,7 @@ angular.module('app')
         var $ctrl = this;
 
         $ctrl.onFolderClicked = (folder : ISearchTree): void => {
-           // this.onFolderDeleted(folder);
-            
+
             folder.folders.forEach(folder => {
                 folder.collapsed = !folder.collapsed;
             });
@@ -28,9 +29,7 @@ angular.module('app')
             });
         };    
 
-        $ctrl.openMenu = ($mdMenu, event, currentFolder): void => {       
-            console.log(currentFolder);
-             
+        $ctrl.openMenu = ($mdMenu, event): void => {                    
             $mdMenu.open(event);
         };
 
@@ -51,11 +50,11 @@ angular.module('app')
         }
 
         $ctrl.onSharedInfo = (folder) => {
-            console.log('onSharedInfo', folder);
+            this.handleAction(new sharingInfoFolderAction(folder.folderId))
         }
 
         $ctrl.onRemoveSharing = (folder) => {
-            console.log('onRemoveSharing', folder);
+            this.handleAction(new removeSharingFolderAction(folder.folderId));
         }
     }
 })

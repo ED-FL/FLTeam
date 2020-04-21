@@ -1,6 +1,6 @@
 <div ng-cloak>       
     <md-menu>
-        <span class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)" ng-right-click="$ctrl.openMenu($mdMenu, $event, $ctrl.tree)"> {{$ctrl.tree.tagName}}</span> 
+        <span class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)" ng-right-click="$ctrl.openMenu($mdMenu, $event)"> {{$ctrl.tree.tagName}}</span> 
 
         <md-menu-content width="3">
             <md-menu-item>
@@ -10,7 +10,7 @@
             </md-menu-item>
             <md-menu-item>
                 <md-button ng-click="$ctrl.onTagDeleted($ctrl.tree)">
-                     מחק
+                    מחיקה
                 </md-button>
             </md-menu-item>
             <md-menu-item>
@@ -19,17 +19,17 @@
                 </md-button>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.hasKml">
-                <md-checkbox ng-checked="$ctrl.checkboxKML" ng-click="$ctrl.onKMLclicked($ctrl.tree)" aria-label="checkboxKML">
-                        הצג ישויות
+                <md-checkbox ng-checked="$ctrl.checkboxKML" ng-click="$ctrl.onDisplayKmlTag($ctrl.tree)" aria-label="checkboxKML">
+                    הצג ישויות
                 </md-checkbox>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isRule && $ctrl.tree.isRuleStopped">         
-                <span class="material-icons start-stop-icon" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)" title="הפעל חוק">
+                <span class="material-icons play-icon" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)" title="הפעל חוק">
                     play_circle_filled
                 </span>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped">
-                <span class="material-icons start-stop-icon" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)" title="הפסק חוק">
+                <span class="material-icons pause-icon" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)" title="הפסק חוק">
                     pause_circle_filled
                 </span>
             </md-menu-item>

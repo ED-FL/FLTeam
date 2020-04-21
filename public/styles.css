@@ -48,7 +48,7 @@ md-checkbox .md-icon {
   left: 20px;
 }
 
-.material-icons.start-stop-icon {
+.material-icons.pause-icon, .material-icons.play-icon {
   font-size: 40px;
   text-align: center;
 }

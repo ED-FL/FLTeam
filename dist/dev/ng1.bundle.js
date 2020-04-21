@@ -937,6 +937,8 @@ var editFolderAction_1 = __webpack_require__(212);
 var deleteFolderAction_1 = __webpack_require__(211);
 var shareFolderAction_1 = __webpack_require__(213);
 var duplicateFolderAction_1 = __webpack_require__(214);
+var removeSharingFolderAction_1 = __webpack_require__(221);
+var sharingInfoFolderAction_1 = __webpack_require__(222);
 angular.module('app')
     .component('folderHandling', {
     template: __webpack_require__(200),
@@ -948,7 +950,6 @@ angular.module('app')
         var _this = this;
         var $ctrl = this;
         $ctrl.onFolderClicked = function (folder) {
-            // this.onFolderDeleted(folder);
             folder.folders.forEach(function (folder) {
                 folder.collapsed = !folder.collapsed;
             });
@@ -956,8 +957,7 @@ angular.module('app')
                 tag.collapsed = !tag.collapsed;
             });
         };
-        $ctrl.openMenu = function ($mdMenu, event, currentFolder) {
-            console.log(currentFolder);
+        $ctrl.openMenu = function ($mdMenu, event) {
             $mdMenu.open(event);
         };
         $ctrl.onFolderEdited = function (folder) {
@@ -973,10 +973,10 @@ angular.module('app')
             _this.handleAction(new duplicateFolderAction_1.duplicateFolderAction(folder.folderId));
         };
         $ctrl.onSharedInfo = function (folder) {
-            console.log('onSharedInfo', folder);
+            _this.handleAction(new sharingInfoFolderAction_1.sharingInfoFolderAction(folder.folderId));
         };
         $ctrl.onRemoveSharing = function (folder) {
-            console.log('onRemoveSharing', folder);
+            _this.handleAction(new removeSharingFolderAction_1.removeSharingFolderAction(folder.folderId));
         };
     }
 });
@@ -987,7 +987,7 @@ angular.module('app')
 /* 200 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event, $ctrl.tree)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onRemoveSharing($ctrl.tree)\">\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onRemoveSharing($ctrl.tree)\">\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
 
 /***/ }),
 /* 201 */
@@ -1013,11 +1013,11 @@ angular.module('app')
     controller: function () {
         var _this = this;
         var $ctrl = this;
-        $ctrl.checkBox = false;
+        $ctrl.checkboxKML = false;
         $ctrl.onTagClicked = function (tag) {
             console.log('go to tag link: ', tag);
         };
-        $ctrl.openMenu = function ($mdMenu, event, currentTag) {
+        $ctrl.openMenu = function ($mdMenu, event) {
             $mdMenu.open(event);
         };
         $ctrl.onTagEdited = function (tag) {
@@ -1029,10 +1029,9 @@ angular.module('app')
         $ctrl.onTagExported = function (tag) {
             _this.handleAction(new exportTagAction_1.exportTagAction(tag.tagId));
         };
-        $ctrl.onKMLclicked = function (tag) {
+        $ctrl.onDisplayKmlTag = function (tag) {
             _this.handleAction(new displayKMLTagAction_1.displayKMLTagAction(tag.tagId));
             $ctrl.checkboxKML = !$ctrl.checkboxKML;
-            console.log($ctrl.checkboxKML);
         };
         $ctrl.onTagRuleStarted = function (tag) {
             _this.handleAction(new startRuleTagAction_1.startRuleTagAction(tag.tagId));
@@ -1048,7 +1047,7 @@ angular.module('app')
 /* 202 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event, $ctrl.tree)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagDeleted($ctrl.tree)\">\r\n                     מחק\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onKMLclicked($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                        הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && $ctrl.tree.isRuleStopped\">         \r\n                <span class=\"material-icons start-stop-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped\">\r\n                <span class=\"material-icons start-stop-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                    pause_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <span class=\"tree-item\" ng-click=\"$ctrl.onTagClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\"> {{$ctrl.tree.tagName}}</span> \r\n\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagEdited($ctrl.tree)\">\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagDeleted($ctrl.tree)\">\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && $ctrl.tree.isRuleStopped\">         \r\n                <span class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped\">\r\n                <span class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                    pause_circle_filled\r\n                </span>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
 
 /***/ }),
 /* 203 */
@@ -1268,6 +1267,44 @@ var stopRuleTagAction = (function () {
     return stopRuleTagAction;
 }());
 exports.stopRuleTagAction = stopRuleTagAction;
+
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var removeSharingFolderAction = (function () {
+    function removeSharingFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    removeSharingFolderAction.prototype.visit = function () {
+        console.log('folder sharing removed: ' + this.folderId);
+    };
+    return removeSharingFolderAction;
+}());
+exports.removeSharingFolderAction = removeSharingFolderAction;
+
+
+/***/ }),
+/* 222 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var sharingInfoFolderAction = (function () {
+    function sharingInfoFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    sharingInfoFolderAction.prototype.visit = function () {
+        console.log('folder sharing info: ' + this.folderId);
+    };
+    return sharingInfoFolderAction;
+}());
+exports.sharingInfoFolderAction = sharingInfoFolderAction;
 
 
 /***/ })
