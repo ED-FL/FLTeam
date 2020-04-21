@@ -16,12 +16,12 @@
   </div>
 
   <div ng-repeat="item in $ctrl.sources">
-    <source-layers
+    <source
       source="$ctrl.convertToListItem([item.source])[0]"
       layers="$ctrl.convertToListItem(item.layers)"
       can-select-all="item.canSelectAll"
       max-selected-layers="item.maxSelectedLayers"
-    ></source-layers>
+    ></source>
   </div>
 
   <div>
