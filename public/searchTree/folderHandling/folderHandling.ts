@@ -28,7 +28,9 @@ angular.module('app')
             });
         };    
 
-        $ctrl.openMenu = ($mdMenu, event, currentFolder): void => {        
+        $ctrl.openMenu = ($mdMenu, event, currentFolder): void => {       
+            console.log(currentFolder);
+             
             $mdMenu.open(event);
         };
 
@@ -46,6 +48,14 @@ angular.module('app')
 
         $ctrl.onFolderDuplicated = (folder): void => {
             this.handleAction(new duplicateFolderAction(folder.folderId));
+        }
+
+        $ctrl.onSharedInfo = (folder) => {
+            console.log('onSharedInfo', folder);
+        }
+
+        $ctrl.onRemoveSharing = (folder) => {
+            console.log('onRemoveSharing', folder);
         }
     }
 })

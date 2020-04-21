@@ -8,6 +8,7 @@ export interface ISearchTree {
     folders: ISearchTree[];
     tags: INewTag[];
     collapsed : boolean;
+    isSharedFolder: boolean;
 }
 
 export default ISearchTree;

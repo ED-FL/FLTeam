@@ -8,12 +8,12 @@
             </div>
         </div>
         <md-menu-content width="3">
-            <md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onFolderEdited($ctrl.tree)">
                     עריכה
                 </md-button>
             </md-menu-item>
-            <md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onFolderDeleted($ctrl.tree)">
                     מחיקה
                 </md-button>
@@ -26,6 +26,16 @@
             <md-menu-item>
                 <md-button ng-click="$ctrl.onFolderDuplicated($ctrl.tree)">
                     שכפול
+                </md-button>
+            </md-menu-item>
+            <md-menu-item ng-if="$ctrl.tree.isSharedFolder">
+                <md-button ng-click="$ctrl.onSharedInfo($ctrl.tree)">
+                    מי שיתף איתי
+                </md-button>
+            </md-menu-item>
+            <md-menu-item ng-if="$ctrl.tree.isSharedFolder">
+                <md-button ng-click="$ctrl.onRemoveSharing($ctrl.tree)">
+                    הסר שיתוף
                 </md-button>
             </md-menu-item>
         </md-menu-content>

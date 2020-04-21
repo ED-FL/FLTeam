@@ -9,7 +9,8 @@ export class SearchTree implements ISearchTree {
               public parentFolderId: string, 
               public folders: ISearchTree[], 
               public tags: INewTag[],
-              public collapsed : boolean) {
+              public collapsed : boolean,
+              public isSharedFolder : boolean) {
   }
 }
 
@@ -46,9 +47,11 @@ export class NewTag implements INewTag {
         [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false), 
         new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false)]
         ,true
+        ,true
       )],
       [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false)]
-      ,true
+      ,true,
+      false
     ), new SearchTree(
       "2-2",
       "innerFolder-2-2",
@@ -56,8 +59,10 @@ export class NewTag implements INewTag {
       "1",
       [],
       [],
-      true
+      true,
+      false
     )],
     [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true)],
-    true
+    true,
+    false
   );
