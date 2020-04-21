@@ -1,6 +1,7 @@
 export interface ILayerListItem {
   displayName: string;
   isSelected: boolean;
+  isDisabled: boolean;
 }
 
 export interface ILayersListItems {
@@ -10,6 +11,7 @@ export interface ILayersListItems {
 export interface ISouceListItems {
   sourceName: string;
   isSourceSelected: boolean;
+  numSelectedLayers: number;
   canSelectAll: boolean;
   maxSelectedLayers?: number;
   layers?: ILayersListItems;

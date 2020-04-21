@@ -36,6 +36,7 @@ angular.module("app").service(
         isSourceSelected: false,
         canSelectAll: value.canSelectAll,
         maxSelectedLayers: value.maxSelectedLayers,
+        numSelectedLayers: 0,
         layers: this.convertLayersToListItems(value.layers),
       };
     }
@@ -48,6 +49,7 @@ angular.module("app").service(
 
         listItems[layer] = {
           isSelected: false,
+          isDisabled: false,
           displayName: value.displayName,
         };
       }

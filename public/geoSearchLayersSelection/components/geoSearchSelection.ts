@@ -51,7 +51,10 @@ angular.module("app").component("geoSearchSelection", {
         result.isAllSelected = false;
         result.layersIds = new Array<string>();
         for (let layerId in source.layers) {
-          result.layersIds.push(layerId);
+          let value = source.layers[layerId];
+          if (value.isSelected) {
+            result.layersIds.push(layerId);
+          }
         }
       }
       return result;
