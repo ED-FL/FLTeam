@@ -11,31 +11,37 @@
         <md-menu-content width="3">
             <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onFolderEdited($ctrl.tree)">
+                    <span class="material-icons action-icon">edit</span>
                     עריכה
                 </md-button>
             </md-menu-item>
             <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onFolderDeleted($ctrl.tree)">
-                    מחיקה
+                    <span class="material-icons action-icon">delete_outline</span>
+                        מחיקה
                 </md-button>
             </md-menu-item>
             <md-menu-item>
                 <md-button ng-click="$ctrl.onFolderShared($ctrl.tree)">
+                    <span class="material-icons action-icon">share</span>
                     שיתוף
                 </md-button>
             </md-menu-item>
             <md-menu-item>
                 <md-button ng-click="$ctrl.onFolderDuplicated($ctrl.tree)">
+                    <span class="material-icons action-icon">filter_none</span>
                     שכפול
                 </md-button>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onSharedInfo($ctrl.tree)">
+                    <span class="material-icons action-icon">info</span>
                     מי שיתף איתי
                 </md-button>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onRemoveSharing($ctrl.tree)">
+                    <span class="material-icons action-icon">remove_circle_outline</span>
                     הסר שיתוף
                 </md-button>
             </md-menu-item>
