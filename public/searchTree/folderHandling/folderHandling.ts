@@ -1,5 +1,6 @@
 import * as angular from "angular";
 import { deleteFolderAction } from "../actions/deleteFolderAction";
+import ISearchTree from "../ISearchTree";
 
 angular.module('app')
 .component('folderHandling', {
@@ -12,7 +13,7 @@ angular.module('app')
 
         var $ctrl = this;
 
-        $ctrl.onFolderClicked = (folder): void => {
+        $ctrl.onFolderClicked = (folder : ISearchTree): void => {
            // this.onFolderDeleted(folder);
             
             folder.folders.forEach(folder => {
@@ -24,13 +25,12 @@ angular.module('app')
             });
         };    
 
+        $ctrl.openMenu = ($mdMenu, event, currentFolder): void => {        
+            $mdMenu.open(event);
+        };
+
         $ctrl.onFolderDeleted = (folder): void => {                        
             this.handleAction(new deleteFolderAction(folder.folderId));
         };   
-
-        $ctrl.openMenu = ($mdMenu, ev, currentFolder): void => {        
-            console.log($mdMenu, ev, currentFolder);            
-            $mdMenu.open(ev);
-        };
     }
 })

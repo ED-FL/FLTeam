@@ -28,7 +28,7 @@
 </div>
 <ul>
     <li ng-repeat="folder in $ctrl.tree.folders track by folder.folderId" ng-hide="folder.collapsed">
-        <folder-handling tree="folder"></folder-handling>
+        <folder-handling tree="folder" handle-action="$ctrl.handleAction"></folder-handling>
     </li>
     <tags-handling tree="$ctrl.tree"></tags-handling>
 </ul>

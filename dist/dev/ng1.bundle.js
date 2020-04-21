@@ -949,12 +949,11 @@ angular.module('app')
                 tag.collapsed = !tag.collapsed;
             });
         };
+        $ctrl.openMenu = function ($mdMenu, event, currentFolder) {
+            $mdMenu.open(event);
+        };
         $ctrl.onFolderDeleted = function (folder) {
             _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
-        };
-        $ctrl.openMenu = function ($mdMenu, ev, currentFolder) {
-            console.log($mdMenu, ev, currentFolder);
-            $mdMenu.open(ev);
         };
     }
 });
@@ -983,7 +982,7 @@ exports.deleteFolderAction = deleteFolderAction;
 /* 200 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event, $ctrl.tree)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    מחק\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.rename()\">\r\n                    משהו אחר\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.duplicate()\">\r\n                    שכפל\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event, $ctrl.tree)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content width=\"3\">\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    מחק\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.rename()\">\r\n                    משהו אחר\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.duplicate()\">\r\n                    שכפל\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\"></tags-handling>\r\n</ul>";
 
 /***/ }),
 /* 201 */

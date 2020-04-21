@@ -6,7 +6,7 @@ angular.module("app")
 
 			element.bind('contextmenu', (event) => {                
 				$scope.$apply(() => {
-                    event.preventDefault();
+					event.preventDefault();
 					if(attrs.ngRightClick !== undefined){
                         var fn = $parse(attrs.ngRightClick);                      
 						fn($scope, {$event:event});
