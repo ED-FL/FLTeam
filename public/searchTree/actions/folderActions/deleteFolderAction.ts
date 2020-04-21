@@ -1,4 +1,4 @@
-import { ISearchTreeAction } from './ISearchTreeAction'
+import { ISearchTreeAction } from '../ISearchTreeAction'
 
 export class deleteFolderAction implements ISearchTreeAction {
     constructor(private folderId: number) {

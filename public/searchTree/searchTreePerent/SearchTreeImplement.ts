@@ -21,7 +21,9 @@ export class NewTag implements INewTag {
                 public extraInfo: IExtraInfo,
                 public type: string,
                 public parentFolderId: string,
-                public collapsed : boolean) {
+                public collapsed : boolean,
+                public isRule : boolean,
+                public isRuleStopped : boolean) {
       }
   }
 
@@ -41,11 +43,11 @@ export class NewTag implements INewTag {
         "yuval",
         "2-1",
         [],
-        [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true), 
-        new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true)]
+        [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false), 
+        new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false)]
         ,true
       )],
-      [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true)]
+      [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false)]
       ,true
     ), new SearchTree(
       "2-2",
@@ -56,6 +58,6 @@ export class NewTag implements INewTag {
       [],
       true
     )],
-    [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true)],
+    [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true)],
     true
   );

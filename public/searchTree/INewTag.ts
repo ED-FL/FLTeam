@@ -8,6 +8,8 @@ export interface INewTag {
     type: string;
     parentFolderId: string;
     collapsed : boolean;
+    isRule : boolean;
+    isRuleStopped : boolean;
 }
 
 export interface IExtraInfo {

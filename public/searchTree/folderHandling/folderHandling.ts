@@ -1,5 +1,8 @@
 import * as angular from "angular";
-import { deleteFolderAction } from "../actions/deleteFolderAction";
+import { editFolderAction } from "../actions/folderActions/editFolderAction";
+import { deleteFolderAction } from "../actions/folderActions/deleteFolderAction";
+import { shareFolderAction } from "../actions/folderActions/shareFolderAction";
+import { duplicateFolderAction } from "../actions/folderActions/duplicateFolderAction";
 import ISearchTree from "../ISearchTree";
 
 angular.module('app')
@@ -29,8 +32,20 @@ angular.module('app')
             $mdMenu.open(event);
         };
 
+        $ctrl.onFolderEdited = (folder): void => {
+            this.handleAction(new editFolderAction(folder.folderId));
+        }
+        
         $ctrl.onFolderDeleted = (folder): void => {                        
             this.handleAction(new deleteFolderAction(folder.folderId));
         };   
+
+        $ctrl.onFolderShared = (folder): void => {
+            this.handleAction(new shareFolderAction(folder.folderId));
+        }
+
+        $ctrl.onFolderDuplicated = (folder): void => {
+            this.handleAction(new duplicateFolderAction(folder.folderId));
+        }
     }
 })

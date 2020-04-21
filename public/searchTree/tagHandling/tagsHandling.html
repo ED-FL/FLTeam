@@ -1,5 +1,41 @@
-<span class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)"> {{$ctrl.tree.tagName}}</span> 
+<div ng-cloak>       
+    <md-menu>
+        <span class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)" ng-right-click="$ctrl.openMenu($mdMenu, $event, $ctrl.tree)"> {{$ctrl.tree.tagName}}</span> 
 
+        <md-menu-content width="3">
+            <md-menu-item>
+                <md-button ng-click="$ctrl.onTagEdited($ctrl.tree)">
+                    עריכה
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="$ctrl.onTagDeleted($ctrl.tree)">
+                     מחק
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
+                <md-button ng-click="$ctrl.onTagExported($ctrl.tree)">
+                    ייצוא לרמזור
+                </md-button>
+            </md-menu-item>
+            <md-menu-item ng-if="$ctrl.tree.isRule">
+                <md-checkbox ng-checked="$ctrl.checkBoxKML" ng-click="$ctrl.onKMLclicked($ctrl.tree)" aria-label="Checkbox 1">
+                        הצג ישויות
+                </md-checkbox>
+            </md-menu-item>
+            <md-menu-item ng-if="$ctrl.tree.isRule && $ctrl.tree.isRuleStopped">         
+                <span class="material-icons" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)">
+                    play_circle_filled
+                </span>
+            </md-menu-item>
+            <md-menu-item ng-if="$ctrl.tree.isRule && !$ctrl.tree.isRuleStopped">
+                <span class="material-icons" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)">
+                    pause_circle_filled
+                </span>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</div>
 <li ng-repeat="tag in $ctrl.tree.tags track by tag.tagId" ng-hide="tag.collapsed">
-    <tags-handling tree="tag"></tags-handling>
+    <tags-handling tree="tag" handle-action="$ctrl.handleAction"></tags-handling>
 </li>

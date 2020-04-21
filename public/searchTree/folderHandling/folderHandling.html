@@ -9,18 +9,23 @@
         </div>
         <md-menu-content width="3">
             <md-menu-item>
+                <md-button ng-click="$ctrl.onFolderEdited($ctrl.tree)">
+                    עריכה
+                </md-button>
+            </md-menu-item>
+            <md-menu-item>
                 <md-button ng-click="$ctrl.onFolderDeleted($ctrl.tree)">
-                    מחק
+                    מחיקה
                 </md-button>
             </md-menu-item>
             <md-menu-item>
-                <md-button ng-click="$ctrl.rename()">
-                    משהו אחר
+                <md-button ng-click="$ctrl.onFolderShared($ctrl.tree)">
+                    שיתוף
                 </md-button>
             </md-menu-item>
             <md-menu-item>
-                <md-button ng-click="$ctrl.duplicate()">
-                    שכפל
+                <md-button ng-click="$ctrl.onFolderDuplicated($ctrl.tree)">
+                    שכפול
                 </md-button>
             </md-menu-item>
         </md-menu-content>
@@ -30,5 +35,5 @@
     <li ng-repeat="folder in $ctrl.tree.folders track by folder.folderId" ng-hide="folder.collapsed">
         <folder-handling tree="folder" handle-action="$ctrl.handleAction"></folder-handling>
     </li>
-    <tags-handling tree="$ctrl.tree"></tags-handling>
+    <tags-handling tree="$ctrl.tree" handle-action="$ctrl.handleAction"></tags-handling>
 </ul>
