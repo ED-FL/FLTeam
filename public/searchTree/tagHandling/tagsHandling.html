@@ -1,6 +1,17 @@
 <div ng-cloak>       
     <md-menu>
-        <span class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)" ng-right-click="$ctrl.openMenu($mdMenu, $event)"> {{$ctrl.tree.tagName}}</span> 
+        <div class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)">  
+            <span ng-if="$ctrl.tree.tagName" class="material-icons menu-icon" ng-click="$ctrl.openMenu($mdMenu, $event)">more_vert</span>
+            <apan ng-if="$ctrl.tree.isRule">
+                <span ng-if="$ctrl.tree.isRuleStopped" class="material-icons play-icon" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)" title="הפעל חוק">
+                    play_circle_filled
+                </span>
+                <span ng-if="!$ctrl.tree.isRuleStopped" class="material-icons pause-icon" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)" title="הפסק חוק">
+                        pause_circle_filled
+                </span>
+            </apan>
+            {{$ctrl.tree.tagName}}
+        </div> 
 
         <md-menu-content>
             <md-menu-item>
@@ -25,14 +36,6 @@
                 <md-checkbox ng-checked="$ctrl.checkboxKML" ng-click="$ctrl.onDisplayKmlTag($ctrl.tree)" aria-label="checkboxKML">
                     הצג ישויות
                 </md-checkbox>
-            </md-menu-item>
-            <md-menu-item ng-if="$ctrl.tree.isRule">         
-                <span ng-if="$ctrl.tree.isRuleStopped" class="material-icons play-icon" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)" title="הפעל חוק">
-                    play_circle_filled
-                </span>
-                <span ng-if="!$ctrl.tree.isRuleStopped" class="material-icons pause-icon" ng-click="$ctrl.onTagRuleStoped($ctrl.tree)" title="הפסק חוק">
-                        pause_circle_filled
-                </span>
             </md-menu-item>
         </md-menu-content>
     </md-menu>

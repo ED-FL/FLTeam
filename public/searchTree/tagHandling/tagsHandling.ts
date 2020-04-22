@@ -23,8 +23,7 @@ angular.module('app')
         $ctrl.onTagClicked = (tag): void => {
             console.log('go to tag link: ', tag);  
         };
-
-        
+ 
         $ctrl.openMenu = ($mdMenu, event): void => {                    
             $mdMenu.open(event);
         };

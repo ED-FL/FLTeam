@@ -6,6 +6,7 @@
                 <span class="material-icons" ng-show="!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)">folder</span>
                 <span class="material-icons" ng-show="!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed">folder_open</span> 
                 {{$ctrl.tree.folderName}}
+                <span class="material-icons menu-icon" ng-click="$ctrl.openMenu($mdMenu, $event)">more_vert</span>
             </div>
         </div>
         <md-menu-content>
