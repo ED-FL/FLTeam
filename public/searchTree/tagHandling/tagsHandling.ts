@@ -48,10 +48,12 @@ angular.module('app')
 
         $ctrl.onTagRuleStarted = (tag) => {
             this.handleAction(new startRuleTagAction(tag.tagId));
+            tag.isRuleStopped = !tag.isRuleStopped;
         }
 
         $ctrl.onTagRuleStoped = (tag) => {
             this.handleAction(new stopRuleTagAction(tag.tagId));
+            tag.isRuleStopped = !tag.isRuleStopped;
         }
     }
 })
