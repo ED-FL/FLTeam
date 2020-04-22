@@ -16,9 +16,9 @@
                 </md-button>
             </md-menu-item>
             <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
-                <md-button ng-click="$ctrl.onFolderDeleted($ctrl.tree)">
+                <md-button ng-click="$ctrl.showDeleteConfirm($event, $ctrl.tree)">
                     <span class="material-icons action-icon">delete_outline</span>
-                        מחיקה
+                    מחיקה
                 </md-button>
             </md-menu-item>
             <md-menu-item>
@@ -40,8 +40,8 @@
                 </md-button>
             </md-menu-item>
             <md-menu-item ng-if="$ctrl.tree.isSharedFolder">
-                <md-button ng-click="$ctrl.onRemoveSharing($ctrl.tree)">
-                    <span class="material-icons action-icon">remove_circle_outline</span>
+                <md-button ng-click="$ctrl.showRemoveSharingConfirm($event, $ctrl.tree)">
+                    <span class="material-icons action-icon">delete_outline</span>
                     הסר שיתוף
                 </md-button>
             </md-menu-item>

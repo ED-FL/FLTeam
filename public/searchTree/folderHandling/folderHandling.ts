@@ -14,7 +14,7 @@ angular.module('app')
         tree : '=',
         handleAction: "="
     },
-    controller: function() {
+    controller: function($mdDialog) {
 
         var $ctrl = this;
 
@@ -33,13 +33,43 @@ angular.module('app')
             $mdMenu.open(event);
         };
 
+        $ctrl.showDeleteConfirm = (event, folder) => {            
+            var confirm = $mdDialog.confirm()
+                  .title('?האם אתה בטוח שברצונך למחוק את התיקייה')
+                  .textContent('כל התיקיות והתגים בתוך תיקייה זו ימחקו לצמיתות')
+                  .ok('מחק')
+                  .cancel('ביטול');
+        
+            $mdDialog.show(confirm).then(() => {
+                onFolderDeleted(folder);              
+            }, () => {
+            });
+        };
+
+        $ctrl.showRemoveSharingConfirm = (event, folder) => {            
+            var confirm = $mdDialog.confirm()
+                  .title('?האם אתה בטוח שברצונך להסיר שיתוף תיקייה ')
+                  .textContent('כל התיקיות והתגים בתוך תיקייה זו לא יהיו נגישים יותר')
+                  .ok('הסר שיתוף')
+                  .cancel('ביטול');
+        
+            $mdDialog.show(confirm).then(() => {
+                onRemoveSharing(folder);              
+            }, function() {
+            });
+        };
+
+        const onFolderDeleted = (folder): void => {                        
+            this.handleAction(new deleteFolderAction(folder.folderId));
+        };   
+        
+        const onRemoveSharing = (folder) => {
+            this.handleAction(new removeSharingFolderAction(folder.folderId));
+        }
+
         $ctrl.onFolderEdited = (folder): void => {
             this.handleAction(new editFolderAction(folder.folderId));
         }
-        
-        $ctrl.onFolderDeleted = (folder): void => {                        
-            this.handleAction(new deleteFolderAction(folder.folderId));
-        };   
 
         $ctrl.onFolderShared = (folder): void => {
             this.handleAction(new shareFolderAction(folder.folderId));
@@ -51,10 +81,6 @@ angular.module('app')
 
         $ctrl.onSharedInfo = (folder) => {
             this.handleAction(new sharingInfoFolderAction(folder.folderId))
-        }
-
-        $ctrl.onRemoveSharing = (folder) => {
-            this.handleAction(new removeSharingFolderAction(folder.folderId));
         }
     }
 })

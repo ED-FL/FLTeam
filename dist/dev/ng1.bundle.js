@@ -973,7 +973,7 @@ angular.module('app')
         tree: '=',
         handleAction: "="
     },
-    controller: function () {
+    controller: function ($mdDialog) {
         var _this = this;
         var $ctrl = this;
         $ctrl.onFolderClicked = function (folder) {
@@ -987,11 +987,36 @@ angular.module('app')
         $ctrl.openMenu = function ($mdMenu, event) {
             $mdMenu.open(event);
         };
+        $ctrl.showDeleteConfirm = function (event, folder) {
+            var confirm = $mdDialog.confirm()
+                .title('?האם אתה בטוח שברצונך למחוק את התיקייה')
+                .textContent('כל התיקיות והתגים בתוך תיקייה זו ימחקו לצמיתות')
+                .ok('מחק')
+                .cancel('ביטול');
+            $mdDialog.show(confirm).then(function () {
+                onFolderDeleted(folder);
+            }, function () {
+            });
+        };
+        $ctrl.showRemoveSharingConfirm = function (event, folder) {
+            var confirm = $mdDialog.confirm()
+                .title('?האם אתה בטוח שברצונך להסיר שיתוף תיקייה ')
+                .textContent('כל התיקיות והתגים בתוך תיקייה זו לא יהיו נגישים יותר')
+                .ok('הסר שיתוף')
+                .cancel('ביטול');
+            $mdDialog.show(confirm).then(function () {
+                onRemoveSharing(folder);
+            }, function () {
+            });
+        };
+        var onFolderDeleted = function (folder) {
+            _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
+        };
+        var onRemoveSharing = function (folder) {
+            _this.handleAction(new removeSharingFolderAction_1.removeSharingFolderAction(folder.folderId));
+        };
         $ctrl.onFolderEdited = function (folder) {
             _this.handleAction(new editFolderAction_1.editFolderAction(folder.folderId));
-        };
-        $ctrl.onFolderDeleted = function (folder) {
-            _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
         };
         $ctrl.onFolderShared = function (folder) {
             _this.handleAction(new shareFolderAction_1.shareFolderAction(folder.folderId));
@@ -1001,9 +1026,6 @@ angular.module('app')
         };
         $ctrl.onSharedInfo = function (folder) {
             _this.handleAction(new sharingInfoFolderAction_1.sharingInfoFolderAction(folder.folderId));
-        };
-        $ctrl.onRemoveSharing = function (folder) {
-            _this.handleAction(new removeSharingFolderAction_1.removeSharingFolderAction(folder.folderId));
         };
     }
 });
@@ -1127,7 +1149,7 @@ exports.sharingInfoFolderAction = sharingInfoFolderAction;
 /* 205 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder_shared</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderEdited($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">edit</span>\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderDeleted($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                        מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">share</span>\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">info</span>\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onRemoveSharing($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">remove_circle_outline</span>\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div id=\"open-menu-button\" class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\" ng-right-click=\"$ctrl.openMenu($mdMenu, $event)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder_shared</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n            </div>\r\n        </div>\r\n        <md-menu-content>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderEdited($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">edit</span>\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">share</span>\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">info</span>\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showRemoveSharingConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
 
 /***/ }),
 /* 206 */
