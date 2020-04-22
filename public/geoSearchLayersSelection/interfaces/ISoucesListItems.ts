@@ -1,16 +1,15 @@
-export interface ILayerListItem {
+export interface IListItem {
   displayName: string;
   isSelected: boolean;
   isDisabled: boolean;
 }
 
 export interface ILayersListItems {
-  [layerId: string]: ILayerListItem;
+  [layerId: string]: IListItem;
 }
 
 export interface ISouceListItems {
-  sourceName: string;
-  isSourceSelected: boolean;
+  sourceData: IListItem;
   numSelectedLayers: number;
   canSelectAll: boolean;
   maxSelectedLayers?: number;

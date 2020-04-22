@@ -27,17 +27,20 @@ angular.module("app").service(
     }
 
     private convertSourceToListItem(
-      source: string,
-      value: ISourceOption,
+      sourceId: string,
+      source: ISourceOption,
       listItemsSources: ISoucesListItems
     ) {
-      listItemsSources[source] = {
-        sourceName: value.sourceName,
-        isSourceSelected: false,
-        canSelectAll: value.canSelectAll,
-        maxSelectedLayers: value.maxSelectedLayers,
+      listItemsSources[sourceId] = {
+        sourceData: {
+          displayName: source.sourceName,
+          isSelected: false,
+          isDisabled: !source.canSelectAll,
+        },
+        canSelectAll: source.canSelectAll,
+        maxSelectedLayers: source.maxSelectedLayers,
         numSelectedLayers: 0,
-        layers: this.convertLayersToListItems(value.layers),
+        layers: this.convertLayersToListItems(source.layers),
       };
     }
 
@@ -48,9 +51,9 @@ angular.module("app").service(
         let value = layers[layer];
 
         listItems[layer] = {
+          displayName: value.displayName,
           isSelected: false,
           isDisabled: false,
-          displayName: value.displayName,
         };
       }
       return listItems;

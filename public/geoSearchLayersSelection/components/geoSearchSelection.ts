@@ -38,64 +38,83 @@ angular.module("app").component("geoSearchSelection", {
       let reasults: ISourcesSelectionsDict = {};
       for (let source in this.sources) {
         let value = this.sources[source];
-        reasults[source] = this.saveSource(value);
+        if (value.source.isSelected && value.canSelectAll) {
+          reasults[source] = this.saveAllLayers();
+        } else {
+          reasults[source] = this.saveSelectedLayers(value);
+        }
       }
       return reasults;
     }
 
-    private saveSource(source: ISouceListItems): ISourceSelection {
+    private saveAllLayers() {
       let result: ISourceSelection;
-      if (source.isSourceSelected && source.canSelectAll) {
-        result.isAllSelected = true;
-      } else {
-        result.isAllSelected = false;
-        result.layersIds = new Array<string>();
-        for (let layerId in source.layers) {
-          let value = source.layers[layerId];
-          if (value.isSelected) {
-            result.layersIds.push(layerId);
-          }
-        }
-      }
+      result.isAllSelected = true;
       return result;
     }
 
-    public onChangeAllSelections(selection: boolean) {
+    private saveSelectedLayers(source) {
+      let result: ISourceSelection;
+      result.isAllSelected = false;
+      result.layersIds = new Array<string>();
+      for (let layerId in source.layers) {
+        let value = source.layers[layerId];
+        if (value.isSelected) {
+          result.layersIds.push(layerId);
+        }
+      }
+
+      return result;
+    }
+
+    private onSingleLayerSelected(source: ISouceListItems, layerId: string) {
+      if (
+        source.maxSelectedLayers &&
+        source.maxSelectedLayers > source.numSelectedLayers
+      ) {
+        source.layers[layerId].isSelected = true;
+        source.numSelectedLayers++;
+      } else if (
+        source.maxSelectedLayers &&
+        source.maxSelectedLayers == source.numSelectedLayers
+      ) {
+        this.disableLayers(source, true);
+      }
+    }
+
+    private onSingleLayerUnSelected(source: ISouceListItems, layerId: string) {
+      source.layers[layerId].isSelected = false;
+      source.numSelectedLayers--;
+
+      if (
+        source.maxSelectedLayers &&
+        source.maxSelectedLayers > source.numSelectedLayers
+      ) {
+        this.disableLayers(source, false);
+      }
+    }
+
+    private disableLayers(source: ISouceListItems, disable: boolean) {
+      for (let layer in source.layers) {
+        let value = source.layers[layer];
+        if (!value.isSelected) value.isDisabled = disable;
+      }
+    }
+
+    private onAllSources(selection: boolean) {
       for (let sourceId in this.sources) {
-        this.changeSourceSelection(this.sources[sourceId], selection);
+        let source = this.sources[sourceId];
+        if (source.canSelectAll || !selection) {
+          source.sourceData.isSelected = selection;
+          this.onSource(source, selection);
+        }
       }
     }
 
-    private changeSourceSelection(
-      sources: ISouceListItems,
-      selection: boolean
-    ) {
-      sources.isSourceSelected = selection;
-      if (selection && !sources.canSelectAll) {
-        this.changeLayersSelection(
-          selection,
-          sources.layers,
-          sources.maxSelectedLayers
-        );
-      } else {
-        this.changeLayersSelection(selection, sources.layers);
-      }
-    }
-
-    private changeLayersSelection(
-      selection: boolean,
-      layers: ILayersListItems,
-      numElements?: number
-    ) {
-      if (numElements) {
-        for (let i = 0; i < numElements; i++) {
-          Object.values(layers)[i].isSelected = selection;
-        }
-      } else {
-        for (let layer in layers) {
-          let value = layers[layer];
-          value.isSelected = selection;
-        }
+    private onSource(source: ISouceListItems, selection: boolean) {
+      for (let layerId in source.layers) {
+        if (selection) this.onSingleLayerSelected(source, layerId);
+        else this.onSingleLayerUnSelected(source, layerId);
       }
     }
   },

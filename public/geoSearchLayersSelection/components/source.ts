@@ -4,54 +4,33 @@ import * as angular from "angular";
 angular.module("app").component("source", {
   templateUrl: "./source.html",
   bindings: {
-    sourceId: "<",
-    source: "=",
+    source: "<",
+    selectAll: "&",
+    selectLayer: "&",
+    unSelectLayer: "&",
   },
   controller: class SourceCtrl {
-    sourceId: string;
     source: ISouceListItems;
+    selectAll;
+    selectLayer;
+    unSelectLayer;
 
     constructor() {}
     $onInit() {}
 
-    public toggleAll() {}
-
-    private toggle(id, layer, event) {
-      if (this.source.layers[id].isSelected) {
-        this.unSelectedLayer(id);
+    public toggleAll() {
+      if (this.source.sourceData.isSelected) {
+        this.selectAll(this.source, false);
       } else {
-        this.selectedLayer(id);
+        this.selectAll(this.source, true);
       }
     }
 
-    private selectedLayer(layerId) {
-      this.source.layers[layerId].isSelected = true;
-      this.source.numSelectedLayers++;
-
-      if (
-        this.source.maxSelectedLayers &&
-        this.source.maxSelectedLayers == this.source.numSelectedLayers
-      ) {
-        this.disableLayers(true);
-      }
-    }
-
-    private unSelectedLayer(layerId) {
-      this.source.layers[layerId].isSelected = false;
-      this.source.numSelectedLayers--;
-
-      if (
-        this.source.maxSelectedLayers &&
-        this.source.maxSelectedLayers > this.source.numSelectedLayers
-      ) {
-        this.disableLayers(false);
-      }
-    }
-
-    private disableLayers(disable: boolean) {
-      for (let layer in this.source.layers) {
-        let value = this.source.layers[layer];
-        if (!value.isSelected) value.isDisabled = disable;
+    private toggle(layerId) {
+      if (this.source.layers[layerId].isSelected) {
+        this.unSelectLayer(this.source, layerId);
+      } else {
+        this.selectLayer(this.source, layerId);
       }
     }
   },

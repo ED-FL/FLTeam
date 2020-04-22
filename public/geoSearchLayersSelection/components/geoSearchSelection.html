@@ -17,8 +17,10 @@
 
   <div ng-repeat="(id,item) in $ctrl.sources">
     <source
-     source-id = "id"
-     source = "item"
+     source = "item",
+     select-all = "$ctrl.onSource",
+     select-layer = "$ctrl.onSingleLayerSelected",
+     un-select-layer = "$ctrl.onSingleLayerUnSelected"
     ></source>
   </div>
 
