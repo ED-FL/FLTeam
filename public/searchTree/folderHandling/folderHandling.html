@@ -11,7 +11,7 @@
         </div>
         <md-menu-content>
             <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
-                <md-button ng-click="$ctrl.onFolderEdited($ctrl.tree)">
+                <md-button ng-click="$ctrl.showEditFolderDialog($event, $ctrl.tree)">
                     <span class="material-icons action-icon">edit</span>
                     עריכה
                 </md-button>
@@ -45,6 +45,12 @@
                     <span class="material-icons action-icon">delete_outline</span>
                     הסר שיתוף
                 </md-button>
+            </md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
+                <md-button ng-click="$ctrl.showAddingFolderDialog($event, $ctrl.tree)">
+                    <span class="material-icons action-icon">add_circle_outline</span>
+                    הוספת תיקייה
+                  </md-button>
             </md-menu-item>
         </md-menu-content>
     </md-menu>

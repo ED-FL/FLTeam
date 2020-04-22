@@ -11,7 +11,7 @@ angular.module('app').component('searchTreePerent', {
     var $ctrl = this;
 
     $ctrl.handleAction = (action: ISearchTreeAction): void => {
-      action.visit();
+      return action.visit();
     };
 
   }

@@ -14,11 +14,45 @@ angular.module('app')
         tree : '=',
         handleAction : '='
     },
-    controller: function() {
+    controller: function($mdDialog) {
 
         var $ctrl = this;
 
         $ctrl.checkboxKML = false;
+
+        $ctrl.showEditTagDialog = (ev, folder) => {
+            var confirm = $mdDialog.prompt()
+              .title('הכנס שם חדש')
+              .placeholder('שם תגית')
+              .required(true)
+              .ok('עדכן שם')
+              .cancel('בטל');
+        
+            $mdDialog.show(confirm).then((result) => {
+                onTagEdited(folder, result);
+            })
+        };
+
+        $ctrl.showDeleteConfirm = (event, folder) => {            
+            var confirm = $mdDialog.confirm()
+                  .title('?האם אתה בטוח שברצונך למחוק את התגית')
+                  .textContent('התגית תמחק לצמיתות')
+                  .ok('מחק')
+                  .cancel('ביטול');
+        
+            $mdDialog.show(confirm).then(() => {
+                onTagDeleted(folder);              
+            });
+        };
+
+        const onTagEdited = (tag, newTagName) => {
+            let newTag = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));
+            updateTag(newTag);
+        }
+
+        const onTagDeleted = (tag) => {
+            $ctrl.handleAction(new deleteTagAction(tag.tagId));
+        }
 
         $ctrl.onTagClicked = (tag): void => {
             console.log('go to tag link: ', tag);  
@@ -27,14 +61,6 @@ angular.module('app')
         $ctrl.openMenu = ($mdMenu, event): void => {                    
             $mdMenu.open(event);
         };
-
-        $ctrl.onTagEdited = (tag) => {
-            this.handleAction(new editTagAction(tag.tagId));
-        }
-
-        $ctrl.onTagDeleted = (tag) => {
-            this.handleAction(new deleteTagAction(tag.tagId));
-        }
 
         $ctrl.onTagExported = (tag) => {
             this.handleAction(new exportTagAction(tag.tagId));
@@ -53,6 +79,10 @@ angular.module('app')
         $ctrl.onTagRuleStoped = (tag) => {
             this.handleAction(new stopRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
+        }
+
+        const updateTag = (newTag) => {
+            $ctrl.tree.tagName = newTag.tagName;
         }
     }
 })

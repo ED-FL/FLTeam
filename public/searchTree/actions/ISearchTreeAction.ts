@@ -1,3 +1,3 @@
 export interface ISearchTreeAction {
-    visit: () => void;
+    visit: () => any;
 }

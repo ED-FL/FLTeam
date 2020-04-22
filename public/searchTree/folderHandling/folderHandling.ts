@@ -5,6 +5,7 @@ import { shareFolderAction } from "../actions/folderActions/shareFolderAction";
 import { duplicateFolderAction } from "../actions/folderActions/duplicateFolderAction";
 import { removeSharingFolderAction } from "../actions/folderActions/removeSharingFolderAction";
 import { sharingInfoFolderAction } from "../actions/folderActions/sharingInfoFolderAction";
+import { addNewFolderAction } from "../actions/folderActions/addNewFolderAction";
 import ISearchTree from "../ISearchTree";
 
 angular.module('app')
@@ -42,22 +43,47 @@ angular.module('app')
         
             $mdDialog.show(confirm).then(() => {
                 onFolderDeleted(folder);              
-            }, () => {
             });
         };
 
         $ctrl.showRemoveSharingConfirm = (event, folder) => {            
             var confirm = $mdDialog.confirm()
                   .title('?האם אתה בטוח שברצונך להסיר שיתוף תיקייה ')
-                  .textContent('כל התיקיות והתגים בתוך תיקייה זו לא יהיו נגישים יותר')
+                  .textContent(' התיקיות והתגיות בתיקייה זו לא יהיו נגישים יותר')
                   .ok('הסר שיתוף')
                   .cancel('ביטול');
         
             $mdDialog.show(confirm).then(() => {
                 onRemoveSharing(folder);              
-            }, function() {
             });
         };
+
+        $ctrl.showAddingFolderDialog = (ev, folder) => {
+            var confirm = $mdDialog.prompt()
+              .title('הכנס שם תיקייה')
+              .placeholder('שם תיקייה')
+              .required(true)
+              .ok('צור תיקייה')
+              .cancel('בטל');
+        
+            $mdDialog.show(confirm).then((result) => {
+                onAddingFolder(folder, result);
+            });
+        };
+
+        $ctrl.showEditFolderDialog = (ev, folder) => {
+            var confirm = $mdDialog.prompt()
+              .title('הכנס שם חדש')
+              .placeholder('שם תיקייה')
+              .required(true)
+              .ok('עדכן שם')
+              .cancel('בטל');
+        
+            $mdDialog.show(confirm).then((result) => {
+                onFolderEdited(folder, result);
+            });
+        };
+
 
         const onFolderDeleted = (folder): void => {                        
             this.handleAction(new deleteFolderAction(folder.folderId));
@@ -67,8 +93,14 @@ angular.module('app')
             this.handleAction(new removeSharingFolderAction(folder.folderId));
         }
 
-        $ctrl.onFolderEdited = (folder): void => {
-            this.handleAction(new editFolderAction(folder.folderId));
+        const onAddingFolder = (folder, newFolderName) => {
+            console.log(folder, newFolderName)
+            this.handleAction(new addNewFolderAction(folder.folderId, newFolderName));
+        }
+
+        const onFolderEdited = (folder, newFolderName): void => {
+            console.log(folder, newFolderName);
+            this.handleAction(new editFolderAction(folder.folderId, newFolderName));
         }
 
         $ctrl.onFolderShared = (folder): void => {

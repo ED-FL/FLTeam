@@ -81,3 +81,7 @@ md-checkbox .md-icon {
 .tree-container li {
   margin-right: -20px;
 }
+
+.md-dialog-content {
+  text-align: right;
+}

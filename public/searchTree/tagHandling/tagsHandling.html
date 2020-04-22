@@ -15,13 +15,13 @@
 
         <md-menu-content>
             <md-menu-item>
-                <md-button ng-click="$ctrl.onTagEdited($ctrl.tree)">
-                    <span class="material-icons action-icon">edit</span>
-                    עריכה
-                </md-button>
+                    <md-button ng-click="$ctrl.showEditTagDialog($event, $ctrl.tree)">
+                        <span class="material-icons action-icon">edit</span>
+                        עריכה
+                    </md-button>
             </md-menu-item>
             <md-menu-item>
-                <md-button ng-click="$ctrl.onTagDeleted($ctrl.tree)">
+                <md-button ng-click="$ctrl.showDeleteConfirm($event, $ctrl.tree)">
                     <span class="material-icons action-icon">delete_outline</span>
                     מחיקה
                 </md-button>
