@@ -36,6 +36,9 @@ ul {
   vertical-align: top;
 }
 
+md-menu-content {
+  min-width: max-content;
+}
 md-menu-item>.md-button {
   text-align: right;
 }
@@ -54,6 +57,8 @@ md-checkbox .md-icon {
 }
 
 .material-icons.action-icon {
-  position: absolute;
+  float: left;
   left: 10px;
+  margin-right: 30px;
+  margin-top: 5px;
 }
