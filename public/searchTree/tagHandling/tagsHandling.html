@@ -1,6 +1,6 @@
 <div ng-cloak>       
     <md-menu>
-        <div class="tree-item" ng-click="$ctrl.onTagClicked($ctrl.tree)">  
+        <div class="tree-item">  
             <span ng-if="$ctrl.tree.tagName" class="material-icons menu-icon" ng-click="$ctrl.openMenu($mdMenu, $event)">more_vert</span>
             <apan ng-if="$ctrl.tree.isRule">
                 <span ng-if="$ctrl.tree.isRuleStopped" class="material-icons play-icon" ng-click="$ctrl.onTagRuleStarted($ctrl.tree)" title="הפעל חוק">
@@ -10,7 +10,7 @@
                         pause_circle_filled
                 </span>
             </apan>
-            {{$ctrl.tree.tagName}}
+            <div ng-click="$ctrl.onTagClicked($ctrl.tree)">{{$ctrl.tree.tagName}}</div> 
         </div> 
 
         <md-menu-content>
