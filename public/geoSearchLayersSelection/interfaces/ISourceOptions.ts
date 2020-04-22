@@ -9,6 +9,6 @@ export interface ISourceOption {
   layers: ILayerOption;
 }
 
-export interface ISourcesOptionsDict {
+export interface ISourcesOptions {
   [sourceId: string]: ISourceOption;
 }

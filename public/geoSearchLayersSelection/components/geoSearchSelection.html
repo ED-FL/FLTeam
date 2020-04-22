@@ -15,6 +15,11 @@
     </md-input-container>
   </div>
 
+  <div>
+  <md-button ng-click="$ctrl.onAllSources(false)">נקה בחירה</md-button>
+  <md-button ng-click="$ctrl.onAllSources(true)">בחר הכל</md-button>
+  </div>
+
   <div ng-repeat="(id,item) in $ctrl.sources">
     <source
      source = "item",
@@ -25,7 +30,6 @@
   </div>
 
   <div>
-    <md-button onclick="$ctrl.onSave()">שמור</md-button>
-    <md-button onclick="$ctrl.onChangeAllSelections(false)">נקה בחירה</md-button>
+    <md-button ng-click="$ctrl.onSave()">שמור</md-button>
   </div>
 </div>

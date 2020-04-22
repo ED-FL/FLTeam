@@ -1,4 +1,5 @@
-import { ISourcesOptionsDict } from "../interfaces/ISourceOptions";
+import { ISourcesOptions } from "../interfaces/ISourceOptions";
+import { ISourcesSelections } from "../interfaces/ISourceSelections";
 import * as angular from "angular";
 
 angular.module("app").service(
@@ -6,7 +7,7 @@ angular.module("app").service(
   class LayerSelectionService {
     constructor() {}
 
-    public getAllSources(): ISourcesOptionsDict {
+    public getAllSources(): ISourcesOptions {
       // get from server source and layers
       // get from config : canSelectAll , maxSelectedLayers
       let allSources = {
@@ -43,5 +44,7 @@ angular.module("app").service(
 
       return allSources;
     }
+
+    public geoSeachLayesrSelected(selection: ISourcesSelections) {}
   }
 );

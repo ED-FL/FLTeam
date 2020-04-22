@@ -1,8 +1,8 @@
-export interface ISourceSelection {
+export interface ISelection {
   isAllSelected: boolean;
   layersIds?: Array<string>;
 }
 
-export interface ISourcesSelectionsDict {
-  [sourceId: string]: ISourceSelection;
+export interface ISourcesSelections {
+  [sourceId: string]: ISelection;
 }

@@ -1,11 +1,10 @@
-import { ISourcesOptionsDict } from "../interfaces/ISourceOptions";
+import { ISourcesOptions } from "../interfaces/ISourceOptions";
 import {
-  ISourcesSelectionsDict,
-  ISourceSelection,
+  ISourcesSelections,
+  ISelection,
 } from "../interfaces/ISourceSelections";
 import {
   ISoucesListItems,
-  ILayersListItems,
   ISouceListItems,
 } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
@@ -30,41 +29,41 @@ angular.module("app").component("geoSearchSelection", {
     }
 
     private initAllSources(): ISoucesListItems {
-      let sources: ISourcesOptionsDict = this.selectionService.getAllSources();
+      let sources: ISourcesOptions = this.selectionService.getAllSources();
       return this.converterService.convertOptionsToListItems(sources);
     }
 
-    private onSave(): ISourcesSelectionsDict {
-      let reasults: ISourcesSelectionsDict = {};
-      for (let source in this.sources) {
-        let value = this.sources[source];
-        if (value.source.isSelected && value.canSelectAll) {
-          reasults[source] = this.saveAllLayers();
+    private onSave() {
+      let reasults: ISourcesSelections = {};
+      for (let sourceId in this.sources) {
+        let source = this.sources[sourceId];
+        if (source.sourceData.isSelected && source.canSelectAll) {
+          reasults[sourceId] = this.saveAllLayers();
         } else {
-          reasults[source] = this.saveSelectedLayers(value);
+          reasults[sourceId] = this.saveSelectedLayers(source);
         }
       }
-      return reasults;
+      this.selectionService.geoSeachLayesrSelected(reasults);
     }
 
-    private saveAllLayers() {
-      let result: ISourceSelection;
-      result.isAllSelected = true;
-      return result;
+    private saveAllLayers(): ISelection {
+      return {
+        isAllSelected: true,
+      };
     }
 
-    private saveSelectedLayers(source) {
-      let result: ISourceSelection;
-      result.isAllSelected = false;
-      result.layersIds = new Array<string>();
+    private saveSelectedLayers(source): ISelection {
+      let layersIds = new Array<string>();
       for (let layerId in source.layers) {
-        let value = source.layers[layerId];
-        if (value.isSelected) {
-          result.layersIds.push(layerId);
+        if (source.layers[layerId].isSelected) {
+          layersIds.push(layerId);
         }
       }
 
-      return result;
+      return {
+        isAllSelected: false,
+        layersIds: layersIds,
+      };
     }
 
     private onAllSources(selection: boolean) {
