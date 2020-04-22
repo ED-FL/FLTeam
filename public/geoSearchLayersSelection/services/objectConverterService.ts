@@ -1,5 +1,5 @@
 import {
-  ISourcesOptionsDict,
+  ISourcesOptions,
   ISourceOption,
   ILayerOption,
 } from "../interfaces/ISourceOptions";
@@ -15,7 +15,7 @@ angular.module("app").service(
     constructor() {}
 
     public convertOptionsToListItems(
-      sources: ISourcesOptionsDict
+      sources: ISourcesOptions
     ): ISoucesListItems {
       let listItemsSources: ISoucesListItems = {};
       for (let source in sources) {

@@ -5,12 +5,14 @@ angular.module("app").component("source", {
   templateUrl: "./source.html",
   bindings: {
     source: "<",
+    searchText: "<",
     selectAll: "&",
     selectLayer: "&",
     unSelectLayer: "&",
   },
   controller: class SourceCtrl {
     source: ISouceListItems;
+    searchText: string;
     selectAll;
     selectLayer;
     unSelectLayer;

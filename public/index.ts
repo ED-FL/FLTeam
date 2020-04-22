@@ -24,4 +24,5 @@ import "./components/zoomIn";
 import "./geoSearchLayersSelection/services/objectConverterService";
 import "./geoSearchLayersSelection/services/layerSelectionService";
 import "./geoSearchLayersSelection/components/source";
+import "./geoSearchLayersSelection/components/SelectionDialog";
 import "./geoSearchLayersSelection/components/geoSearchSelection";

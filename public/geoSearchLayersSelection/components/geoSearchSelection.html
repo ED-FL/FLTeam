@@ -1,35 +1,3 @@
-<div dir="rtl">
-  <div>
-    <div dir="ltr">
-      <md-button ng-click="$ctrl.cancel()">
-        <md-icon>close</md-icon>
-      </md-button>
-    </div>
-    <h3>בחירת שכבות לחיפוש גיאוגרפי</h3>
-  </div>
-
-  <div>
-    <md-input-container class="md-block" flex-gt-sm>
-      <label>חפש שכבה</label>
-      <input ng-model="$ctrl.searchText" />
-    </md-input-container>
-  </div>
-
-  <div>
-  <md-button ng-click="$ctrl.onAllSources(false)">נקה בחירה</md-button>
-  <md-button ng-click="$ctrl.onAllSources(true)">בחר הכל</md-button>
-  </div>
-
-  <div ng-repeat="(id,item) in $ctrl.sources">
-    <source
-     source = "item",
-     select-all = "$ctrl.onSource(source, selection)",
-     select-layer = "$ctrl.onSingleLayerSelected(source,layerId)",
-     un-select-layer = "$ctrl.onSingleLayerUnSelected(source,layerId)"
-    ></source>
-  </div>
-
-  <div>
-    <md-button ng-click="$ctrl.onSave()">שמור</md-button>
-  </div>
-</div>
+<md-button class="" ng-click="$ctrl.changeGeoSearchLayers($event)">
+  הגדרות חיפוש גיאוגרפי
+</md-button>
