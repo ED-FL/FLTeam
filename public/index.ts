@@ -25,4 +25,3 @@ import "./searchTree/searchTreePerent/searchTreePerent";
 import "./searchTree/searchTree/searchTree";
 import "./searchTree/folderHandling/folderHandling";
 import "./searchTree/tagHandling/tagsHandling";
-import "./searchTree/folderHandling/right-click-directive";
