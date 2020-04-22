@@ -67,17 +67,31 @@ angular.module("app").component("geoSearchSelection", {
       return result;
     }
 
+    private onAllSources(selection: boolean) {
+      for (let sourceId in this.sources) {
+        this.onSource(this.sources[sourceId], selection);
+      }
+    }
+
+    private onSource(source: ISouceListItems, selection: boolean) {
+      if (source.canSelectAll || !selection) {
+        source.sourceData.isSelected = selection;
+        for (let layerId in source.layers) {
+          if (selection) this.onSingleLayerSelected(source, layerId);
+          else this.onSingleLayerUnSelected(source, layerId);
+        }
+      }
+    }
+
     private onSingleLayerSelected(source: ISouceListItems, layerId: string) {
       if (
-        source.maxSelectedLayers &&
+        !source.maxSelectedLayers ||
         source.maxSelectedLayers > source.numSelectedLayers
       ) {
         source.layers[layerId].isSelected = true;
         source.numSelectedLayers++;
-      } else if (
-        source.maxSelectedLayers &&
-        source.maxSelectedLayers == source.numSelectedLayers
-      ) {
+      }
+      if (source.maxSelectedLayers == source.numSelectedLayers) {
         this.disableLayers(source, true);
       }
     }
@@ -95,26 +109,9 @@ angular.module("app").component("geoSearchSelection", {
     }
 
     private disableLayers(source: ISouceListItems, disable: boolean) {
-      for (let layer in source.layers) {
-        let value = source.layers[layer];
-        if (!value.isSelected) value.isDisabled = disable;
-      }
-    }
-
-    private onAllSources(selection: boolean) {
-      for (let sourceId in this.sources) {
-        let source = this.sources[sourceId];
-        if (source.canSelectAll || !selection) {
-          source.sourceData.isSelected = selection;
-          this.onSource(source, selection);
-        }
-      }
-    }
-
-    private onSource(source: ISouceListItems, selection: boolean) {
       for (let layerId in source.layers) {
-        if (selection) this.onSingleLayerSelected(source, layerId);
-        else this.onSingleLayerUnSelected(source, layerId);
+        let layer = source.layers[layerId];
+        if (!layer.isSelected) layer.isDisabled = disable;
       }
     }
   },

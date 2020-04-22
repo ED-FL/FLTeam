@@ -18,9 +18,9 @@
   <div ng-repeat="(id,item) in $ctrl.sources">
     <source
      source = "item",
-     select-all = "$ctrl.onSource",
-     select-layer = "$ctrl.onSingleLayerSelected",
-     un-select-layer = "$ctrl.onSingleLayerUnSelected"
+     select-all = "$ctrl.onSource(source, selection)",
+     select-layer = "$ctrl.onSingleLayerSelected(source,layerId)",
+     un-select-layer = "$ctrl.onSingleLayerUnSelected(source,layerId)"
     ></source>
   </div>
 

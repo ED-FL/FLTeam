@@ -20,17 +20,17 @@ angular.module("app").component("source", {
 
     public toggleAll() {
       if (this.source.sourceData.isSelected) {
-        this.selectAll(this.source, false);
+        this.selectAll({ source: this.source, selection: false });
       } else {
-        this.selectAll(this.source, true);
+        this.selectAll({ source: this.source, selection: true });
       }
     }
 
     private toggle(layerId) {
       if (this.source.layers[layerId].isSelected) {
-        this.unSelectLayer(this.source, layerId);
+        this.unSelectLayer({ source: this.source, layerId: layerId });
       } else {
-        this.selectLayer(this.source, layerId);
+        this.selectLayer({ source: this.source, layerId: layerId });
       }
     }
   },

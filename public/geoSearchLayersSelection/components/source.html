@@ -2,12 +2,17 @@
   <md-checkbox
     ng-disabled="$ctrl.source.sourceData.isDisabled"
     ng-click="$ctrl.toggleAll()"
+    ng-checked="$ctrl.source.sourceData.isSelected"
   >
     <span>{{$ctrl.source.sourceData.displayName}}</span>
   </md-checkbox>
 </div>
 <div ng-repeat="(id,value) in $ctrl.source.layers">
-  <md-checkbox ng-disabled="value.isDisabled" ng-click="$ctrl.toggle(id)">
-    {{ value.displayName }}
+  <md-checkbox
+    ng-disabled="value.isDisabled"
+    ng-click="$ctrl.toggle(id)"
+    ng-checked="value.isSelected"
+  >
+    <span> {{ value.displayName }}</span>
   </md-checkbox>
 </div>
