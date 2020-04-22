@@ -68,7 +68,21 @@ angular.module("app").component("geoSearchSelection", {
 
     private onAllSources(selection: boolean) {
       for (let sourceId in this.sources) {
-        this.onSource(this.sources[sourceId], selection);
+        let source = this.sources[sourceId];
+        if (source.maxSelectedLayers && selection) {
+          this.selectFirstLayers(source);
+        } else {
+          this.onSource(source, selection);
+        }
+      }
+    }
+
+    private selectFirstLayers(source: ISouceListItems) {
+      for (let i = 0; i < source.maxSelectedLayers; i++) {
+        let layerId = Object.keys(source.layers)[i];
+        if (!source.layers[layerId].isSelected) {
+          this.onSingleLayerSelected(source, layerId);
+        }
       }
     }
 
@@ -89,15 +103,16 @@ angular.module("app").component("geoSearchSelection", {
       ) {
         source.layers[layerId].isSelected = true;
         source.numSelectedLayers++;
-      }
-      if (source.maxSelectedLayers == source.numSelectedLayers) {
-        this.disableLayers(source, true);
+
+        if (source.maxSelectedLayers == source.numSelectedLayers) {
+          this.disableLayers(source, true);
+        }
       }
     }
 
     private onSingleLayerUnSelected(source: ISouceListItems, layerId: string) {
       source.layers[layerId].isSelected = false;
-      source.numSelectedLayers--;
+      if (source.numSelectedLayers > 0) source.numSelectedLayers--;
 
       if (
         source.maxSelectedLayers &&
