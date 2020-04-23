@@ -28,8 +28,8 @@ angular.module('app')
               .ok('עדכן שם')
               .cancel('בטל');
         
-            $mdDialog.show(confirm).then((result) => {
-                onTagEdited(folder, result);
+            $mdDialog.show(confirm).then((newTagName) => {
+                onTagEdited(folder, newTagName);
             })
         };
 
@@ -46,8 +46,11 @@ angular.module('app')
         };
 
         const onTagEdited = (tag, newTagName) => {
-            let newTag = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));
-            updateTag(newTag);
+            let newTagPromies = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));            
+            newTagPromies.then((tag) => {
+                updateTag(tag);
+                console.log("new on comp : ", tag);
+            })
         }
 
         const onTagDeleted = (tag) => {

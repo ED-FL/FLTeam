@@ -9,9 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var platform_browser_dynamic_1 = __webpack_require__(74);
 var static_1 = __webpack_require__(30);
 var app_module_1 = __webpack_require__(216);
-var nameParser_service_1 = __webpack_require__(81);
-var unreviewedTalk_component_1 = __webpack_require__(82);
-var profile_component_1 = __webpack_require__(83);
+var nameParser_service_1 = __webpack_require__(82);
+var unreviewedTalk_component_1 = __webpack_require__(83);
+var profile_component_1 = __webpack_require__(84);
 platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule).then(function (platformRef) {
     // downgrades
     angular.module('app').factory('nameParser', static_1.downgradeInjectable(nameParser_service_1.NameParser))
@@ -46,11 +46,11 @@ var platform_browser_1 = __webpack_require__(13);
 var forms_1 = __webpack_require__(80);
 var http_1 = __webpack_require__(75);
 var app_component_1 = __webpack_require__(217);
-var nameParser_service_1 = __webpack_require__(81);
-var unreviewedTalk_component_1 = __webpack_require__(82);
+var nameParser_service_1 = __webpack_require__(82);
+var unreviewedTalk_component_1 = __webpack_require__(83);
 var talkDuration_pipe_1 = __webpack_require__(219);
-var profile_component_1 = __webpack_require__(83);
-var toastr_service_1 = __webpack_require__(84);
+var profile_component_1 = __webpack_require__(84);
+var toastr_service_1 = __webpack_require__(85);
 var nav_component_1 = __webpack_require__(221);
 function getLocation(angularOneInjector) {
     return angularOneInjector.get('$location');
@@ -218,7 +218,7 @@ exports.NavComponent = NavComponent;
 
 /***/ }),
 
-/***/ 81:
+/***/ 82:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -256,7 +256,7 @@ exports.NameParser = NameParser;
 
 /***/ }),
 
-/***/ 82:
+/***/ 83:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -308,7 +308,7 @@ exports.UnreviewedTalkComponent = UnreviewedTalkComponent;
 
 /***/ }),
 
-/***/ 83:
+/***/ 84:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -327,7 +327,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var toastr_service_1 = __webpack_require__(84);
+var toastr_service_1 = __webpack_require__(85);
 var ProfileComponent = (function () {
     function ProfileComponent($location, currentIdentity, toastr) {
         this.$location = $location;
@@ -358,7 +358,7 @@ exports.ProfileComponent = ProfileComponent;
 
 /***/ }),
 
-/***/ 84:
+/***/ 85:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
