@@ -5,7 +5,8 @@ export class displayKMLTagAction implements ISearchTreeAction {
 
     }
 
-    visit(): void {
+    visit(): Promise<any> {
         console.log('tag kml displayd: ' + this.tagId);
+        return new Promise((res, rej) => {})
     }
 }

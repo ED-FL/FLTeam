@@ -960,9 +960,9 @@ angular.module('app').component('searchTreePerent', {
         $ctrl.handleAction = function (action) {
             console.log('handleAction functiom');
             return action.visit()
-                .then(function (data) {
-                _this.tree = data;
-                console.log('on perent: ', data);
+                .then(function (tree) {
+                _this.tree = tree;
+                console.log('on perent: ', tree);
             })
                 .catch(function (error) {
                 console.log('error - perent', error);
@@ -1032,7 +1032,6 @@ angular.module('app')
             });
         };
         $ctrl.openMenu = function ($mdMenu, event) {
-            console.log($ctrl.tree);
             $mdMenu.open(event);
         };
         $ctrl.showDeleteConfirm = function (event, folder) {
@@ -1078,7 +1077,7 @@ angular.module('app')
             }, function () { });
         };
         var onFolderDeleted = function (folder) {
-            _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
+            $ctrl.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
         };
         var onRemoveSharing = function (folder) {
             _this.handleAction(new removeSharingFolderAction_1.removeSharingFolderAction(folder.folderId));
@@ -1111,13 +1110,16 @@ angular.module('app')
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var searchFolderService_1 = __webpack_require__(224);
+var SearchTreeImplement_1 = __webpack_require__(81);
 var editFolderAction = (function () {
     function editFolderAction(folderId, newFolderName) {
         this.folderId = folderId;
         this.newFolderName = newFolderName;
     }
     editFolderAction.prototype.visit = function () {
-        console.log('folder edited: ' + this.folderId, this.newFolderName);
+        var searchService = new searchFolderService_1.searchFolderService(SearchTreeImplement_1.exampleObject);
+        return searchService.updateFolder(this.folderId, this.newFolderName);
     };
     return editFolderAction;
 }());
@@ -1131,12 +1133,15 @@ exports.editFolderAction = editFolderAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var SearchTreeImplement_1 = __webpack_require__(81);
+var searchFolderService_1 = __webpack_require__(224);
 var deleteFolderAction = (function () {
     function deleteFolderAction(folderId) {
         this.folderId = folderId;
     }
     deleteFolderAction.prototype.visit = function () {
-        console.log('folder deleted: ' + this.folderId);
+        var searchService = new searchFolderService_1.searchFolderService(SearchTreeImplement_1.exampleObject);
+        return searchService.deleteFolder(this.folderId);
     };
     return deleteFolderAction;
 }());
@@ -1156,6 +1161,7 @@ var shareFolderAction = (function () {
     }
     shareFolderAction.prototype.visit = function () {
         console.log('folder shared: ' + this.folderId);
+        return new Promise(function (res, rej) { });
     };
     return shareFolderAction;
 }());
@@ -1175,6 +1181,7 @@ var duplicateFolderAction = (function () {
     }
     duplicateFolderAction.prototype.visit = function () {
         console.log('folder duplicated: ' + this.folderId);
+        return new Promise(function (res, rej) { });
     };
     return duplicateFolderAction;
 }());
@@ -1194,6 +1201,7 @@ var removeSharingFolderAction = (function () {
     }
     removeSharingFolderAction.prototype.visit = function () {
         console.log('folder sharing removed: ' + this.folderId);
+        return new Promise(function (res, rej) { });
     };
     return removeSharingFolderAction;
 }());
@@ -1213,6 +1221,7 @@ var sharingInfoFolderAction = (function () {
     }
     sharingInfoFolderAction.prototype.visit = function () {
         console.log('folder sharing info: ' + this.folderId);
+        return new Promise(function (res, rej) { });
     };
     return sharingInfoFolderAction;
 }());
@@ -1226,13 +1235,16 @@ exports.sharingInfoFolderAction = sharingInfoFolderAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var SearchTreeImplement_1 = __webpack_require__(81);
+var searchFolderService_1 = __webpack_require__(224);
 var addNewFolderAction = (function () {
     function addNewFolderAction(folderId, newFolderName) {
         this.folderId = folderId;
         this.newFolderName = newFolderName;
     }
     addNewFolderAction.prototype.visit = function () {
-        console.log('folder added: ' + this.folderId, this.newFolderName);
+        var searchService = new searchFolderService_1.searchFolderService(SearchTreeImplement_1.exampleObject);
+        return searchService.addNewFolder(this.folderId, this.newFolderName);
     };
     return addNewFolderAction;
 }());
@@ -1380,6 +1392,7 @@ var exportTagAction = (function () {
     }
     exportTagAction.prototype.visit = function () {
         console.log('tag exported: ' + this.tagId);
+        return new Promise(function (res, rej) { });
     };
     return exportTagAction;
 }());
@@ -1399,6 +1412,7 @@ var displayKMLTagAction = (function () {
     }
     displayKMLTagAction.prototype.visit = function () {
         console.log('tag kml displayd: ' + this.tagId);
+        return new Promise(function (res, rej) { });
     };
     return displayKMLTagAction;
 }());
@@ -1418,6 +1432,7 @@ var startRuleTagAction = (function () {
     }
     startRuleTagAction.prototype.visit = function () {
         console.log('tag rule sterted: ' + this.tagId);
+        return new Promise(function (res, rej) { });
     };
     return startRuleTagAction;
 }());
@@ -1437,6 +1452,7 @@ var stopRuleTagAction = (function () {
     }
     stopRuleTagAction.prototype.visit = function () {
         console.log('tag rule stoped: ' + this.tagId);
+        return new Promise(function (res, rej) { });
     };
     return stopRuleTagAction;
 }());
@@ -1514,6 +1530,86 @@ var searchTagService = (function () {
     return searchTagService;
 }());
 exports.searchTagService = searchTagService;
+
+
+/***/ }),
+/* 224 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SearchTreeImplement_1 = __webpack_require__(81);
+var searchFolderService = (function () {
+    function searchFolderService(tree) {
+        this.tree = tree;
+    }
+    searchFolderService.prototype.updateFolder = function (id, newfolderName) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.findFolderById(id, _this.tree, newfolderName);
+            if (_this.isfolderFound) {
+                // update - server ?                       
+                resolve(_this.tree);
+            }
+            else {
+                reject('error- item not found');
+            }
+        });
+    };
+    searchFolderService.prototype.deleteFolder = function (id) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.findFolderById(id, _this.tree);
+            if (_this.isfolderFound) {
+                // delete - server ?          
+                resolve(_this.tree);
+            }
+            else {
+                reject('error- item not found');
+            }
+        });
+    };
+    searchFolderService.prototype.addNewFolder = function (id, newfolderName) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.findFolderById_add(id, _this.tree, newfolderName);
+            if (_this.isfolderFound) {
+                resolve(_this.tree);
+            }
+            else {
+                reject('error- item not found');
+            }
+        });
+    };
+    searchFolderService.prototype.findFolderById_add = function (id, tree, newfolderName) {
+        var _this = this;
+        tree.folders.forEach(function (folder, index, currentFolder) {
+            if (folder.folderId === id) {
+                _this.isfolderFound = true;
+                currentFolder.push(new SearchTreeImplement_1.SearchTree("adeed-1" + index, newfolderName, 'owner', id, [], [], false, false));
+            }
+            _this.findFolderById_add(id, folder, newfolderName);
+        });
+    };
+    searchFolderService.prototype.findFolderById = function (id, tree, newfolderName) {
+        var _this = this;
+        tree.folders.forEach(function (folder, index, currentFolder) {
+            if (folder.folderId === id) {
+                _this.isfolderFound = true;
+                if (newfolderName) {
+                    folder.folderName = newfolderName;
+                }
+                else {
+                    currentFolder.splice(index, 1);
+                }
+            }
+            _this.findFolderById(id, folder, newfolderName);
+        });
+    };
+    return searchFolderService;
+}());
+exports.searchFolderService = searchFolderService;
 
 
 /***/ })

@@ -5,7 +5,8 @@ export class shareFolderAction implements ISearchTreeAction {
 
     }
 
-    visit(): void {
+    visit(): Promise<any> {
         console.log('folder shared: ' + this.folderId);
+        return new Promise((res, rej) => {})
     }
 }

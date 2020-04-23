@@ -5,7 +5,8 @@ export class exportTagAction implements ISearchTreeAction {
 
     }
 
-    visit(): void {
+    visit(): Promise<any> {
         console.log('tag exported: ' + this.tagId);
+        return new Promise((res, rej) => {})
     }
 }

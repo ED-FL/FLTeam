@@ -31,7 +31,6 @@ angular.module('app')
         };    
 
         $ctrl.openMenu = ($mdMenu, event): void => {     
-            console.log($ctrl.tree);               
             $mdMenu.open(event);
         };
 
@@ -87,7 +86,7 @@ angular.module('app')
 
 
         const onFolderDeleted = (folder): void => {                        
-            this.handleAction(new deleteFolderAction(folder.folderId));
+            $ctrl.handleAction(new deleteFolderAction(folder.folderId));
         };   
         
         const onRemoveSharing = (folder) => {

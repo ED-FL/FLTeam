@@ -1,5 +1,4 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
-import { INewTag } from '../../INewTag';
 import { searchTagService } from './service/searchTagService';
 import { exampleObject } from '../../searchTreePerent/SearchTreeImplement';
 import ISearchTree from '../../ISearchTree';

@@ -5,7 +5,8 @@ export class startRuleTagAction implements ISearchTreeAction {
 
     }
 
-    visit(): void {
+    visit(): Promise<any> {
         console.log('tag rule sterted: ' + this.tagId);
+        return new Promise((res, rej) => {})
     }
 }

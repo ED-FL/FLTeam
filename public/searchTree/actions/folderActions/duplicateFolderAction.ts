@@ -5,7 +5,8 @@ export class duplicateFolderAction implements ISearchTreeAction {
 
     }
 
-    visit(): void {
+    visit(): Promise<any> {
         console.log('folder duplicated: ' + this.folderId);
+        return new Promise((res, rej) => {})
     }
 }

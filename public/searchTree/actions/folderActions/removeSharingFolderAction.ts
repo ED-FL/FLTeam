@@ -5,7 +5,8 @@ export class removeSharingFolderAction implements ISearchTreeAction {
 
     }
 
-    visit(): void {
+    visit(): Promise<any> {
         console.log('folder sharing removed: ' + this.folderId);
+        return new Promise((res, rej) => {})
     }
 }

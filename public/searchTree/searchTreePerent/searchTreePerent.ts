@@ -14,9 +14,9 @@ angular.module('app').component('searchTreePerent', {
       console.log('handleAction functiom');
       
       return action.visit()
-      .then((data) => {
-        this.tree = data;
-        console.log('on perent: ', data);
+      .then((tree) => {
+        this.tree = tree;
+        console.log('on perent: ', tree);
       })
       .catch((error) => {
         console.log('error - perent', error);
