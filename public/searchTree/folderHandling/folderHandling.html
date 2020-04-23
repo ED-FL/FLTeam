@@ -22,13 +22,13 @@
                     מחיקה
                 </md-button>
             </md-menu-item>
-            <md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onFolderShared($ctrl.tree)">
                     <span class="material-icons action-icon">share</span>
                     שיתוף
                 </md-button>
             </md-menu-item>
-            <md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
                 <md-button ng-click="$ctrl.onFolderDuplicated($ctrl.tree)">
                     <span class="material-icons action-icon">filter_none</span>
                     שכפול
