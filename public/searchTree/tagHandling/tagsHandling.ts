@@ -30,7 +30,7 @@ angular.module('app')
         
             $mdDialog.show(confirm).then((newTagName) => {
                 onTagEdited(folder, newTagName);
-            })
+            }, () => {})
         };
 
         $ctrl.showDeleteConfirm = (event, folder) => {            
@@ -42,7 +42,7 @@ angular.module('app')
         
             $mdDialog.show(confirm).then(() => {
                 onTagDeleted(folder);              
-            });
+            }, () => {});
         };
 
         const onTagEdited = (tag, newTagName) => {

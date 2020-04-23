@@ -997,7 +997,7 @@ angular.module('app')
                 .cancel('ביטול');
             $mdDialog.show(confirm).then(function () {
                 onFolderDeleted(folder);
-            });
+            }, function () { });
         };
         $ctrl.showRemoveSharingConfirm = function (event, folder) {
             var confirm = $mdDialog.confirm()
@@ -1007,7 +1007,7 @@ angular.module('app')
                 .cancel('ביטול');
             $mdDialog.show(confirm).then(function () {
                 onRemoveSharing(folder);
-            });
+            }, function () { });
         };
         $ctrl.showAddingFolderDialog = function (ev, folder) {
             var confirm = $mdDialog.prompt()
@@ -1018,7 +1018,7 @@ angular.module('app')
                 .cancel('בטל');
             $mdDialog.show(confirm).then(function (result) {
                 onAddingFolder(folder, result);
-            });
+            }, function () { });
         };
         $ctrl.showEditFolderDialog = function (ev, folder) {
             var confirm = $mdDialog.prompt()
@@ -1029,7 +1029,7 @@ angular.module('app')
                 .cancel('בטל');
             $mdDialog.show(confirm).then(function (result) {
                 onFolderEdited(folder, result);
-            });
+            }, function () { });
         };
         var onFolderDeleted = function (folder) {
             _this.handleAction(new deleteFolderAction_1.deleteFolderAction(folder.folderId));
@@ -1233,7 +1233,7 @@ angular.module('app')
                 .cancel('בטל');
             $mdDialog.show(confirm).then(function (newTagName) {
                 onTagEdited(folder, newTagName);
-            });
+            }, function () { });
         };
         $ctrl.showDeleteConfirm = function (event, folder) {
             var confirm = $mdDialog.confirm()
@@ -1243,7 +1243,7 @@ angular.module('app')
                 .cancel('ביטול');
             $mdDialog.show(confirm).then(function () {
                 onTagDeleted(folder);
-            });
+            }, function () { });
         };
         var onTagEdited = function (tag, newTagName) {
             var getNewTag = $ctrl.handleAction(new editTagAction_1.editTagAction(tag.tagId, newTagName));

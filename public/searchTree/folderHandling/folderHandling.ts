@@ -43,7 +43,7 @@ angular.module('app')
         
             $mdDialog.show(confirm).then(() => {
                 onFolderDeleted(folder);              
-            });
+            }, () => {});
         };
 
         $ctrl.showRemoveSharingConfirm = (event, folder) => {            
@@ -55,7 +55,7 @@ angular.module('app')
         
             $mdDialog.show(confirm).then(() => {
                 onRemoveSharing(folder);              
-            });
+            }, () => {});
         };
 
         $ctrl.showAddingFolderDialog = (ev, folder) => {
@@ -68,7 +68,7 @@ angular.module('app')
         
             $mdDialog.show(confirm).then((result) => {
                 onAddingFolder(folder, result);
-            });
+            }, () => {});
         };
 
         $ctrl.showEditFolderDialog = (ev, folder) => {
@@ -81,7 +81,7 @@ angular.module('app')
         
             $mdDialog.show(confirm).then((result) => {
                 onFolderEdited(folder, result);
-            });
+            }, () => {});
         };
 
 
