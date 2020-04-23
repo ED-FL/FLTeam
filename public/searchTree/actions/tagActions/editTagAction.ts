@@ -9,6 +9,6 @@ export class editTagAction implements ISearchTreeAction {
 
     visit(): Promise<ISearchTree> {
         let searchService = new searchTagService(exampleObject);
-        return searchService.actionOnTag(this.tagId, this.newTagName);
+        return searchService.updateTag(this.tagId, this.newTagName);
     }
 }

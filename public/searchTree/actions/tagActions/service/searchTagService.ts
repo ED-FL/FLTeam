@@ -6,9 +6,9 @@ export class searchTagService {
 
     constructor(private tree : ISearchTree) {}
 
-    public actionOnTag(id, newTagName) : Promise<ISearchTree> {
+    public updateTag(id, newTagName) : Promise<ISearchTree> {
         return new Promise((resolve, reject) => {
-            this.findTagById(id, newTagName, this.tree);
+            this.findTagById(id, this.tree, newTagName);
             if(this.isTagFound) {
                 // update - server ?                       
                 resolve(this.tree);  
@@ -19,9 +19,9 @@ export class searchTagService {
         });
     }
     
-    public deleteTag(id) : Promise<any> {
+    public deleteTag(id) : Promise<ISearchTree> {
         return new Promise((resolve, reject) => {
-            this.findTagById(id, undefined, this.tree);
+            this.findTagById(id, this.tree);
             if(this.isTagFound) {
                 // delete - server ?          
                 resolve(this.tree);  
@@ -32,8 +32,8 @@ export class searchTagService {
         });
     }
 
-    private findTagById(id, newTagName?, tree?) {
-        tree.tags.forEach((tag, index) => {
+    private findTagById(id, tree, newTagName?) {
+        tree.tags.forEach((tag, index, arr) => {
             if(tag.tagId === id) {
                 
                 this.isTagFound = true;
@@ -42,13 +42,13 @@ export class searchTagService {
                     tag.tagName = newTagName;
                 }
                 else {  
-                    this.tree.tags.splice(index, 1);
+                    arr.splice(index, 1);
                 }
             }
         });
     
         tree.folders.forEach(folder => {
-            this.findTagById(id, newTagName, folder);        
+            this.findTagById(id, folder, newTagName);        
         });
     
     }

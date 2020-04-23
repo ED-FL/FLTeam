@@ -1338,7 +1338,7 @@ var editTagAction = (function () {
     }
     editTagAction.prototype.visit = function () {
         var searchService = new searchTagService_1.searchTagService(SearchTreeImplement_1.exampleObject);
-        return searchService.actionOnTag(this.tagId, this.newTagName);
+        return searchService.updateTag(this.tagId, this.newTagName);
     };
     return editTagAction;
 }());
@@ -1468,10 +1468,10 @@ var searchTagService = (function () {
     function searchTagService(tree) {
         this.tree = tree;
     }
-    searchTagService.prototype.actionOnTag = function (id, newTagName) {
+    searchTagService.prototype.updateTag = function (id, newTagName) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.findTagById(id, newTagName, _this.tree);
+            _this.findTagById(id, _this.tree, newTagName);
             if (_this.isTagFound) {
                 // update - server ?                       
                 resolve(_this.tree);
@@ -1484,7 +1484,7 @@ var searchTagService = (function () {
     searchTagService.prototype.deleteTag = function (id) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.findTagById(id, undefined, _this.tree);
+            _this.findTagById(id, _this.tree);
             if (_this.isTagFound) {
                 // delete - server ?          
                 resolve(_this.tree);
@@ -1494,21 +1494,21 @@ var searchTagService = (function () {
             }
         });
     };
-    searchTagService.prototype.findTagById = function (id, newTagName, tree) {
+    searchTagService.prototype.findTagById = function (id, tree, newTagName) {
         var _this = this;
-        tree.tags.forEach(function (tag, index) {
+        tree.tags.forEach(function (tag, index, arr) {
             if (tag.tagId === id) {
                 _this.isTagFound = true;
                 if (newTagName) {
                     tag.tagName = newTagName;
                 }
                 else {
-                    _this.tree.tags.splice(index, 1);
+                    arr.splice(index, 1);
                 }
             }
         });
         tree.folders.forEach(function (folder) {
-            _this.findTagById(id, newTagName, folder);
+            _this.findTagById(id, folder, newTagName);
         });
     };
     return searchTagService;
