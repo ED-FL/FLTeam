@@ -46,10 +46,12 @@ angular.module('app')
         };
 
         const onTagEdited = (tag, newTagName) => {
-            let newTagPromies = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));            
-            newTagPromies.then((tag) => {
+            let getNewTag = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName)); 
+            getNewTag.then((tag) => {
                 updateTag(tag);
-                console.log("new on comp : ", tag);
+            })
+            .catch((error) => {
+                console.log(error);
             })
         }
 

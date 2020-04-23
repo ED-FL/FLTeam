@@ -1246,10 +1246,12 @@ angular.module('app')
             });
         };
         var onTagEdited = function (tag, newTagName) {
-            var newTagPromies = $ctrl.handleAction(new editTagAction_1.editTagAction(tag.tagId, newTagName));
-            newTagPromies.then(function (tag) {
+            var getNewTag = $ctrl.handleAction(new editTagAction_1.editTagAction(tag.tagId, newTagName));
+            getNewTag.then(function (tag) {
                 updateTag(tag);
-                console.log("new on comp : ", tag);
+            })
+                .catch(function (error) {
+                console.log(error);
             });
         };
         var onTagDeleted = function (tag) {
@@ -1291,40 +1293,15 @@ angular.module('app')
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(81);
+var searchTagService_1 = __webpack_require__(223);
 var editTagAction = (function () {
     function editTagAction(tagId, newTagName) {
         this.tagId = tagId;
         this.newTagName = newTagName;
     }
     editTagAction.prototype.visit = function () {
-        return this.getUpdatedTag(SearchTreeImplement_1.exampleObjectAfterAction, this.tagId);
-    };
-    editTagAction.prototype.getUpdatedTag = function (tree, id) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.findTagById(tree, id);
-            if (_this.foundTag) {
-                _this.foundTag.tagName = _this.newTagName;
-                resolve(_this.foundTag);
-            }
-            else {
-                reject('error-------');
-            }
-        });
-    };
-    editTagAction.prototype.findTagById = function (tree, id) {
-        var _this = this;
-        tree.tags.forEach(function (tag) {
-            if (tag.tagId === id) {
-                _this.foundTag = tag;
-                console.log('on loop: ', _this.foundTag);
-                console.log('finish loop');
-                return;
-            }
-        });
-        tree.folders.forEach(function (folder) {
-            _this.findTagById(folder, id);
-        });
+        var searchService = new searchTagService_1.searchTagService();
+        return searchService.getUpdatedTag(SearchTreeImplement_1.exampleObjectAfterAction, this.tagId, this.newTagName);
     };
     return editTagAction;
 }());
@@ -1431,6 +1408,53 @@ exports.stopRuleTagAction = stopRuleTagAction;
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"tree-item\">  \r\n            <span ng-if=\"$ctrl.tree.tagName\" class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            <apan ng-if=\"$ctrl.tree.isRule\">\r\n                <span ng-if=\"$ctrl.tree.isRuleStopped\" class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n                <span ng-if=\"!$ctrl.tree.isRuleStopped\" class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                        pause_circle_filled\r\n                </span>\r\n            </apan>\r\n            <div ng-click=\"$ctrl.onTagClicked($ctrl.tree)\">{{$ctrl.tree.tagName}}</div> \r\n        </div> \r\n\r\n        <md-menu-content>\r\n            <md-menu-item>\r\n                    <md-button ng-click=\"$ctrl.showEditTagDialog($event, $ctrl.tree)\">\r\n                        <span class=\"material-icons action-icon\">edit</span>\r\n                        עריכה\r\n                    </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">reply</span>\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
+
+/***/ }),
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var searchTagService = (function () {
+    function searchTagService() {
+    }
+    searchTagService.prototype.getUpdatedTag = function (tree, id, newTagName) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.findTagById(tree, id);
+            if (_this.foundTag) {
+                _this.foundTag.tagName = newTagName;
+                resolve(_this.foundTag);
+            }
+            else {
+                reject('error- item not found');
+            }
+        });
+    };
+    searchTagService.prototype.findTagById = function (tree, id) {
+        var _this = this;
+        tree.tags.forEach(function (tag) {
+            if (tag.tagId === id) {
+                _this.foundTag = tag;
+            }
+        });
+        tree.folders.forEach(function (folder) {
+            _this.findTagById(folder, id);
+        });
+    };
+    return searchTagService;
+}());
+exports.searchTagService = searchTagService;
+
 
 /***/ })
 ]),[158]);
