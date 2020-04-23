@@ -5,7 +5,7 @@ import { exportTagAction } from "../actions/tagActions/exportTagAction";
 import { displayKMLTagAction } from "../actions/tagActions/displayKMLTagAction";
 import { startRuleTagAction } from "../actions/tagActions/startRuleTagAction";
 import { stopRuleTagAction } from "../actions/tagActions/stopRuleTagAction";
-
+import { duplicteTagAction } from "../actions/tagActions/dupicateTagAction";
 
 angular.module('app')
 .component('tagsHandling', {
@@ -78,6 +78,10 @@ angular.module('app')
         $ctrl.onTagRuleStoped = (tag) => {
             this.handleAction(new stopRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
+        }
+
+        $ctrl.onTagDuplicated = (tag) => {
+            $ctrl.handleAction(new duplicteTagAction(tag.tagId));   
         }
     }
 })

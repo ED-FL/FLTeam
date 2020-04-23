@@ -26,6 +26,12 @@
                     מחיקה
                 </md-button>
             </md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedTag">
+                <md-button ng-click="$ctrl.onTagDuplicated($ctrl.tree)">
+                    <span class="material-icons action-icon">filter_none</span>
+                    שכפול
+                </md-button>
+            </md-menu-item>
             <md-menu-item>
                 <md-button ng-click="$ctrl.onTagExported($ctrl.tree)">
                     <span class="material-icons action-icon">reply</span>

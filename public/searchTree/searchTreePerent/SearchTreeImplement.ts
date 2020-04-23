@@ -3,14 +3,15 @@ import {INewTag, IExtraInfo} from "../INewTag";
 
 export class SearchTree implements ISearchTree {
 
-  constructor(public folderId : string, 
-              public folderName : string, 
+  constructor(public folderId: string, 
+              public folderName: string, 
               public owner: string, 
               public parentFolderId: string, 
               public folders: ISearchTree[], 
               public tags: INewTag[],
-              public collapsed : boolean,
-              public isSharedFolder : boolean) {
+              public collapsed: boolean,
+              public isSharedFolder: boolean, 
+              public isMainTree: boolean) {
   }
 }
 
@@ -50,9 +51,11 @@ export class NewTag implements INewTag {
         new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false, true)]
         ,true
         ,true
+        ,false
       )],
       [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true, false)]
       ,true,
+      false,
       false
     ), new SearchTree(
       "2-2",
@@ -62,11 +65,13 @@ export class NewTag implements INewTag {
       [],
       [],
       true,
+      false,
       false
     )],
     [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true, false)],
     true,
-    false
+    false,
+    true
   );
 
   // export const exampleObjectAfterAction = new SearchTree(

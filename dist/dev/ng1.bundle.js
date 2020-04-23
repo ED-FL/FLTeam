@@ -39,7 +39,7 @@ module.exports = angular;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTree = (function () {
-    function SearchTree(folderId, folderName, owner, parentFolderId, folders, tags, collapsed, isSharedFolder) {
+    function SearchTree(folderId, folderName, owner, parentFolderId, folders, tags, collapsed, isSharedFolder, isMainTree) {
         this.folderId = folderId;
         this.folderName = folderName;
         this.owner = owner;
@@ -48,6 +48,7 @@ var SearchTree = (function () {
         this.tags = tags;
         this.collapsed = collapsed;
         this.isSharedFolder = isSharedFolder;
+        this.isMainTree = isMainTree;
     }
     return SearchTree;
 }());
@@ -70,7 +71,7 @@ var NewTag = (function () {
 }());
 exports.NewTag = NewTag;
 exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false, false, true),
-            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false, true)], true, true)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true, false)], true, false), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true, false)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true, false)], true, false);
+            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false, true)], true, true, false)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true, false)], true, false, false), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true, false, false)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true, false)], true, false, true);
 // export const exampleObjectAfterAction = new SearchTree(
 //   "1",
 //   "mainFolder-1",
@@ -1014,6 +1015,8 @@ var duplicateFolderAction_1 = __webpack_require__(202);
 var removeSharingFolderAction_1 = __webpack_require__(203);
 var sharingInfoFolderAction_1 = __webpack_require__(204);
 var addNewFolderAction_1 = __webpack_require__(205);
+var removeAllLayersFolderAction_1 = __webpack_require__(226);
+var addNewTagFolderAction_1 = __webpack_require__(227);
 angular.module('app')
     .component('folderHandling', {
     template: __webpack_require__(206),
@@ -1066,6 +1069,17 @@ angular.module('app')
                 onAddingFolder(folder, result);
             }, function () { });
         };
+        $ctrl.showAddingTagDialog = function (ev, folder) {
+            var confirm = $mdDialog.prompt()
+                .title('הכנס שם תגית')
+                .placeholder('שם תגית')
+                .required(true)
+                .ok('צור תגית')
+                .cancel('בטל');
+            $mdDialog.show(confirm).then(function (result) {
+                onAddingTag(folder, result);
+            }, function () { });
+        };
         $ctrl.showEditFolderDialog = function (ev, folder) {
             var confirm = $mdDialog.prompt()
                 .title('הכנס שם חדש')
@@ -1091,6 +1105,9 @@ angular.module('app')
             console.log(folder, newFolderName);
             _this.handleAction(new editFolderAction_1.editFolderAction(folder.folderId, newFolderName));
         };
+        var onAddingTag = function (folder, newTagName) {
+            $ctrl.handleAction(new addNewTagFolderAction_1.addNewTagFolderAction(folder.folderId, newTagName));
+        };
         $ctrl.onFolderShared = function (folder) {
             _this.handleAction(new shareFolderAction_1.shareFolderAction(folder.folderId));
         };
@@ -1099,6 +1116,9 @@ angular.module('app')
         };
         $ctrl.onSharedInfo = function (folder) {
             _this.handleAction(new sharingInfoFolderAction_1.sharingInfoFolderAction(folder.folderId));
+        };
+        $ctrl.removeAllLayers = function (folder) {
+            $ctrl.handleAction(new removeAllLayersFolderAction_1.removeAllLayersFolderAction(folder.folderId));
         };
     }
 });
@@ -1256,7 +1276,7 @@ exports.addNewFolderAction = addNewFolderAction;
 /* 206 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder_shared</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n                <span class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            </div>\r\n        </div>\r\n        <md-menu-content>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showEditFolderDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">edit</span>\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">share</span>\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">info</span>\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showRemoveSharingConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showAddingFolderDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">add_circle_outline</span>\r\n                    הוספת תיקייה\r\n                  </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder_shared</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n                <span class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            </div>\r\n        </div>\r\n        <md-menu-content>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree\">\r\n                <md-button ng-click=\"$ctrl.showEditFolderDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">edit</span>\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree\">\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">share</span>\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree\">\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">info</span>\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showRemoveSharingConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showAddingFolderDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">add_circle_outline</span>\r\n                    הוספת תיקייה\r\n                  </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showAddingTagDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">local_offer</span>\r\n                    הוספת תגית\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.removeAllLayers($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete</span>\r\n                    הסר את כל השכבות מהמפה\r\n                    </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
 
 /***/ }),
 /* 207 */
@@ -1272,6 +1292,7 @@ var exportTagAction_1 = __webpack_require__(210);
 var displayKMLTagAction_1 = __webpack_require__(211);
 var startRuleTagAction_1 = __webpack_require__(212);
 var stopRuleTagAction_1 = __webpack_require__(213);
+var dupicateTagAction_1 = __webpack_require__(225);
 angular.module('app')
     .component('tagsHandling', {
     template: __webpack_require__(214),
@@ -1330,6 +1351,9 @@ angular.module('app')
         $ctrl.onTagRuleStoped = function (tag) {
             _this.handleAction(new stopRuleTagAction_1.stopRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
+        };
+        $ctrl.onTagDuplicated = function (tag) {
+            $ctrl.handleAction(new dupicateTagAction_1.duplicteTagAction(tag.tagId));
         };
     }
 });
@@ -1464,7 +1488,7 @@ exports.stopRuleTagAction = stopRuleTagAction;
 /* 214 */
 /***/ (function(module, exports) {
 
-module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"tree-item\">  \r\n            <span ng-if=\"$ctrl.tree.tagName && !$ctrl.tree.isSharedTag\" class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            <apan ng-if=\"$ctrl.tree.isRule\">\r\n                <span ng-if=\"$ctrl.tree.isRuleStopped\" class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n                <span ng-if=\"!$ctrl.tree.isRuleStopped\" class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                        pause_circle_filled\r\n                </span>\r\n            </apan>\r\n            <div ng-click=\"$ctrl.onTagClicked($ctrl.tree)\">{{$ctrl.tree.tagName}}</div> \r\n        </div> \r\n\r\n        <md-menu-content>\r\n            <md-menu-item>\r\n                    <md-button ng-click=\"$ctrl.showEditTagDialog($event, $ctrl.tree)\">\r\n                        <span class=\"material-icons action-icon\">edit</span>\r\n                        עריכה\r\n                    </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">reply</span>\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
+module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"tree-item\">  \r\n            <span ng-if=\"$ctrl.tree.tagName && !$ctrl.tree.isSharedTag\" class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            <apan ng-if=\"$ctrl.tree.isRule\">\r\n                <span ng-if=\"$ctrl.tree.isRuleStopped\" class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n                <span ng-if=\"!$ctrl.tree.isRuleStopped\" class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                        pause_circle_filled\r\n                </span>\r\n            </apan>\r\n            <div ng-click=\"$ctrl.onTagClicked($ctrl.tree)\">{{$ctrl.tree.tagName}}</div> \r\n        </div> \r\n\r\n        <md-menu-content>\r\n            <md-menu-item>\r\n                    <md-button ng-click=\"$ctrl.showEditTagDialog($event, $ctrl.tree)\">\r\n                        <span class=\"material-icons action-icon\">edit</span>\r\n                        עריכה\r\n                    </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedTag\">\r\n                <md-button ng-click=\"$ctrl.onTagDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">reply</span>\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
 
 /***/ }),
 /* 215 */,
@@ -1588,7 +1612,7 @@ var searchFolderService = (function () {
         tree.folders.forEach(function (folder, index, currentFolder) {
             if (folder.folderId === id) {
                 _this.isfolderFound = true;
-                currentFolder.push(new SearchTreeImplement_1.SearchTree("adeed-1" + index, newfolderName, 'owner', id, [], [], false, false));
+                currentFolder.push(new SearchTreeImplement_1.SearchTree("adeed-1" + index, newfolderName, 'owner', id, [], [], false, false, false));
             }
             _this.findFolderById_add(id, folder, newfolderName);
         });
@@ -1611,6 +1635,73 @@ var searchFolderService = (function () {
     return searchFolderService;
 }());
 exports.searchFolderService = searchFolderService;
+
+
+/***/ }),
+/* 225 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var duplicteTagAction = (function () {
+    function duplicteTagAction(tagId) {
+        this.tagId = tagId;
+    }
+    duplicteTagAction.prototype.visit = function () {
+        console.log('tag duplicted: ' + this.tagId);
+        return new Promise(function (res, rej) { });
+    };
+    return duplicteTagAction;
+}());
+exports.duplicteTagAction = duplicteTagAction;
+
+
+/***/ }),
+/* 226 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SearchTreeImplement_1 = __webpack_require__(81);
+var searchFolderService_1 = __webpack_require__(224);
+var removeAllLayersFolderAction = (function () {
+    function removeAllLayersFolderAction(folderId) {
+        this.folderId = folderId;
+    }
+    removeAllLayersFolderAction.prototype.visit = function () {
+        console.log('removeAllLayersFolderAction: ', this.folderId);
+        var searchService = new searchFolderService_1.searchFolderService(SearchTreeImplement_1.exampleObject);
+        return new Promise(function (res, rej) { });
+    };
+    return removeAllLayersFolderAction;
+}());
+exports.removeAllLayersFolderAction = removeAllLayersFolderAction;
+
+
+/***/ }),
+/* 227 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var SearchTreeImplement_1 = __webpack_require__(81);
+var searchFolderService_1 = __webpack_require__(224);
+var addNewTagFolderAction = (function () {
+    function addNewTagFolderAction(folderId, newTagName) {
+        this.folderId = folderId;
+        this.newTagName = newTagName;
+    }
+    addNewTagFolderAction.prototype.visit = function () {
+        console.log('addNewTagFolderAction: ', this.folderId, '-new name- ', this.newTagName);
+        var searchService = new searchFolderService_1.searchFolderService(SearchTreeImplement_1.exampleObject);
+        return new Promise(function (res, rej) { });
+    };
+    return addNewTagFolderAction;
+}());
+exports.addNewTagFolderAction = addNewTagFolderAction;
 
 
 /***/ })

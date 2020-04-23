@@ -10,13 +10,13 @@
             </div>
         </div>
         <md-menu-content>
-            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree">
                 <md-button ng-click="$ctrl.showEditFolderDialog($event, $ctrl.tree)">
                     <span class="material-icons action-icon">edit</span>
                     עריכה
                 </md-button>
             </md-menu-item>
-            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree">
                 <md-button ng-click="$ctrl.showDeleteConfirm($event, $ctrl.tree)">
                     <span class="material-icons action-icon">delete_outline</span>
                     מחיקה
@@ -28,7 +28,7 @@
                     שיתוף
                 </md-button>
             </md-menu-item>
-            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree">
                 <md-button ng-click="$ctrl.onFolderDuplicated($ctrl.tree)">
                     <span class="material-icons action-icon">filter_none</span>
                     שכפול
@@ -51,6 +51,18 @@
                     <span class="material-icons action-icon">add_circle_outline</span>
                     הוספת תיקייה
                   </md-button>
+            </md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
+                <md-button ng-click="$ctrl.showAddingTagDialog($event, $ctrl.tree)">
+                    <span class="material-icons action-icon">local_offer</span>
+                    הוספת תגית
+                </md-button>
+            </md-menu-item>
+            <md-menu-item ng-if="!$ctrl.tree.isSharedFolder">
+                <md-button ng-click="$ctrl.removeAllLayers($ctrl.tree)">
+                    <span class="material-icons action-icon">delete</span>
+                    הסר את כל השכבות מהמפה
+                    </md-button>
             </md-menu-item>
         </md-menu-content>
     </md-menu>

@@ -52,7 +52,7 @@ export class searchFolderService {
             if(folder.folderId === id) {
                 
                 this.isfolderFound = true;
-                currentFolder.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], false, false));
+                currentFolder.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], false, false, false));
             }
             this.findFolderById_add(id, folder, newfolderName);        
         });

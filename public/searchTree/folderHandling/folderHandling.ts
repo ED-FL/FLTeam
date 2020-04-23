@@ -7,6 +7,8 @@ import { removeSharingFolderAction } from "../actions/folderActions/removeSharin
 import { sharingInfoFolderAction } from "../actions/folderActions/sharingInfoFolderAction";
 import { addNewFolderAction } from "../actions/folderActions/addNewFolderAction";
 import ISearchTree from "../ISearchTree";
+import { removeAllLayersFolderAction } from "../actions/folderActions/removeAllLayersFolderAction";
+import { addNewTagFolderAction } from "../actions/folderActions/addNewTagFolderAction";
 
 angular.module('app')
 .component('folderHandling', {
@@ -71,6 +73,19 @@ angular.module('app')
             }, () => {});
         };
 
+        $ctrl.showAddingTagDialog = (ev, folder) => {
+            var confirm = $mdDialog.prompt()
+              .title('הכנס שם תגית')
+              .placeholder('שם תגית')
+              .required(true)
+              .ok('צור תגית')
+              .cancel('בטל');
+        
+            $mdDialog.show(confirm).then((result) => {
+                onAddingTag(folder, result);
+            }, () => {});
+        };
+
         $ctrl.showEditFolderDialog = (ev, folder) => {
             var confirm = $mdDialog.prompt()
               .title('הכנס שם חדש')
@@ -103,6 +118,10 @@ angular.module('app')
             this.handleAction(new editFolderAction(folder.folderId, newFolderName));
         }
 
+        const onAddingTag = (folder, newTagName) => {
+            $ctrl.handleAction(new addNewTagFolderAction(folder.folderId, newTagName))
+        }
+
         $ctrl.onFolderShared = (folder): void => {
             this.handleAction(new shareFolderAction(folder.folderId));
         }
@@ -113,6 +132,10 @@ angular.module('app')
 
         $ctrl.onSharedInfo = (folder) => {
             this.handleAction(new sharingInfoFolderAction(folder.folderId))
+        }
+
+        $ctrl.removeAllLayers = (folder) => {
+            $ctrl.handleAction(new removeAllLayersFolderAction(folder.folderId))
         }
     }
 })

@@ -9,6 +9,7 @@ export interface ISearchTree {
     tags: INewTag[];
     collapsed : boolean;
     isSharedFolder: boolean;
+    isMainTree : boolean;
 }
 
 export default ISearchTree;
