@@ -11,6 +11,7 @@ export interface INewTag {
     isRule : boolean;
     isRuleStopped : boolean;
     hasKml : boolean;
+    isSharedTag : boolean;
 }
 
 export interface IExtraInfo {
