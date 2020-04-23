@@ -1,4 +1,5 @@
 import ISearchTree from "../../../ISearchTree";
+import { typesActionTag } from "./typesActionTag";
 
 export class searchTagService {
     
@@ -6,50 +7,41 @@ export class searchTagService {
 
     constructor(private tree : ISearchTree) {}
 
-    public updateTag(id, newTagName) : Promise<ISearchTree> {
+    public executeAction(id, tree, actionType ,newTagName?) : Promise<ISearchTree>  {
         return new Promise((resolve, reject) => {
-            this.findTagById(id, this.tree, newTagName);
+            this.updateTree(id, tree, actionType ,newTagName)
+          
             if(this.isTagFound) {
-                // update - server ?                       
                 resolve(this.tree);  
             }
             else {
                 reject('error- item not found')
-            }
-        });
-    }
-    
-    public deleteTag(id) : Promise<ISearchTree> {
-        return new Promise((resolve, reject) => {
-            this.findTagById(id, this.tree);
-            if(this.isTagFound) {
-                // delete - server ?          
-                resolve(this.tree);  
-            }
-            else {
-                reject('error- item not found')
-            }
+            }       
         });
     }
 
-    private findTagById(id, tree, newTagName?) {
-        tree.tags.forEach((tag, index, arr) => {
-            if(tag.tagId === id) {
-                
+    private updateTree(id, tree, actionType ,newTagName?) {
+        tree.tags.forEach((tag, index, currentTags) => {
+            if(tag.tagId === id) {         
                 this.isTagFound = true;
+                switch (actionType) {
+                    case typesActionTag.Edit:
+                        tag.tagName = newTagName;      
+                        break;
+                    case typesActionTag.Delete:
+                        currentTags.splice(index, 1);
+                        break;
+                    default:
+                        console.log('actionType no match: ', actionType);
+                        break;
+                    }
+                }
 
-                if (newTagName) {
-                    tag.tagName = newTagName;
-                }
-                else {  
-                    arr.splice(index, 1);
-                }
+            if(!this.isTagFound) {
+                tree.folders.forEach(folder => {
+                    this.updateTree(id, folder, actionType, newTagName);        
+                });            
             }
         });
-    
-        tree.folders.forEach(folder => {
-            this.findTagById(id, folder, newTagName);        
-        });
-    
     }
 }

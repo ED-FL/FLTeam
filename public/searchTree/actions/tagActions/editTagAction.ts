@@ -2,6 +2,7 @@ import { ISearchTreeAction } from '../ISearchTreeAction'
 import { exampleObject } from '../../searchTreePerent/SearchTreeImplement';
 import { searchTagService } from "./service/searchTagService";
 import ISearchTree from '../../ISearchTree';
+import { typesActionTag } from './service/typesActionTag';
 
 export class editTagAction implements ISearchTreeAction {
     
@@ -9,6 +10,6 @@ export class editTagAction implements ISearchTreeAction {
 
     visit(): Promise<ISearchTree> {
         let searchService = new searchTagService(exampleObject);
-        return searchService.updateTag(this.tagId, this.newTagName);
+        return searchService.executeAction(this.tagId, exampleObject, typesActionTag.Edit ,this.newTagName)
     }
 }

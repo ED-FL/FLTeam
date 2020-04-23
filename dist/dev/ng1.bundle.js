@@ -80,7 +80,7 @@ var searchFolderService = (function () {
                 _this.mainTreeHandler(id, tree, actionType, newfolderName);
                 return;
             }
-            _this.recurciveFunction(id, tree, actionType, newfolderName);
+            _this.updateTree(id, tree, actionType, newfolderName);
             if (_this.isfolderFound) {
                 resolve(_this.tree);
             }
@@ -89,7 +89,7 @@ var searchFolderService = (function () {
             }
         });
     };
-    searchFolderService.prototype.recurciveFunction = function (id, tree, actionType, newfolderName) {
+    searchFolderService.prototype.updateTree = function (id, tree, actionType, newfolderName) {
         var _this = this;
         tree.folders.forEach(function (folder, index, currentFolder) {
             if (folder.folderId === id) {
@@ -110,7 +110,7 @@ var searchFolderService = (function () {
                 }
             }
             if (!_this.isfolderFound) {
-                _this.recurciveFunction(id, folder, actionType, newfolderName);
+                _this.updateTree(id, folder, actionType, newfolderName);
             }
         });
     };
@@ -122,53 +122,6 @@ var searchFolderService = (function () {
     return searchFolderService;
 }());
 exports.searchFolderService = searchFolderService;
-// public executeAction(id, tree, actionType ,newfolderName?) : Promise<ISearchTree>  {
-//     return new Promise((resolve, reject) => {
-//         //handel main tree
-//         if(id === tree.folderId && tree.isMainTree) {
-//             this.isfolderFound = true;
-//             tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', id, [], [], true, false, false))            
-//             return;
-//         }
-//         tree.folders.forEach((folder, index, currentFolder) => {
-//             if(folder.folderId === id) {
-//                 this.isfolderFound = true;
-//                 switch (actionType) {
-//                     case actionFolderTypes.Edit:
-//                         folder.folderName = newfolderName;      
-//                         break;
-//                     case actionFolderTypes.Delete:
-//                         currentFolder.splice(index, 1);
-//                         break;
-//                     case actionFolderTypes.Add:
-//                         folder.folders.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], true, false, false));   
-//                         break;
-//                     default:
-//                         console.log('actionType no match: ', actionType);
-//                         break;
-//                     }
-//                 if (actionType === actionFolderTypes.Edit) {
-//                     folder.folderName = newfolderName;
-//                 }
-//                 else if(actionType === actionFolderTypes.Delete) {  
-//                     currentFolder.splice(index, 1);
-//                 }
-//                 else if(actionType === actionFolderTypes.Add) {
-//                     folder.folders.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], true, false, false));
-//                 }
-//             }
-//             if(!this.isfolderFound) {
-//                 this.executeAction(id, folder, actionType ,newfolderName);        
-//             }
-//             if(this.isfolderFound) {
-//                 resolve(this.tree);  
-//             }
-//             else {
-//                 reject('error- item not found')
-//             }
-//         });
-//     });
-// }
 
 
 /***/ }),
@@ -246,16 +199,16 @@ module.exports = angular;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var typesActionTag_1 = __webpack_require__(228);
 var searchTagService = (function () {
     function searchTagService(tree) {
         this.tree = tree;
     }
-    searchTagService.prototype.updateTag = function (id, newTagName) {
+    searchTagService.prototype.executeAction = function (id, tree, actionType, newTagName) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.findTagById(id, _this.tree, newTagName);
+            _this.updateTree(id, tree, actionType, newTagName);
             if (_this.isTagFound) {
-                // update - server ?                       
                 resolve(_this.tree);
             }
             else {
@@ -263,34 +216,28 @@ var searchTagService = (function () {
             }
         });
     };
-    searchTagService.prototype.deleteTag = function (id) {
+    searchTagService.prototype.updateTree = function (id, tree, actionType, newTagName) {
         var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.findTagById(id, _this.tree);
-            if (_this.isTagFound) {
-                // delete - server ?          
-                resolve(_this.tree);
-            }
-            else {
-                reject('error- item not found');
-            }
-        });
-    };
-    searchTagService.prototype.findTagById = function (id, tree, newTagName) {
-        var _this = this;
-        tree.tags.forEach(function (tag, index, arr) {
+        tree.tags.forEach(function (tag, index, currentTags) {
             if (tag.tagId === id) {
                 _this.isTagFound = true;
-                if (newTagName) {
-                    tag.tagName = newTagName;
-                }
-                else {
-                    arr.splice(index, 1);
+                switch (actionType) {
+                    case typesActionTag_1.typesActionTag.Edit:
+                        tag.tagName = newTagName;
+                        break;
+                    case typesActionTag_1.typesActionTag.Delete:
+                        currentTags.splice(index, 1);
+                        break;
+                    default:
+                        console.log('actionType no match: ', actionType);
+                        break;
                 }
             }
-        });
-        tree.folders.forEach(function (folder) {
-            _this.findTagById(id, folder, newTagName);
+            if (!_this.isTagFound) {
+                tree.folders.forEach(function (folder) {
+                    _this.updateTree(id, folder, actionType, newTagName);
+                });
+            }
         });
     };
     return searchTagService;
@@ -1604,6 +1551,7 @@ angular.module('app')
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
 var searchTagService_1 = __webpack_require__(83);
+var typesActionTag_1 = __webpack_require__(228);
 var editTagAction = (function () {
     function editTagAction(tagId, newTagName) {
         this.tagId = tagId;
@@ -1611,7 +1559,7 @@ var editTagAction = (function () {
     }
     editTagAction.prototype.visit = function () {
         var searchService = new searchTagService_1.searchTagService(SearchTreeImplement_1.exampleObject);
-        return searchService.updateTag(this.tagId, this.newTagName);
+        return searchService.executeAction(this.tagId, SearchTreeImplement_1.exampleObject, typesActionTag_1.typesActionTag.Edit, this.newTagName);
     };
     return editTagAction;
 }());
@@ -1627,13 +1575,14 @@ exports.editTagAction = editTagAction;
 Object.defineProperty(exports, "__esModule", { value: true });
 var searchTagService_1 = __webpack_require__(83);
 var SearchTreeImplement_1 = __webpack_require__(7);
+var typesActionTag_1 = __webpack_require__(228);
 var deleteTagAction = (function () {
     function deleteTagAction(tagId) {
         this.tagId = tagId;
     }
     deleteTagAction.prototype.visit = function () {
         var searchService = new searchTagService_1.searchTagService(SearchTreeImplement_1.exampleObject);
-        return searchService.deleteTag(this.tagId);
+        return searchService.executeAction(this.tagId, SearchTreeImplement_1.exampleObject, typesActionTag_1.typesActionTag.Delete);
     };
     return deleteTagAction;
 }());
@@ -1766,6 +1715,20 @@ var actionFolderTypes;
     actionFolderTypes[actionFolderTypes["Edit"] = 1] = "Edit";
     actionFolderTypes[actionFolderTypes["Delete"] = 2] = "Delete";
 })(actionFolderTypes = exports.actionFolderTypes || (exports.actionFolderTypes = {}));
+
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var typesActionTag;
+(function (typesActionTag) {
+    typesActionTag[typesActionTag["Edit"] = 0] = "Edit";
+    typesActionTag[typesActionTag["Delete"] = 1] = "Delete";
+})(typesActionTag = exports.typesActionTag || (exports.typesActionTag = {}));
 
 
 /***/ })
