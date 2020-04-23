@@ -1,4 +1,7 @@
 <div class="source">
+  <md-button class="expand-button" ng-click="$ctrl.onExpand()">
+    <md-icon>{{$ctrl.expandIcon}}</md-icon>
+  </md-button>
   <md-checkbox
     ng-disabled="$ctrl.source.sourceData.isDisabled"
     ng-click="$ctrl.toggleAll()"
@@ -7,7 +10,11 @@
     <span>{{$ctrl.source.sourceData.displayName}}</span>
   </md-checkbox>
 </div>
-<div class="layers" ng-repeat="(key,value) in $ctrl.source.layers">
+<div
+  class="layers"
+  ng-class="$ctrl.expandClass"
+  ng-repeat="(key,value) in $ctrl.source.layers"
+>
   <md-checkbox
     ng-disabled="value.isDisabled"
     ng-click="$ctrl.toggle(key)"

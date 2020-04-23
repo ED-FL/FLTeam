@@ -1,6 +1,17 @@
 import { ISouceListItems } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
+const EXPAND_OPTIONS = {
+  true: {
+    icon: "expand_less",
+    style: "layers",
+  },
+  false: {
+    icon: "expand_more",
+    style: "hide-layers",
+  },
+};
+
 angular.module("app").component("source", {
   templateUrl: "./source.html",
   bindings: {
@@ -17,14 +28,24 @@ angular.module("app").component("source", {
     selectLayer;
     unSelectLayer;
 
+    isExpanded: boolean;
+    expandIcon: string;
+    expandClass: string;
+
     constructor() {}
-    $onInit() {}
+    $onInit() {
+      this.isExpanded = false;
+      this.onExpand();
+    }
 
     public toggleAll() {
       if (this.source.sourceData.isSelected) {
         this.selectAll({ source: this.source, selection: false });
       } else {
         this.selectAll({ source: this.source, selection: true });
+      }
+      if (!this.isExpanded) {
+        this.onExpand();
       }
     }
 
@@ -34,6 +55,13 @@ angular.module("app").component("source", {
       } else {
         this.selectLayer({ source: this.source, layerId: layerId });
       }
+    }
+
+    private onExpand() {
+      this.isExpanded = !this.isExpanded;
+      let currExpand = this.isExpanded.toString();
+      this.expandIcon = EXPAND_OPTIONS[currExpand].icon;
+      this.expandClass = EXPAND_OPTIONS[currExpand].style;
     }
   },
 });

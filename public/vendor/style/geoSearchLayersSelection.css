@@ -1,15 +1,9 @@
+/* dialog */
+
 .dialog-container {
   max-width: 100%;
   width: 450px;
   height: 500px;
-}
-
-.source {
-  margin-right: 15px;
-}
-
-.layers {
-  margin-right: 40px;
 }
 
 .dialog-title {
@@ -29,9 +23,30 @@
   justify-content: center;
 }
 
-.source-action {
-  flex: 1;
+/* source */
+
+.source {
+  margin-right: 15px;
 }
+
+.layers {
+  margin-right: 55px;
+}
+
+.hide-layers {
+  margin-right: 55px;
+  display: none;
+}
+
+.expand-button {
+  min-width: 0px;
+  padding: 0px;
+  margin: 0px;
+  width: 25px;
+  height: 10px;
+}
+
+/* angular matirial */
 
 md-input-container {
   margin-top: 5px !important;
