@@ -24,7 +24,7 @@ angular.module('app')
         $ctrl.onFolderClicked = (folder : ISearchTree): void => {
 
             folder.folders.forEach(folder => {
-                folder.collapsed = !folder.collapsed;
+                folder.collapsed = !folder.collapsed;                
             });
 
             folder.tags.forEach(tag => {

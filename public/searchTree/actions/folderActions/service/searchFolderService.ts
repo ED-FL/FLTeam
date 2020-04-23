@@ -1,78 +1,115 @@
 import ISearchTree from "../../../ISearchTree";
-import { ISearchTreeAction } from "../../ISearchTreeAction";
+import { actionFolderTypes } from "./actionFolderTypes";
 import { SearchTree } from "../../../searchTreePerent/SearchTreeImplement";
 
 export class searchFolderService {
     
-    private isfolderFound : boolean;
+    private isfolderFound : boolean = false;
 
     constructor(private tree : ISearchTree) {}
 
-    public updateFolder(id, newfolderName) : Promise<ISearchTree> {
+    public executeAction(id, tree, actionType ,newfolderName?) : Promise<ISearchTree>  {
         return new Promise((resolve, reject) => {
-            this.findFolderById(id, this.tree, newfolderName);
+            
+            if(id === tree.folderId && tree.isMainTree) {
+                this.mainTreeHandler(id ,tree, actionType ,newfolderName);
+                return;
+            }
+
+            this.recurciveFunction(id, tree, actionType ,newfolderName)
+          
             if(this.isfolderFound) {
-                // update - server ?                       
                 resolve(this.tree);  
             }
             else {
                 reject('error- item not found')
-            }
-        });
-    }
-    
-    public deleteFolder(id) : Promise<ISearchTree> {
-        return new Promise((resolve, reject) => {
-            this.findFolderById(id, this.tree);
-            if(this.isfolderFound) {
-                // delete - server ?          
-                resolve(this.tree);  
-            }
-            else {
-                reject('error- item not found')
-            }
+            }       
         });
     }
 
-    
-    public addNewFolder(id, newfolderName): Promise<ISearchTree> {
-        return new Promise((resolve, reject) => {
-            this.findFolderById_add(id, this.tree, newfolderName);
-            if(this.isfolderFound) {
-                resolve(this.tree);  
-            }
-            else {
-                reject('error- item not found')
-            }
-        });
-    }
-    
-    private findFolderById_add(id, tree, newfolderName) {
+    private recurciveFunction(id, tree, actionType ,newfolderName?) {
         tree.folders.forEach((folder, index, currentFolder) => {
-            if(folder.folderId === id) {
-                
+            if(folder.folderId === id) {         
                 this.isfolderFound = true;
-                currentFolder.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], false, false, false));
+                switch (actionType) {
+                    case actionFolderTypes.Edit:
+                        folder.folderName = newfolderName;      
+                        break;
+                    case actionFolderTypes.Delete:
+                        currentFolder.splice(index, 1);
+                        break;
+                    case actionFolderTypes.Add:
+                        folder.folders.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], true, false, false));   
+                        break;
+                    default:
+                        console.log('actionType no match: ', actionType);
+                        break;
+                    }
+                }
+
+            if(!this.isfolderFound) {
+                this.recurciveFunction(id, folder, actionType ,newfolderName);        
             }
-            this.findFolderById_add(id, folder, newfolderName);        
         });
     }
     
-    private findFolderById(id, tree, newfolderName?) {
-
-        tree.folders.forEach((folder, index, currentFolder) => {
-            if(folder.folderId === id) {
-                
-                this.isfolderFound = true;
-
-                if (newfolderName) {
-                    folder.folderName = newfolderName;
-                }
-                else {  
-                    currentFolder.splice(index, 1);
-                }
-            }
-            this.findFolderById(id, folder, newfolderName);        
-        });
+    private mainTreeHandler(id, tree, actionType ,newfolderName?) {
+        this.isfolderFound = true;
+        tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', id, [], [], true, false, false))            
+        return;
     }
 }
+
+// public executeAction(id, tree, actionType ,newfolderName?) : Promise<ISearchTree>  {
+//     return new Promise((resolve, reject) => {
+//         //handel main tree
+//         if(id === tree.folderId && tree.isMainTree) {
+//             this.isfolderFound = true;
+//             tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', id, [], [], true, false, false))            
+//             return;
+//         }
+
+//         tree.folders.forEach((folder, index, currentFolder) => {
+//             if(folder.folderId === id) {
+                
+//                 this.isfolderFound = true;
+
+//                 switch (actionType) {
+//                     case actionFolderTypes.Edit:
+//                         folder.folderName = newfolderName;      
+//                         break;
+//                     case actionFolderTypes.Delete:
+//                         currentFolder.splice(index, 1);
+//                         break;
+//                     case actionFolderTypes.Add:
+//                         folder.folders.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], true, false, false));   
+//                         break;
+//                     default:
+//                         console.log('actionType no match: ', actionType);
+//                         break;
+//                     }
+
+//                 if (actionType === actionFolderTypes.Edit) {
+//                     folder.folderName = newfolderName;
+//                 }
+//                 else if(actionType === actionFolderTypes.Delete) {  
+//                     currentFolder.splice(index, 1);
+//                 }
+//                 else if(actionType === actionFolderTypes.Add) {
+//                     folder.folders.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], true, false, false));
+//                 }
+//             }
+
+//             if(!this.isfolderFound) {
+//                 this.executeAction(id, folder, actionType ,newfolderName);        
+//             }
+
+//             if(this.isfolderFound) {
+//                 resolve(this.tree);  
+//             }
+//             else {
+//                 reject('error- item not found')
+//             }
+//         });
+//     });
+// }
