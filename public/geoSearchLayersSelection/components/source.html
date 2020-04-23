@@ -1,4 +1,4 @@
-<div>
+<div class="source">
   <md-checkbox
     ng-disabled="$ctrl.source.sourceData.isDisabled"
     ng-click="$ctrl.toggleAll()"
@@ -7,7 +7,7 @@
     <span>{{$ctrl.source.sourceData.displayName}}</span>
   </md-checkbox>
 </div>
-<div ng-repeat="(key,value) in $ctrl.source.layers">
+<div class="layers" ng-repeat="(key,value) in $ctrl.source.layers">
   <md-checkbox
     ng-disabled="value.isDisabled"
     ng-click="$ctrl.toggle(key)"

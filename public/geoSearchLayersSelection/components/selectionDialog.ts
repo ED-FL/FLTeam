@@ -50,6 +50,7 @@ angular.module("app").component("selectionDialog", {
         }
       }
       this.selectionService.geoSeachLayesrSelected(reasults);
+      this.closeDialog();
     }
 
     private saveAllLayers(): ISelection {

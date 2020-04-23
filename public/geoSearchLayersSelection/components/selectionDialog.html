@@ -1,40 +1,43 @@
-<md-dialog dir="rtl">
-  <md-toolbar>
-    <div dir="ltr">
-      <md-button ng-click="$ctrl.closeDialog()">
-        <md-icon>close</md-icon>
-      </md-button>
+<md-dialog dir="rtl" class="dialog-container">
+    <md-toolbar>
+      <span class="dialog-title">
+        <h4>בחירת שכבות לחיפוש גיאוגרפי</h4>
+      </span>
+    </md-toolbar>
+      <div class="static-content">
+        <div class="all-sources-actions">
+          <span clas = "source-action">
+            <md-button class="md-accent" ng-click="$ctrl.onAllSources(true)">בחר הכל</md-button>
+          </span>
+          <span clas = "source-action"> 
+            <md-button class="md-accent" ng-click="$ctrl.onAllSources(false)">נקה בחירה</md-button>
+          </span>
+        </div>
+    
+        <md-input-container class="md-block search-text" flex-gt-sm>
+            <label>חפש שכבה</label>
+            <input type="text" ng-model="$ctrl.searchText" />
+        </md-input-container>
     </div>
-    <h3>בחירת שכבות לחיפוש גיאוגרפי</h3>
-  </md-toolbar>
 
-  <md-dialog-content>
-    <div>
-      <md-input-container class="md-block" flex-gt-sm>
-        <label>חפש שכבה</label>
-        <input type="text" ng-model="$ctrl.searchText" />
-      </md-input-container>
-    </div>
-  
-    <div>
-    <md-button ng-click="$ctrl.onAllSources(true)">בחר הכל</md-button>
-    <md-button ng-click="$ctrl.onAllSources(false)">נקה בחירה</md-button>
-    </div>
-  
-    <div ng-repeat="(id,item) in $ctrl.sources">
-      <source
-       source = "item",
-       search-text = "$ctrl.searchText"
-       select-all = "$ctrl.onSource(source, selection)",
-       select-layer = "$ctrl.onSingleLayerSelected(source,layerId)",
-       un-select-layer = "$ctrl.onSingleLayerUnSelected(source,layerId)"
-      ></source>
-    </div>
-  </md-dialog-content>
-  
-  <md-dialog-actions>
-    <md-button ng-click="$ctrl.onSave()">שמור</md-button>
-  </md-dialog-actions>
+    <md-dialog-content>
+      <div ng-repeat="(id,item) in $ctrl.sources">
+        <source
+         source = "item",
+         search-text = "$ctrl.searchText"
+         select-all = "$ctrl.onSource(source, selection)",
+         select-layer = "$ctrl.onSingleLayerSelected(source,layerId)",
+         un-select-layer = "$ctrl.onSingleLayerUnSelected(source,layerId)"
+        ></source>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" >
+      <div class="dialog-actions">
+        <md-button class="md-primary" ng-click="$ctrl.onSave()">שמור</md-button>
+        <md-button class="md-primary" ng-click="$ctrl.closeDialog()">ביטול</md-button>
+      </div>
+    </md-dialog-actions>
 
 </md-dialog>
 

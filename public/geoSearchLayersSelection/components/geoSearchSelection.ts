@@ -17,10 +17,17 @@ angular.module("app").component("geoSearchSelection", {
           template: "<selection-dialog></selection-dialog>",
           parent: angular.element(document.body),
           targetEvent: ev,
-          clickOutsideToClose: true,
+          clickOutsideToClose: false,
           fullscreen: false,
         })
-        .then(function () {});
+        .then(
+          function (data) {
+            //on save
+          },
+          function (error) {
+            //on cancle
+          }
+        );
     }
   },
 });
