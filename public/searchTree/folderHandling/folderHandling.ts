@@ -30,7 +30,8 @@ angular.module('app')
             });
         };    
 
-        $ctrl.openMenu = ($mdMenu, event): void => {                    
+        $ctrl.openMenu = ($mdMenu, event): void => {     
+            console.log($ctrl.tree);               
             $mdMenu.open(event);
         };
 

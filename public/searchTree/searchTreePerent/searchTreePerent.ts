@@ -11,8 +11,16 @@ angular.module('app').component('searchTreePerent', {
     var $ctrl = this;
 
     $ctrl.handleAction = (action: ISearchTreeAction): void => {
-      return action.visit();
+      console.log('handleAction functiom');
+      
+      return action.visit()
+      .then((data) => {
+        this.tree = data;
+        console.log('on perent: ', data);
+      })
+      .catch((error) => {
+        console.log('error - perent', error);
+      })
     };
-
   }
 })

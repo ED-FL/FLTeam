@@ -70,8 +70,44 @@ var NewTag = (function () {
 exports.NewTag = NewTag;
 exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false, false),
             new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false)], true, true)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true)], true, false), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true, false)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true)], true, false);
-exports.exampleObjectAfterAction = new SearchTree("1", "mainFolder-1", "yuval", null, [new SearchTree("2-1", "innerFolder-2-1", "yuval", "1", [new SearchTree("3-1", "innerFolder-3-1", "yuval", "2-1", [], [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false, false),
-            new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false)], true, true)], [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true)], true, false), new SearchTree("2-2", "innerFolder-2-2", "yuval", "1", [], [], true, false)], [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true)], true, false);
+// export const exampleObjectAfterAction = new SearchTree(
+//   "1",
+//   "mainFolder-1",
+//   "yuval",
+//   null,
+//   [new SearchTree(
+//     "2-1",
+//     "innerFolder-2-1",
+//     "yuval",
+//     "1",
+//     [new SearchTree(
+//       "3-1",
+//       "innerFolder-3-1",
+//       "yuval",
+//       "2-1",
+//       [],
+//       [new NewTag("tag-3-1", "innerTag-3-1", "extraInfo", null, null, "3-1", true, true, false, false), 
+//       new NewTag("tag-3-2", "innerTag-3-2", "extraInfo", null, null, "3-2", true, false, false, false)]
+//       ,true
+//       ,true
+//     )],
+//     [new NewTag("tag-2-1", "innerTag-2-1", "extraInfo", null, null, "2-1", true, false, false, true)]
+//     ,true,
+//     false
+//   ), new SearchTree(
+//     "2-2",
+//     "innerFolder-2-2",
+//     "yuval",
+//     "1",
+//     [],
+//     [],
+//     true,
+//     false
+//   )],
+//   [new NewTag("tag-1", "tag-1", "extraInfo", null, null, "1", true, true, true, true)],
+//   true,
+//   false
+// );
 
 
 /***/ }),
@@ -918,10 +954,19 @@ angular.module('app').component('searchTreePerent', {
     template: __webpack_require__(195),
     bindings: {},
     controller: function () {
+        var _this = this;
         this.tree = SearchTreeImplement_1.exampleObject;
         var $ctrl = this;
         $ctrl.handleAction = function (action) {
-            return action.visit();
+            console.log('handleAction functiom');
+            return action.visit()
+                .then(function (data) {
+                _this.tree = data;
+                console.log('on perent: ', data);
+            })
+                .catch(function (error) {
+                console.log('error - perent', error);
+            });
         };
     }
 });
@@ -987,6 +1032,7 @@ angular.module('app')
             });
         };
         $ctrl.openMenu = function ($mdMenu, event) {
+            console.log($ctrl.tree);
             $mdMenu.open(event);
         };
         $ctrl.showDeleteConfirm = function (event, folder) {
@@ -1247,15 +1293,9 @@ angular.module('app')
         };
         var onTagEdited = function (tag, newTagName) {
             var getNewTag = $ctrl.handleAction(new editTagAction_1.editTagAction(tag.tagId, newTagName));
-            getNewTag.then(function (tag) {
-                updateTag(tag);
-            })
-                .catch(function (error) {
-                console.log(error);
-            });
         };
         var onTagDeleted = function (tag) {
-            $ctrl.handleAction(new deleteTagAction_1.deleteTagAction(tag.tagId));
+            var getNewTag = $ctrl.handleAction(new deleteTagAction_1.deleteTagAction(tag.tagId));
         };
         $ctrl.onTagClicked = function (tag) {
             console.log('go to tag link: ', tag);
@@ -1278,9 +1318,6 @@ angular.module('app')
             _this.handleAction(new stopRuleTagAction_1.stopRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
         };
-        var updateTag = function (newTag) {
-            $ctrl.tree.tagName = newTag.tagName;
-        };
     }
 });
 
@@ -1300,8 +1337,8 @@ var editTagAction = (function () {
         this.newTagName = newTagName;
     }
     editTagAction.prototype.visit = function () {
-        var searchService = new searchTagService_1.searchTagService();
-        return searchService.getUpdatedTag(SearchTreeImplement_1.exampleObjectAfterAction, this.tagId, this.newTagName);
+        var searchService = new searchTagService_1.searchTagService(SearchTreeImplement_1.exampleObject);
+        return searchService.actionOnTag(this.tagId, this.newTagName);
     };
     return editTagAction;
 }());
@@ -1315,12 +1352,15 @@ exports.editTagAction = editTagAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var searchTagService_1 = __webpack_require__(223);
+var SearchTreeImplement_1 = __webpack_require__(81);
 var deleteTagAction = (function () {
     function deleteTagAction(tagId) {
         this.tagId = tagId;
     }
     deleteTagAction.prototype.visit = function () {
-        console.log('tag deleted: ' + this.tagId);
+        var searchService = new searchTagService_1.searchTagService(SearchTreeImplement_1.exampleObject);
+        return searchService.deleteTag(this.tagId);
     };
     return deleteTagAction;
 }());
@@ -1425,30 +1465,50 @@ module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var searchTagService = (function () {
-    function searchTagService() {
+    function searchTagService(tree) {
+        this.tree = tree;
     }
-    searchTagService.prototype.getUpdatedTag = function (tree, id, newTagName) {
+    searchTagService.prototype.actionOnTag = function (id, newTagName) {
         var _this = this;
         return new Promise(function (resolve, reject) {
-            _this.findTagById(tree, id);
-            if (_this.foundTag) {
-                _this.foundTag.tagName = newTagName;
-                resolve(_this.foundTag);
+            _this.findTagById(id, newTagName, _this.tree);
+            if (_this.isTagFound) {
+                // update - server ?                       
+                resolve(_this.tree);
             }
             else {
                 reject('error- item not found');
             }
         });
     };
-    searchTagService.prototype.findTagById = function (tree, id) {
+    searchTagService.prototype.deleteTag = function (id) {
         var _this = this;
-        tree.tags.forEach(function (tag) {
+        return new Promise(function (resolve, reject) {
+            _this.findTagById(id, undefined, _this.tree);
+            if (_this.isTagFound) {
+                // delete - server ?          
+                resolve(_this.tree);
+            }
+            else {
+                reject('error- item not found');
+            }
+        });
+    };
+    searchTagService.prototype.findTagById = function (id, newTagName, tree) {
+        var _this = this;
+        tree.tags.forEach(function (tag, index) {
             if (tag.tagId === id) {
-                _this.foundTag = tag;
+                _this.isTagFound = true;
+                if (newTagName) {
+                    tag.tagName = newTagName;
+                }
+                else {
+                    _this.tree.tags.splice(index, 1);
+                }
             }
         });
         tree.folders.forEach(function (folder) {
-            _this.findTagById(folder, id);
+            _this.findTagById(id, newTagName, folder);
         });
     };
     return searchTagService;

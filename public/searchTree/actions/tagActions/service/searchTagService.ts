@@ -1,16 +1,17 @@
-import { INewTag } from "../../../INewTag";
-import { SearchTree } from "../../../searchTreePerent/SearchTreeImplement";
+import ISearchTree from "../../../ISearchTree";
 
 export class searchTagService {
     
-    public foundTag : INewTag;
+    private isTagFound : boolean;
 
-    public getUpdatedTag(tree: SearchTree, id, newTagName) : Promise<INewTag> {
+    constructor(private tree : ISearchTree) {}
+
+    public actionOnTag(id, newTagName) : Promise<ISearchTree> {
         return new Promise((resolve, reject) => {
-            this.findTagById(tree, id);
-            if(this.foundTag) {
-                this.foundTag.tagName = newTagName;            
-                resolve(this.foundTag);  
+            this.findTagById(id, newTagName, this.tree);
+            if(this.isTagFound) {
+                // update - server ?                       
+                resolve(this.tree);  
             }
             else {
                 reject('error- item not found')
@@ -18,15 +19,37 @@ export class searchTagService {
         });
     }
     
-    private findTagById(tree: SearchTree, id) {
-        tree.tags.forEach(tag => {
+    public deleteTag(id) : Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.findTagById(id, undefined, this.tree);
+            if(this.isTagFound) {
+                // delete - server ?          
+                resolve(this.tree);  
+            }
+            else {
+                reject('error- item not found')
+            }
+        });
+    }
+
+    private findTagById(id, newTagName?, tree?) {
+        tree.tags.forEach((tag, index) => {
             if(tag.tagId === id) {
-                this.foundTag = tag;
+                
+                this.isTagFound = true;
+
+                if (newTagName) {
+                    tag.tagName = newTagName;
+                }
+                else {  
+                    this.tree.tags.splice(index, 1);
+                }
             }
         });
     
         tree.folders.forEach(folder => {
-            this.findTagById(folder, id);        
+            this.findTagById(id, newTagName, folder);        
         });
+    
     }
 }

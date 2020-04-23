@@ -46,24 +46,18 @@ angular.module('app')
         };
 
         const onTagEdited = (tag, newTagName) => {
-            let getNewTag = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName)); 
-            getNewTag.then((tag) => {
-                updateTag(tag);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+            let getNewTag = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));             
         }
 
-        const onTagDeleted = (tag) => {
-            $ctrl.handleAction(new deleteTagAction(tag.tagId));
+        const onTagDeleted = (tag) => {            
+            let getNewTag = $ctrl.handleAction(new deleteTagAction(tag.tagId));            
         }
 
         $ctrl.onTagClicked = (tag): void => {
             console.log('go to tag link: ', tag);  
         };
  
-        $ctrl.openMenu = ($mdMenu, event): void => {                    
+        $ctrl.openMenu = ($mdMenu, event): void => {                                
             $mdMenu.open(event);
         };
 
@@ -84,10 +78,6 @@ angular.module('app')
         $ctrl.onTagRuleStoped = (tag) => {
             this.handleAction(new stopRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
-        }
-
-        const updateTag = (newTag) => {
-            $ctrl.tree.tagName = newTag.tagName;
         }
     }
 })
