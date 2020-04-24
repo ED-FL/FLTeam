@@ -9,7 +9,7 @@ export class removeAllLayersFolderAction implements ISearchTreeAction {
 
     visit(): Promise<any> {
         console.log('removeAllLayersFolderAction: ', this.folderId);
-        let searchService = new searchFolderService(exampleObject);
+        let searchService = new searchFolderService(null);
         return new Promise((res, rej) => {})
     }
 }

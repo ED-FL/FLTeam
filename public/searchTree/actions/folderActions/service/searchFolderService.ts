@@ -6,20 +6,15 @@ export class searchFolderService {
     
     private isfolderFound : boolean = false;
 
-    constructor(private tree : ISearchTree) {}
+    constructor(private actionType : actionFolderTypes) {}
 
-    public executeAction(id, tree, actionType ,newfolderName?) : Promise<ISearchTree>  {
+    public executeAction(id, tree ,newfolderName?) : Promise<ISearchTree>  {
         return new Promise((resolve, reject) => {
-            
-            if(id === tree.folderId && tree.isMainTree) {
-                this.mainTreeHandler(id ,tree, actionType ,newfolderName);
-                return;
-            }
 
-            this.updateTree(id, tree, actionType ,newfolderName)
+            this.updateTree(id, tree ,newfolderName)
           
             if(this.isfolderFound) {
-                resolve(this.tree);
+                resolve(tree);
             }
             else {
                 reject('error- item not found')
@@ -27,35 +22,40 @@ export class searchFolderService {
         });
     }
 
-    private updateTree(id, tree, actionType ,newfolderName?) {
-        tree.folders.forEach((folder, index, currentFolder) => {
-            if(folder.folderId === id) {         
-                this.isfolderFound = true;
-                switch (actionType) {
-                    case actionFolderTypes.Edit:
-                        folder.folderName = newfolderName;      
-                        break;
-                    case actionFolderTypes.Delete:
-                        currentFolder.splice(index, 1);
-                        break;
-                    case actionFolderTypes.Add:
-                        folder.folders.push(new SearchTree(`adeed-1${index}`, newfolderName, 'owner', id, [], [], true, false, false));   
-                        break;
-                    default:
-                        console.log('actionType no match: ', actionType);
-                        break;
-                    }
+    private updateTree(id, tree ,newfolderName?, arrayFolders?, index?) {
+        if(tree.folderId === id) {         
+            this.isfolderFound = true;
+            switch (this.actionType) {
+                case actionFolderTypes.Edit:
+                    this.editFolderFolder(tree ,newfolderName);
+                    break;
+                case actionFolderTypes.Delete:
+                    this.deleteFolder(arrayFolders, index);
+                    break;
+                case actionFolderTypes.Add:
+                    this.addNewFolder(tree ,newfolderName, id);
+                    break;
+                default:
+                    console.log('actionType no match: ', this.actionType);
+                    break;
                 }
-
-            if(!this.isfolderFound) {
-                this.updateTree(id, folder, actionType ,newfolderName);        
             }
-        });
+        tree.folders.forEach((folder, index, arrayFolders) => {
+            if(!this.isfolderFound) {
+                this.updateTree(id, folder ,newfolderName, arrayFolders, index);        
+            }
+        });   
     }
-    
-    private mainTreeHandler(id, tree, actionType ,newfolderName?) {
-        this.isfolderFound = true;
-        tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', id, [], [], true, false, false))            
-        return;
+
+    private editFolderFolder(tree ,newfolderName) {
+        tree.folderName = newfolderName;      
+    }
+
+    private deleteFolder(arrayFolders, index) {
+        arrayFolders.splice(index, 1);
+    }
+
+    private addNewFolder(tree ,newfolderName, perentId) {
+        tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', perentId, [], [], true, false, false));   
     }
 }

@@ -9,7 +9,7 @@ export class deleteTagAction implements ISearchTreeAction {
 
     }
     visit(): Promise<ISearchTree> {
-        let searchService = new searchTagService(exampleObject);
-        return searchService.executeAction(this.tagId, exampleObject, typesActionTag.Delete);
+        let searchService = new searchTagService(typesActionTag.Delete);
+        return searchService.executeAction(this.tagId, exampleObject);
     }
 }

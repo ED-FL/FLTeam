@@ -10,7 +10,7 @@ export class deleteFolderAction implements ISearchTreeAction {
     }
 
     visit(): Promise<ISearchTree> {
-        let searchService = new searchFolderService(exampleObject);
-        return searchService.executeAction(this.folderId, exampleObject, actionFolderTypes.Delete);
+        let searchService = new searchFolderService(actionFolderTypes.Delete);
+        return searchService.executeAction(this.folderId, exampleObject);
     }
 }

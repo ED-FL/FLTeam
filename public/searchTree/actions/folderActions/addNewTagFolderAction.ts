@@ -9,7 +9,7 @@ export class addNewTagFolderAction implements ISearchTreeAction {
 
     visit(): Promise<any> {
         console.log('addNewTagFolderAction: ', this.folderId, '-new name- ', this.newTagName);
-        let searchService = new searchFolderService(exampleObject);
+        let searchService = new searchFolderService(null);
         return new Promise((res, rej) => {})
     }
 }

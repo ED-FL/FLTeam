@@ -9,7 +9,7 @@ export class editTagAction implements ISearchTreeAction {
     constructor(private tagId: number, private newTagName: string) { }
 
     visit(): Promise<ISearchTree> {
-        let searchService = new searchTagService(exampleObject);
-        return searchService.executeAction(this.tagId, exampleObject, typesActionTag.Edit ,this.newTagName)
+        let searchService = new searchTagService(typesActionTag.Edit);
+        return searchService.executeAction(this.tagId, exampleObject ,this.newTagName)
     }
 }
