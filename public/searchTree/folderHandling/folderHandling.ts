@@ -21,13 +21,13 @@ angular.module('app')
 
         var $ctrl = this;
 
-        $ctrl.onFolderClicked = (folder : ISearchTree): void => {
+        $ctrl.onFolderClicked = (tree : ISearchTree): void => {
 
-            folder.folders.forEach(folder => {
-                folder.collapsed = !folder.collapsed;                
+            tree.folders.forEach(folder => {
+                folder.collapsed = !folder.collapsed;  
             });
 
-            folder.tags.forEach(tag => {
+            tree.tags.forEach(tag => {
                 tag.collapsed = !tag.collapsed;
             });
         };    

@@ -1,6 +1,6 @@
 import ISearchTree from "../../../ISearchTree";
 import { actionFolderTypes } from "./actionFolderTypes";
-import { SearchTree } from "../../../searchTreePerent/SearchTreeImplement";
+import { SearchTree, NewTag } from "../../../searchTreePerent/SearchTreeImplement";
 
 export class searchFolderService {
     
@@ -22,7 +22,7 @@ export class searchFolderService {
         });
     }
 
-    private updateTree(id, tree ,newfolderName?, arrayFolders?, index?) {
+    private updateTree(id, tree ,newfolderName?, currentFolders?, index?) {
         if(tree.folderId === id) {         
             this.isfolderFound = true;
             switch (this.actionType) {
@@ -30,21 +30,25 @@ export class searchFolderService {
                     this.editFolderFolder(tree ,newfolderName);
                     break;
                 case actionFolderTypes.Delete:
-                    this.deleteFolder(arrayFolders, index);
+                    this.deleteFolder(currentFolders, index);
                     break;
                 case actionFolderTypes.Add:
                     this.addNewFolder(tree ,newfolderName, id);
+                    break;
+                case actionFolderTypes.Duplicte:
+                    this.duplicteFolder(currentFolders, index);
                     break;
                 default:
                     console.log('actionType no match: ', this.actionType);
                     break;
                 }
             }
-        tree.folders.forEach((folder, index, arrayFolders) => {
-            if(!this.isfolderFound) {
-                this.updateTree(id, folder ,newfolderName, arrayFolders, index);        
-            }
-        });   
+
+        if(!this.isfolderFound) {
+            tree.folders.forEach((folder, index, currentFolders) => {
+                this.updateTree(id, folder ,newfolderName, currentFolders, index);        
+            });       
+        }
     }
 
     private editFolderFolder(tree ,newfolderName) {
@@ -56,6 +60,99 @@ export class searchFolderService {
     }
 
     private addNewFolder(tree ,newfolderName, perentId) {
-        tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', perentId, [], [], true, false, false));   
+        let collapsedNewFolder = false;
+
+        if(tree.folders.length > 0) {
+            if(tree.folders[0].collapsed) {
+                collapsedNewFolder = true;
+            }
+        }
+
+        if(tree.tags.length > 0 && !collapsedNewFolder) {
+            if(tree.tags[0].collapsed) {
+                collapsedNewFolder = true;
+            }
+        }
+
+        tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newfolderName, 'owner', perentId, [], [], collapsedNewFolder, false, false));   
+    }
+
+    private duplicteFolder(currentFolders, index) {
+
+        var duplictedFolder = this.cloneObj(currentFolders[index]);
+
+        duplictedFolder.folderId = Math.floor(Math.random()*100).toString();
+
+        currentFolders.push(duplictedFolder);
+    }
+
+    private cloneObj(obj) {
+        var copy;
+        
+        // Handle the 3 simple types, and null or undefined
+        if (null == obj || "object" != typeof obj) return obj;
+    
+        // Handle Date
+        // if (obj instanceof Date) {
+        //     copy = new Date();
+        //     copy.setTime(obj.getTime());
+        //     return copy;
+        // }
+    
+        // Handle Array
+        if (obj instanceof Array) {
+            copy = [];
+            for (var i = 0, len = obj.length; i < len; i++) {
+                copy[i] = this.cloneObj(obj[i]);
+            }
+            return copy;
+        }
+    
+        // Handle Object
+        if (obj instanceof Object) {
+            if(obj instanceof SearchTree) {
+                copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr)) copy[attr] = this.cloneObj(obj[attr]);
+                }
+                let dup = new SearchTree(
+                    Math.floor(Math.random()*100).toString(),
+                    copy.folderName,
+                    copy.owner,
+                    copy.parentFolderId,
+                    copy.folders,
+                    copy.tags,
+                    copy.collapsed,
+                    copy.isSharedFolder,
+                    false,
+                );
+                return dup;
+            }
+
+            if(obj instanceof NewTag) {
+
+                copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr)) copy[attr] = this.cloneObj(obj[attr]);
+                }
+
+                let dup = new NewTag(
+                    Math.floor(Math.random()*100).toString(),
+                    copy.tagName,
+                    copy.queryId,
+                    copy.extraInfo,
+                    copy.type,
+                    copy.parentFolderId,
+                    copy.collapsed,
+                    copy.isRule,
+                    copy.isRuleStopped,
+                    copy.hasKml,
+                    copy.isSharedTag);
+
+                return dup;
+            }
+        }
+    
+        throw new Error("Unable to copy obj! Its type isn't supported.");
     }
 }

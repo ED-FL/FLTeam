@@ -72,7 +72,7 @@ export class searchTagService {
             currentTags[index].hasKml,
             currentTags[index].isSharedTag
         )
-
+        
         currentTags.push(duplictedTag);
     }
 }

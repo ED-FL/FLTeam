@@ -1,4 +1,7 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
+import { searchFolderService } from './service/searchFolderService';
+import { exampleObject } from '../../searchTreePerent/SearchTreeImplement';
+import { actionFolderTypes } from './service/actionFolderTypes';
 
 export class duplicateFolderAction implements ISearchTreeAction {
     constructor(private folderId: number) {
@@ -7,6 +10,6 @@ export class duplicateFolderAction implements ISearchTreeAction {
 
     visit(): Promise<any> {
         console.log('folder duplicated: ' + this.folderId);
-        return new Promise((res, rej) => {})
-    }
+        let searchService = new searchFolderService(actionFolderTypes.Duplicte);
+        return searchService.executeAction(this.folderId, exampleObject);    }
 }

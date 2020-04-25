@@ -7,7 +7,7 @@ webpackJsonp([3],{
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var platform_browser_dynamic_1 = __webpack_require__(79);
-var static_1 = __webpack_require__(32);
+var static_1 = __webpack_require__(33);
 var app_module_1 = __webpack_require__(223);
 var nameParser_service_1 = __webpack_require__(86);
 var unreviewedTalk_component_1 = __webpack_require__(87);
@@ -41,7 +41,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var static_1 = __webpack_require__(32);
+var static_1 = __webpack_require__(33);
 var platform_browser_1 = __webpack_require__(14);
 var forms_1 = __webpack_require__(85);
 var http_1 = __webpack_require__(80);
@@ -199,7 +199,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__(0);
-var static_1 = __webpack_require__(32);
+var static_1 = __webpack_require__(33);
 var NavComponent = (function (_super) {
     __extends(NavComponent, _super);
     function NavComponent(elementRef, injector) {
