@@ -206,7 +206,9 @@ module.exports = angular;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var typesActionTag_1 = __webpack_require__(34);
-var SearchTreeImplement_1 = __webpack_require__(4);
+var editTagAction_1 = __webpack_require__(214);
+var deleteTagAction_1 = __webpack_require__(215);
+var dupicateTagAction_1 = __webpack_require__(220);
 var searchTagService = (function () {
     function searchTagService(actionType) {
         this.actionType = actionType;
@@ -230,13 +232,13 @@ var searchTagService = (function () {
                 _this.isTagFound = true;
                 switch (_this.actionType) {
                     case typesActionTag_1.typesActionTag.Edit:
-                        _this.editTag(newTagName, currentTags, index);
+                        editTagAction_1.editTagAction.editTag(newTagName, currentTags, index);
                         break;
                     case typesActionTag_1.typesActionTag.Delete:
-                        _this.deleteTag(currentTags, index);
+                        deleteTagAction_1.deleteTagAction.deleteTag(currentTags, index);
                         break;
                     case typesActionTag_1.typesActionTag.Duplicte:
-                        _this.duplicteTag(currentTags, index);
+                        dupicateTagAction_1.duplicteTagAction.duplicteTag(currentTags, index);
                         break;
                     default:
                         console.log('actionType no match: ', _this.actionType);
@@ -249,16 +251,6 @@ var searchTagService = (function () {
                 _this.updateTree(id, folder, newTagName);
             });
         }
-    };
-    searchTagService.prototype.editTag = function (newTagName, currentTags, index) {
-        currentTags[index].tagName = newTagName;
-    };
-    searchTagService.prototype.deleteTag = function (arrayTags, index) {
-        arrayTags.splice(index, 1);
-    };
-    searchTagService.prototype.duplicteTag = function (currentTags, index) {
-        var duplictedTag = new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), currentTags[index].tagName, currentTags[index].queryId, currentTags[index].extraInfo, currentTags[index].type, currentTags[index].parentFolderId, currentTags[index].collapsed, currentTags[index].isRule, currentTags[index].isRuleStopped, currentTags[index].hasKml, currentTags[index].isSharedTag);
-        currentTags.push(duplictedTag);
     };
     return searchTagService;
 }());
@@ -1694,6 +1686,9 @@ var editTagAction = (function () {
         var searchService = new searchTagService_1.searchTagService(typesActionTag_1.typesActionTag.Edit);
         return searchService.executeAction(this.tagId, SearchTreeImplement_1.exampleObject, this.newTagName);
     };
+    editTagAction.editTag = function (newTagName, currentTags, index) {
+        currentTags[index].tagName = newTagName;
+    };
     return editTagAction;
 }());
 exports.editTagAction = editTagAction;
@@ -1716,6 +1711,9 @@ var deleteTagAction = (function () {
     deleteTagAction.prototype.visit = function () {
         var searchService = new searchTagService_1.searchTagService(typesActionTag_1.typesActionTag.Delete);
         return searchService.executeAction(this.tagId, SearchTreeImplement_1.exampleObject);
+    };
+    deleteTagAction.deleteTag = function (arrayTags, index) {
+        arrayTags.splice(index, 1);
     };
     return deleteTagAction;
 }());
@@ -1820,6 +1818,10 @@ var duplicteTagAction = (function () {
         console.log('tag duplicted: ' + this.tagId);
         var searchService = new searchTagService_1.searchTagService(typesActionTag_1.typesActionTag.Duplicte);
         return searchService.executeAction(this.tagId, SearchTreeImplement_1.exampleObject);
+    };
+    duplicteTagAction.duplicteTag = function (currentTags, index) {
+        var duplictedTag = new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), currentTags[index].tagName, currentTags[index].queryId, currentTags[index].extraInfo, currentTags[index].type, currentTags[index].parentFolderId, currentTags[index].collapsed, currentTags[index].isRule, currentTags[index].isRuleStopped, currentTags[index].hasKml, currentTags[index].isSharedTag);
+        currentTags.push(duplictedTag);
     };
     return duplicteTagAction;
 }());

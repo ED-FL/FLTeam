@@ -12,4 +12,8 @@ export class editTagAction implements ISearchTreeAction {
         let searchService = new searchTagService(typesActionTag.Edit);
         return searchService.executeAction(this.tagId, exampleObject ,this.newTagName)
     }
+
+    public static editTag(newTagName, currentTags, index) {
+        currentTags[index].tagName = newTagName;
+    }
 }

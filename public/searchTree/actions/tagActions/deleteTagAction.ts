@@ -12,4 +12,8 @@ export class deleteTagAction implements ISearchTreeAction {
         let searchService = new searchTagService(typesActionTag.Delete);
         return searchService.executeAction(this.tagId, exampleObject);
     }
+
+    public static deleteTag(arrayTags, index) {
+        arrayTags.splice(index, 1);
+    }
 }

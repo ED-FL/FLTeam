@@ -1,6 +1,10 @@
 import ISearchTree from "../../../ISearchTree";
 import { typesActionTag } from "./typesActionTag";
 import { NewTag } from "../../../searchTreePerent/SearchTreeImplement";
+import { editTagAction } from "../editTagAction";
+import { deleteFolderAction } from "../../folderActions/deleteFolderAction";
+import { deleteTagAction } from "../deleteTagAction";
+import { duplicteTagAction } from "../dupicateTagAction";
 
 export class searchTagService {
     
@@ -27,13 +31,13 @@ export class searchTagService {
                 this.isTagFound = true;
                 switch (this.actionType) {
                     case typesActionTag.Edit:
-                        this.editTag(newTagName, currentTags, index);
+                        editTagAction.editTag(newTagName, currentTags, index);
                         break;
                     case typesActionTag.Delete:
-                        this.deleteTag(currentTags, index);
+                        deleteTagAction.deleteTag(currentTags, index);
                         break;
                     case typesActionTag.Duplicte:
-                        this.duplicteTag(currentTags, index);
+                        duplicteTagAction.duplicteTag(currentTags, index);
                         break;
                     default:
                         console.log('actionType no match: ', this.actionType);
@@ -47,32 +51,5 @@ export class searchTagService {
                 this.updateTree(id, folder, newTagName);        
             });            
         }
-    }
-
-    private editTag(newTagName, currentTags, index) {
-        currentTags[index].tagName = newTagName;
-    }
-
-    private deleteTag(arrayTags, index) {
-        arrayTags.splice(index, 1);
-    }
-
-    private duplicteTag(currentTags, index) {
-
-        let duplictedTag = new NewTag(
-            Math.floor(Math.random()*100).toString(),
-            currentTags[index].tagName,
-            currentTags[index].queryId,
-            currentTags[index].extraInfo,
-            currentTags[index].type,
-            currentTags[index].parentFolderId,
-            currentTags[index].collapsed,
-            currentTags[index].isRule,
-            currentTags[index].isRuleStopped,
-            currentTags[index].hasKml,
-            currentTags[index].isSharedTag
-        )
-        
-        currentTags.push(duplictedTag);
     }
 }
