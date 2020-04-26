@@ -10,7 +10,7 @@ export class addNewFolderAction implements ISearchTreeAction {
     }
 
     visit(): Promise<ISearchTree> {
-        let searchService = new searchFolderService(actionFolderTypes.Add);
+        let searchService = new searchFolderService(actionFolderTypes.AddFolder);
         return searchService.executeAction(this.folderId, exampleObject ,this.newFolderName);
     }
 }

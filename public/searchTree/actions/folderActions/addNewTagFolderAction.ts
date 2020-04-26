@@ -1,6 +1,7 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
 import { exampleObject } from '../../searchTreePerent/SearchTreeImplement';
 import { searchFolderService } from './service/searchFolderService';
+import { actionFolderTypes } from './service/actionFolderTypes';
 
 export class addNewTagFolderAction implements ISearchTreeAction {
     constructor(private folderId: number, private newTagName: string) {
@@ -8,8 +9,7 @@ export class addNewTagFolderAction implements ISearchTreeAction {
     }
 
     visit(): Promise<any> {
-        console.log('addNewTagFolderAction: ', this.folderId, '-new name- ', this.newTagName);
-        let searchService = new searchFolderService(null);
-        return new Promise((res, rej) => {})
+        let searchService = new searchFolderService(actionFolderTypes.AddTag);
+        return searchService.executeAction(this.folderId, exampleObject ,this.newTagName);
     }
 }
