@@ -3,8 +3,7 @@ webpackJsonp([2],[
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */,
-/* 5 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47,6 +46,7 @@ exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new 
 
 
 /***/ }),
+/* 5 */,
 /* 6 */,
 /* 7 */,
 /* 8 */,
@@ -62,18 +62,22 @@ exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var actionFolderTypes_1 = __webpack_require__(20);
-var SearchTreeImplement_1 = __webpack_require__(5);
+var actionFolderTypes_1 = __webpack_require__(16);
+var editFolderAction_1 = __webpack_require__(203);
+var deleteFolderAction_1 = __webpack_require__(204);
+var addNewFolderAction_1 = __webpack_require__(209);
+var addNewTagFolderAction_1 = __webpack_require__(211);
+var duplicateFolderAction_1 = __webpack_require__(206);
 var searchFolderService = (function () {
     function searchFolderService(actionType) {
         this.actionType = actionType;
-        this.isfolderFound = false;
+        this.isFolderFound = false;
     }
     searchFolderService.prototype.executeAction = function (id, tree, newfolderName) {
         var _this = this;
         return new Promise(function (resolve, reject) {
             _this.updateTree(id, tree, newfolderName);
-            if (_this.isfolderFound) {
+            if (_this.isFolderFound) {
                 resolve(tree);
             }
             else {
@@ -84,109 +88,33 @@ var searchFolderService = (function () {
     searchFolderService.prototype.updateTree = function (id, tree, newFolderName, currentFolders, index) {
         var _this = this;
         if (tree.folderId === id) {
-            this.isfolderFound = true;
+            this.isFolderFound = true;
             switch (this.actionType) {
                 case actionFolderTypes_1.actionFolderTypes.Edit:
-                    this.editFolder(tree, newFolderName);
+                    editFolderAction_1.editFolderAction.editFolder(tree, newFolderName);
                     break;
                 case actionFolderTypes_1.actionFolderTypes.Delete:
-                    this.deleteFolder(currentFolders, index);
+                    deleteFolderAction_1.deleteFolderAction.deleteFolder(currentFolders, index);
                     break;
                 case actionFolderTypes_1.actionFolderTypes.AddFolder:
-                    this.addNewFolder(tree, newFolderName, id);
+                    addNewFolderAction_1.addNewFolderAction.addNewFolder(tree, newFolderName, id);
                     break;
                 case actionFolderTypes_1.actionFolderTypes.AddTag:
-                    this.addNewTag(tree, newFolderName, id);
+                    addNewTagFolderAction_1.addNewTagFolderAction.addNewTag(tree, newFolderName, id);
                     break;
                 case actionFolderTypes_1.actionFolderTypes.Duplicte:
-                    this.duplicteFolder(currentFolders, index);
+                    duplicateFolderAction_1.duplicateFolderAction.duplicteFolder(currentFolders, index);
                     break;
                 default:
                     console.log('actionType no match: ', this.actionType);
                     break;
             }
         }
-        if (!this.isfolderFound) {
+        if (!this.isFolderFound) {
             tree.folders.forEach(function (folder, index, currentFolders) {
                 _this.updateTree(id, folder, newFolderName, currentFolders, index);
             });
         }
-    };
-    searchFolderService.prototype.editFolder = function (tree, newFolderName) {
-        tree.folderName = newFolderName;
-    };
-    searchFolderService.prototype.deleteFolder = function (arrayFolders, index) {
-        arrayFolders.splice(index, 1);
-    };
-    searchFolderService.prototype.addNewFolder = function (tree, newFolderName, perentId) {
-        var collapsedNewFolder = false;
-        collapsedNewFolder = this.checkForCollapsedDisplay(tree);
-        tree.folders.push(new SearchTreeImplement_1.SearchTree("adeed-1" + Math.random(), newFolderName, 'owner', perentId, [], [], collapsedNewFolder, false, false));
-    };
-    searchFolderService.prototype.duplicteFolder = function (currentFolders, index) {
-        var duplictedFolder = this.cloneObject(currentFolders[index]);
-        duplictedFolder.folderId = Math.floor(Math.random() * 100).toString();
-        currentFolders.push(duplictedFolder);
-    };
-    searchFolderService.prototype.addNewTag = function (tree, newTagName, perentId) {
-        var collapsedNewTag = false;
-        collapsedNewTag = this.checkForCollapsedDisplay(tree);
-        tree.tags.push(new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), newTagName, "extraInfo", null, null, perentId, collapsedNewTag, true, false, false, false));
-    };
-    searchFolderService.prototype.checkForCollapsedDisplay = function (tree) {
-        if (tree.folders.length > 0) {
-            if (tree.folders[0].collapsed) {
-                return true;
-            }
-        }
-        if (tree.tags.length > 0) {
-            if (tree.tags[0].collapsed) {
-                return true;
-            }
-        }
-        return false;
-    };
-    searchFolderService.prototype.cloneObject = function (obj) {
-        var copy;
-        // Handle the 3 simple types, and null or undefined
-        if (null == obj || "object" != typeof obj)
-            return obj;
-        // Handle Date
-        // if (obj instanceof Date) {
-        //     copy = new Date();
-        //     copy.setTime(obj.getTime());
-        //     return copy;
-        // }
-        // Handle Array
-        if (obj instanceof Array) {
-            copy = [];
-            for (var i = 0, len = obj.length; i < len; i++) {
-                copy[i] = this.cloneObject(obj[i]);
-            }
-            return copy;
-        }
-        // Handle Object
-        if (obj instanceof Object) {
-            if (obj instanceof SearchTreeImplement_1.SearchTree) {
-                copy = {};
-                for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr))
-                        copy[attr] = this.cloneObject(obj[attr]);
-                }
-                var dup = new SearchTreeImplement_1.SearchTree(Math.floor(Math.random() * 100).toString(), copy.folderName, copy.owner, copy.parentFolderId, copy.folders, copy.tags, copy.collapsed, copy.isSharedFolder, false);
-                return dup;
-            }
-            if (obj instanceof SearchTreeImplement_1.NewTag) {
-                copy = {};
-                for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr))
-                        copy[attr] = this.cloneObject(obj[attr]);
-                }
-                var dup = new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), copy.tagName, copy.queryId, copy.extraInfo, copy.type, copy.parentFolderId, copy.collapsed, copy.isRule, copy.isRuleStopped, copy.hasKml, copy.isSharedTag);
-                return dup;
-            }
-        }
-        throw new Error("Unable to copy obj! Its type isn't supported.");
     };
     return searchFolderService;
 }());
@@ -194,11 +122,7 @@ exports.searchFolderService = searchFolderService;
 
 
 /***/ }),
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -215,6 +139,10 @@ var actionFolderTypes;
 
 
 /***/ }),
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
 /* 21 */,
 /* 22 */,
 /* 23 */,
@@ -278,7 +206,7 @@ module.exports = angular;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var typesActionTag_1 = __webpack_require__(34);
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var searchTagService = (function () {
     function searchTagService(actionType) {
         this.actionType = actionType;
@@ -1203,7 +1131,7 @@ angular.module('app').directive('zoomIn', function () {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(57);
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 angular.module('app').component('searchTreePerent', {
     template: __webpack_require__(199),
     bindings: {},
@@ -1384,8 +1312,8 @@ angular.module('app')
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var searchFolderService_1 = __webpack_require__(15);
-var actionFolderTypes_1 = __webpack_require__(20);
-var SearchTreeImplement_1 = __webpack_require__(5);
+var actionFolderTypes_1 = __webpack_require__(16);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var editFolderAction = (function () {
     function editFolderAction(folderId, newFolderName) {
         this.folderId = folderId;
@@ -1394,6 +1322,9 @@ var editFolderAction = (function () {
     editFolderAction.prototype.visit = function () {
         var searchService = new searchFolderService_1.searchFolderService(actionFolderTypes_1.actionFolderTypes.Edit);
         return searchService.executeAction(this.folderId, SearchTreeImplement_1.exampleObject, this.newFolderName);
+    };
+    editFolderAction.editFolder = function (tree, newFolderName) {
+        tree.folderName = newFolderName;
     };
     return editFolderAction;
 }());
@@ -1407,9 +1338,9 @@ exports.editFolderAction = editFolderAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var searchFolderService_1 = __webpack_require__(15);
-var actionFolderTypes_1 = __webpack_require__(20);
+var actionFolderTypes_1 = __webpack_require__(16);
 var deleteFolderAction = (function () {
     function deleteFolderAction(folderId) {
         this.folderId = folderId;
@@ -1417,6 +1348,9 @@ var deleteFolderAction = (function () {
     deleteFolderAction.prototype.visit = function () {
         var searchService = new searchFolderService_1.searchFolderService(actionFolderTypes_1.actionFolderTypes.Delete);
         return searchService.executeAction(this.folderId, SearchTreeImplement_1.exampleObject);
+    };
+    deleteFolderAction.deleteFolder = function (arrayFolders, index) {
+        arrayFolders.splice(index, 1);
     };
     return deleteFolderAction;
 }());
@@ -1451,8 +1385,8 @@ exports.shareFolderAction = shareFolderAction;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var searchFolderService_1 = __webpack_require__(15);
-var SearchTreeImplement_1 = __webpack_require__(5);
-var actionFolderTypes_1 = __webpack_require__(20);
+var SearchTreeImplement_1 = __webpack_require__(4);
+var actionFolderTypes_1 = __webpack_require__(16);
 var duplicateFolderAction = (function () {
     function duplicateFolderAction(folderId) {
         this.folderId = folderId;
@@ -1461,6 +1395,47 @@ var duplicateFolderAction = (function () {
         console.log('folder duplicated: ' + this.folderId);
         var searchService = new searchFolderService_1.searchFolderService(actionFolderTypes_1.actionFolderTypes.Duplicte);
         return searchService.executeAction(this.folderId, SearchTreeImplement_1.exampleObject);
+    };
+    duplicateFolderAction.duplicteFolder = function (currentFolders, index) {
+        var duplictedFolder = this.cloneObject(currentFolders[index]);
+        duplictedFolder.folderId = Math.floor(Math.random() * 100).toString();
+        currentFolders.push(duplictedFolder);
+    };
+    duplicateFolderAction.cloneObject = function (obj) {
+        var copy;
+        // Handle the 3 simple types, and null or undefined
+        if (null == obj || "object" != typeof obj)
+            return obj;
+        // Handle Array
+        if (obj instanceof Array) {
+            copy = [];
+            for (var i = 0, len = obj.length; i < len; i++) {
+                copy[i] = this.cloneObject(obj[i]);
+            }
+            return copy;
+        }
+        // Handle Object
+        if (obj instanceof Object) {
+            if (obj instanceof SearchTreeImplement_1.SearchTree) {
+                copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr))
+                        copy[attr] = this.cloneObject(obj[attr]);
+                }
+                var dup = new SearchTreeImplement_1.SearchTree(Math.floor(Math.random() * 100).toString(), copy.folderName, copy.owner, copy.parentFolderId, copy.folders, copy.tags, copy.collapsed, copy.isSharedFolder, false);
+                return dup;
+            }
+            if (obj instanceof SearchTreeImplement_1.NewTag) {
+                copy = {};
+                for (var attr in obj) {
+                    if (obj.hasOwnProperty(attr))
+                        copy[attr] = this.cloneObject(obj[attr]);
+                }
+                var dup = new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), copy.tagName, copy.queryId, copy.extraInfo, copy.type, copy.parentFolderId, copy.collapsed, copy.isRule, copy.isRuleStopped, copy.hasKml, copy.isSharedTag);
+                return dup;
+            }
+        }
+        throw new Error("Unable to copy obj! Its type isn't supported.");
     };
     return duplicateFolderAction;
 }());
@@ -1514,9 +1489,9 @@ exports.sharingInfoFolderAction = sharingInfoFolderAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var searchFolderService_1 = __webpack_require__(15);
-var actionFolderTypes_1 = __webpack_require__(20);
+var actionFolderTypes_1 = __webpack_require__(16);
 var addNewFolderAction = (function () {
     function addNewFolderAction(folderId, newFolderName) {
         this.folderId = folderId;
@@ -1525,6 +1500,24 @@ var addNewFolderAction = (function () {
     addNewFolderAction.prototype.visit = function () {
         var searchService = new searchFolderService_1.searchFolderService(actionFolderTypes_1.actionFolderTypes.AddFolder);
         return searchService.executeAction(this.folderId, SearchTreeImplement_1.exampleObject, this.newFolderName);
+    };
+    addNewFolderAction.addNewFolder = function (tree, newFolderName, perentId) {
+        var collapsedNewFolder = false;
+        collapsedNewFolder = this.checkForCollapsedDisplay(tree);
+        tree.folders.push(new SearchTreeImplement_1.SearchTree("adeed-1" + Math.random(), newFolderName, 'owner', perentId, [], [], collapsedNewFolder, false, false));
+    };
+    addNewFolderAction.checkForCollapsedDisplay = function (tree) {
+        if (tree.folders.length > 0) {
+            if (tree.folders[0].collapsed) {
+                return true;
+            }
+        }
+        if (tree.tags.length > 0) {
+            if (tree.tags[0].collapsed) {
+                return true;
+            }
+        }
+        return false;
     };
     return addNewFolderAction;
 }());
@@ -1560,9 +1553,9 @@ exports.removeAllLayersFolderAction = removeAllLayersFolderAction;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var searchFolderService_1 = __webpack_require__(15);
-var actionFolderTypes_1 = __webpack_require__(20);
+var actionFolderTypes_1 = __webpack_require__(16);
 var addNewTagFolderAction = (function () {
     function addNewTagFolderAction(folderId, newTagName) {
         this.folderId = folderId;
@@ -1571,6 +1564,24 @@ var addNewTagFolderAction = (function () {
     addNewTagFolderAction.prototype.visit = function () {
         var searchService = new searchFolderService_1.searchFolderService(actionFolderTypes_1.actionFolderTypes.AddTag);
         return searchService.executeAction(this.folderId, SearchTreeImplement_1.exampleObject, this.newTagName);
+    };
+    addNewTagFolderAction.addNewTag = function (tree, newTagName, perentId) {
+        var collapsedNewTag = false;
+        collapsedNewTag = this.checkForCollapsedDisplay(tree);
+        tree.tags.push(new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), newTagName, "extraInfo", null, null, perentId, collapsedNewTag, true, false, false, false));
+    };
+    addNewTagFolderAction.checkForCollapsedDisplay = function (tree) {
+        if (tree.folders.length > 0) {
+            if (tree.folders[0].collapsed) {
+                return true;
+            }
+        }
+        if (tree.tags.length > 0) {
+            if (tree.tags[0].collapsed) {
+                return true;
+            }
+        }
+        return false;
     };
     return addNewTagFolderAction;
 }());
@@ -1671,7 +1682,7 @@ angular.module('app')
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var searchTagService_1 = __webpack_require__(58);
 var typesActionTag_1 = __webpack_require__(34);
 var editTagAction = (function () {
@@ -1696,7 +1707,7 @@ exports.editTagAction = editTagAction;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var searchTagService_1 = __webpack_require__(58);
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var typesActionTag_1 = __webpack_require__(34);
 var deleteTagAction = (function () {
     function deleteTagAction(tagId) {
@@ -1800,7 +1811,7 @@ exports.stopRuleTagAction = stopRuleTagAction;
 Object.defineProperty(exports, "__esModule", { value: true });
 var searchTagService_1 = __webpack_require__(58);
 var typesActionTag_1 = __webpack_require__(34);
-var SearchTreeImplement_1 = __webpack_require__(5);
+var SearchTreeImplement_1 = __webpack_require__(4);
 var duplicteTagAction = (function () {
     function duplicteTagAction(tagId) {
         this.tagId = tagId;

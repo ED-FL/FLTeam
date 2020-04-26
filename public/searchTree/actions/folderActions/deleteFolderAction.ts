@@ -13,4 +13,8 @@ export class deleteFolderAction implements ISearchTreeAction {
         let searchService = new searchFolderService(actionFolderTypes.Delete);
         return searchService.executeAction(this.folderId, exampleObject);
     }
+
+    public static deleteFolder(arrayFolders, index) {
+        arrayFolders.splice(index, 1);
+    }
 }
