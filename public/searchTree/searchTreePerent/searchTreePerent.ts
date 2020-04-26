@@ -10,17 +10,9 @@ angular.module('app').component('searchTreePerent', {
 
     var $ctrl = this;
 
-    $ctrl.handleAction = (action: ISearchTreeAction): void => {
-      console.log('handleAction functiom');
-      
-      return action.visit()
-      .then((tree) => {
-        this.tree = tree;
-        console.log('on perent: ', tree);
-      })
-      .catch((error) => {
-        console.log('error - perent', error);
-      })
+    $ctrl.handleAction = async (action: ISearchTreeAction): Promise<any> => {
+      let tree = await action.visit();
+      $ctrl.tree = tree;
     };
   }
 })

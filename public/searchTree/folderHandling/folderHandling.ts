@@ -105,17 +105,17 @@ angular.module('app')
         };   
         
         const onRemoveSharing = (folder) => {
-            this.handleAction(new removeSharingFolderAction(folder.folderId));
+            $ctrl.handleAction(new removeSharingFolderAction(folder.folderId));
         }
 
         const onAddingFolder = (folder, newFolderName) => {
             console.log(folder, newFolderName)
-            this.handleAction(new addNewFolderAction(folder.folderId, newFolderName));
+            $ctrl.handleAction(new addNewFolderAction(folder.folderId, newFolderName));
         }
 
-        const onFolderEdited = (folder, newFolderName): void => {
+        const onFolderEdited = (folder, newFolderName) => {
             console.log(folder, newFolderName);
-            this.handleAction(new editFolderAction(folder.folderId, newFolderName));
+            $ctrl.handleAction(new editFolderAction(folder.folderId, newFolderName));
         }
 
         const onAddingTag = (folder, newTagName) => {
@@ -123,15 +123,15 @@ angular.module('app')
         }
 
         $ctrl.onFolderShared = (folder): void => {
-            this.handleAction(new shareFolderAction(folder.folderId));
+            $ctrl.handleAction(new shareFolderAction(folder.folderId));
         }
 
         $ctrl.onFolderDuplicated = (folder): void => {
-            this.handleAction(new duplicateFolderAction(folder.folderId));
+            $ctrl.handleAction(new duplicateFolderAction(folder.folderId));
         }
 
         $ctrl.onSharedInfo = (folder) => {
-            this.handleAction(new sharingInfoFolderAction(folder.folderId))
+            $ctrl.handleAction(new sharingInfoFolderAction(folder.folderId))
         }
 
         $ctrl.removeAllLayers = (folder) => {

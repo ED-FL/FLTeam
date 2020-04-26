@@ -15,11 +15,8 @@ export class duplicateFolderAction implements ISearchTreeAction {
     }
 
     public static duplicteFolder(currentFolders, index) {
-
+        
         var duplictedFolder = this.cloneObject(currentFolders[index]);
-
-        duplictedFolder.folderId = Math.floor(Math.random()*100).toString();
-
         currentFolders.push(duplictedFolder);
     }
 
