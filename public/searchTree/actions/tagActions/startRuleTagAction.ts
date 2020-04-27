@@ -1,7 +1,7 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
 
 export class startRuleTagAction implements ISearchTreeAction {
-    constructor(private tagId: number) {
+    constructor(private tagId: string) {
 
     }
 

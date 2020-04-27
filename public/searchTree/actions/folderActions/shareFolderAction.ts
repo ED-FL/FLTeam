@@ -1,7 +1,7 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
 
 export class shareFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number) {
+    constructor(private folderId: string) {
 
     }
 

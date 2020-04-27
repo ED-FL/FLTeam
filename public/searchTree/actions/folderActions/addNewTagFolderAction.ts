@@ -2,9 +2,10 @@ import { ISearchTreeAction } from '../ISearchTreeAction'
 import { exampleObject, NewTag } from '../../searchTreePerent/SearchTreeImplement';
 import { searchFolderService } from './service/searchFolderService';
 import { actionFolderTypes } from './service/actionFolderTypes';
+import ISearchTree from '../../ISearchTree';
 
 export class addNewTagFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number, private newTagName: string) {
+    constructor(private folderId: string, private newTagName: string) {
 
     }
 
@@ -13,15 +14,15 @@ export class addNewTagFolderAction implements ISearchTreeAction {
         return searchService.executeAction(this.folderId, exampleObject ,this.newTagName);
     }
 
-    public static addNewTag(tree ,newTagName, perentId) {
+    public static addNewTag(tree: ISearchTree ,newTagName: string, perentId: string): void {
  
-        let collapsedNewTag = false;
+        let collapsedNewTag: boolean = false;
         collapsedNewTag = this.checkForCollapsedDisplay(tree);
         
         tree.tags.push(new NewTag(Math.floor(Math.random()*100).toString(), newTagName, "extraInfo", null, null, perentId, collapsedNewTag, true, false, false, false));   
     }
 
-    private static checkForCollapsedDisplay(tree) {
+    private static checkForCollapsedDisplay(tree: ISearchTree): boolean {
 
         if(tree.folders.length > 0) {
             if(tree.folders[0].collapsed) {

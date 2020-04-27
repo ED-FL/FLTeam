@@ -5,7 +5,7 @@ import { actionFolderTypes } from "./service/actionFolderTypes";
 import { exampleObject } from '../../searchTreePerent/SearchTreeImplement';
 
 export class editFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number, private newFolderName: string) {
+    constructor(private folderId: string, private newFolderName: string) {
 
     }
 
@@ -14,7 +14,7 @@ export class editFolderAction implements ISearchTreeAction {
         return searchService.executeAction(this.folderId, exampleObject, this.newFolderName);
     }
 
-    public static editFolder(tree ,newFolderName) {
+    public static editFolder(tree: ISearchTree ,newFolderName: string): void {
         tree.folderName = newFolderName;      
     }
 }

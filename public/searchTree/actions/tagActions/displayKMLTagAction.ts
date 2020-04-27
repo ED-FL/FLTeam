@@ -1,7 +1,7 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
 
 export class displayKMLTagAction implements ISearchTreeAction {
-    constructor(private tagId: number) {
+    constructor(private tagId: string) {
 
     }
 

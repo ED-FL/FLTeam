@@ -3,7 +3,7 @@ import { exampleObject } from '../../searchTreePerent/SearchTreeImplement';
 import { searchFolderService } from './service/searchFolderService';
 
 export class removeAllLayersFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number) {
+    constructor(private folderId: string) {
 
     }
 

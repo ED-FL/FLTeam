@@ -21,7 +21,7 @@ angular.module('app')
 
         var $ctrl = this;
 
-        $ctrl.onFolderClicked = (tree : ISearchTree): void => {
+        $ctrl.onFolderClicked = (tree: ISearchTree): void => {
 
             tree.folders.forEach(folder => {
                 folder.collapsed = !folder.collapsed;  
@@ -36,7 +36,7 @@ angular.module('app')
             $mdMenu.open(event);
         };
 
-        $ctrl.showDeleteConfirm = (event, folder) => {            
+        $ctrl.showDeleteConfirm = (event, folder: ISearchTree): void => {            
             var confirm = $mdDialog.confirm()
                   .title('?האם אתה בטוח שברצונך למחוק את התיקייה')
                   .textContent('כל התיקיות והתגים בתוך תיקייה זו ימחקו לצמיתות')
@@ -48,7 +48,7 @@ angular.module('app')
             }, () => {});
         };
 
-        $ctrl.showRemoveSharingConfirm = (event, folder) => {            
+        $ctrl.showRemoveSharingConfirm = (event, folder: ISearchTree): void => {            
             var confirm = $mdDialog.confirm()
                   .title('?האם אתה בטוח שברצונך להסיר שיתוף תיקייה ')
                   .textContent(' התיקיות והתגיות בתיקייה זו לא יהיו נגישים יותר')
@@ -60,7 +60,7 @@ angular.module('app')
             }, () => {});
         };
 
-        $ctrl.showAddingFolderDialog = (ev, folder) => {
+        $ctrl.showAddingFolderDialog = (ev, folder: ISearchTree): void => {
             var confirm = $mdDialog.prompt()
               .title('הכנס שם תיקייה')
               .placeholder('שם תיקייה')
@@ -73,7 +73,7 @@ angular.module('app')
             }, () => {});
         };
 
-        $ctrl.showAddingTagDialog = (ev, folder) => {
+        $ctrl.showAddingTagDialog = (ev, folder: ISearchTree): void => {
             var confirm = $mdDialog.prompt()
               .title('הכנס שם תגית')
               .placeholder('שם תגית')
@@ -86,7 +86,7 @@ angular.module('app')
             }, () => {});
         };
 
-        $ctrl.showEditFolderDialog = (ev, folder) => {
+        $ctrl.showEditFolderDialog = (ev, folder: ISearchTree): void => {
             var confirm = $mdDialog.prompt()
               .title('הכנס שם חדש')
               .placeholder('שם תיקייה')
@@ -100,41 +100,39 @@ angular.module('app')
         };
 
 
-        const onFolderDeleted = (folder): void => {                        
+        const onFolderDeleted = (folder: ISearchTree): void => {                        
             $ctrl.handleAction(new deleteFolderAction(folder.folderId));
         };   
         
-        const onRemoveSharing = (folder) => {
+        const onRemoveSharing = (folder: ISearchTree): void => {
             $ctrl.handleAction(new removeSharingFolderAction(folder.folderId));
         }
 
-        const onAddingFolder = (folder, newFolderName) => {
-            console.log(folder, newFolderName)
+        const onAddingFolder = (folder: ISearchTree, newFolderName: string): void => {
             $ctrl.handleAction(new addNewFolderAction(folder.folderId, newFolderName));
         }
 
-        const onFolderEdited = (folder, newFolderName) => {
-            console.log(folder, newFolderName);
+        const onFolderEdited = (folder: ISearchTree, newFolderName: string): void => {
             $ctrl.handleAction(new editFolderAction(folder.folderId, newFolderName));
         }
 
-        const onAddingTag = (folder, newTagName) => {
+        const onAddingTag = (folder: ISearchTree, newTagName: string): void => {
             $ctrl.handleAction(new addNewTagFolderAction(folder.folderId, newTagName))
         }
 
-        $ctrl.onFolderShared = (folder): void => {
+        $ctrl.onFolderShared = (folder: ISearchTree): void => {
             $ctrl.handleAction(new shareFolderAction(folder.folderId));
         }
 
-        $ctrl.onFolderDuplicated = (folder): void => {
+        $ctrl.onFolderDuplicated = (folder: ISearchTree): void => {
             $ctrl.handleAction(new duplicateFolderAction(folder.folderId));
         }
 
-        $ctrl.onSharedInfo = (folder) => {
+        $ctrl.onSharedInfo = (folder: ISearchTree): void => {
             $ctrl.handleAction(new sharingInfoFolderAction(folder.folderId))
         }
 
-        $ctrl.removeAllLayers = (folder) => {
+        $ctrl.removeAllLayers = (folder: ISearchTree): void => {
             $ctrl.handleAction(new removeAllLayersFolderAction(folder.folderId))
         }
     }

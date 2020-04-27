@@ -6,6 +6,7 @@ import { displayKMLTagAction } from "../actions/tagActions/displayKMLTagAction";
 import { startRuleTagAction } from "../actions/tagActions/startRuleTagAction";
 import { stopRuleTagAction } from "../actions/tagActions/stopRuleTagAction";
 import { duplicteTagAction } from "../actions/tagActions/dupicateTagAction";
+import { INewTag } from "../INewTag";
 
 angular.module('app')
 .component('tagsHandling', {
@@ -20,7 +21,7 @@ angular.module('app')
 
         $ctrl.checkboxKML = false;
 
-        $ctrl.showEditTagDialog = (ev, folder) => {
+        $ctrl.showEditTagDialog = (ev, tag : INewTag): void => {
             var confirm = $mdDialog.prompt()
               .title('הכנס שם חדש')
               .placeholder('שם תגית')
@@ -29,11 +30,11 @@ angular.module('app')
               .cancel('בטל');
         
             $mdDialog.show(confirm).then((newTagName) => {
-                onTagEdited(folder, newTagName);
+                onTagEdited(tag, newTagName);
             }, () => {})
         };
 
-        $ctrl.showDeleteConfirm = (event, folder) => {            
+        $ctrl.showDeleteConfirm = (event, tag: INewTag): void => {            
             var confirm = $mdDialog.confirm()
                   .title('?האם אתה בטוח שברצונך למחוק את התגית')
                   .textContent('התגית תמחק לצמיתות')
@@ -41,19 +42,19 @@ angular.module('app')
                   .cancel('ביטול');
         
             $mdDialog.show(confirm).then(() => {
-                onTagDeleted(folder);              
+                onTagDeleted(tag);              
             }, () => {});
         };
 
-        const onTagEdited = (tag, newTagName) => {
+        const onTagEdited = (tag : INewTag, newTagName: string): void => {
             $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));             
         }
 
-        const onTagDeleted = (tag) => {            
+        const onTagDeleted = (tag: INewTag): void => {            
             $ctrl.handleAction(new deleteTagAction(tag.tagId));            
         }
 
-        $ctrl.onTagClicked = (tag): void => {
+        $ctrl.onTagClicked = (tag: INewTag): void => {
             console.log('go to tag link: ', tag);  
         };
  
@@ -61,26 +62,26 @@ angular.module('app')
             $mdMenu.open(event);
         };
 
-        $ctrl.onTagExported = (tag) => {
+        $ctrl.onTagExported = (tag: INewTag): void => {
             this.handleAction(new exportTagAction(tag.tagId));
         }        
         
-        $ctrl.onDisplayKmlTag = (tag) => {
+        $ctrl.onDisplayKmlTag = (tag: INewTag): void => {
             this.handleAction(new displayKMLTagAction(tag.tagId));
             $ctrl.checkboxKML = !$ctrl.checkboxKML;
         }
 
-        $ctrl.onTagRuleStarted = (tag) => {
+        $ctrl.onTagRuleStarted = (tag: INewTag): void => {
             this.handleAction(new startRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
         }
 
-        $ctrl.onTagRuleStoped = (tag) => {
+        $ctrl.onTagRuleStoped = (tag: INewTag): void => {
             this.handleAction(new stopRuleTagAction(tag.tagId));
             tag.isRuleStopped = !tag.isRuleStopped;
         }
 
-        $ctrl.onTagDuplicated = (tag) => {
+        $ctrl.onTagDuplicated = (tag: INewTag): void => {
             $ctrl.handleAction(new duplicteTagAction(tag.tagId));   
         }
     }

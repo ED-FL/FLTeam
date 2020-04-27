@@ -3,9 +3,10 @@ import { searchFolderService } from './service/searchFolderService';
 import { exampleObject, SearchTree, NewTag } from '../../searchTreePerent/SearchTreeImplement';
 import { actionFolderTypes } from './service/actionFolderTypes';
 import _ from 'underscore';
+import ISearchTree from '../../ISearchTree';
 
 export class duplicateFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number) {
+    constructor(private folderId: string) {
 
     }
 
@@ -15,7 +16,7 @@ export class duplicateFolderAction implements ISearchTreeAction {
         return searchService.executeAction(this.folderId, exampleObject);    
     }
 
-    public static duplicteFolder(currentFolders, index) {
+    public static duplicteFolder(currentFolders: ISearchTree[], index: number): void {
 
         var duplictedFolder = this.cloneObject(currentFolders[index]);
         currentFolders.push(duplictedFolder);

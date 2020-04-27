@@ -5,7 +5,7 @@ import { searchFolderService } from './service/searchFolderService';
 import { actionFolderTypes } from './service/actionFolderTypes';
 
 export class deleteFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number) {
+    constructor(private folderId: string) {
 
     }
 
@@ -14,7 +14,7 @@ export class deleteFolderAction implements ISearchTreeAction {
         return searchService.executeAction(this.folderId, exampleObject);
     }
 
-    public static deleteFolder(arrayFolders, index) {
+    public static deleteFolder(arrayFolders: ISearchTree[], index: number): void {
         arrayFolders.splice(index, 1);
     }
 }

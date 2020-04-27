@@ -12,7 +12,7 @@ export class searchTagService {
 
     constructor(private actionType : typesActionTag) {}
 
-    public executeAction(id, tree ,newTagName?) : Promise<ISearchTree>  {
+    public executeAction(id: string, tree: ISearchTree ,newTagName?: string) : Promise<ISearchTree>  {
         return new Promise((resolve, reject) => {
             this.updateTree(id, tree ,newTagName)
           
@@ -25,7 +25,7 @@ export class searchTagService {
         });
     }
 
-    private updateTree(id, tree ,newTagName?) {
+    private updateTree(id: string, tree: ISearchTree ,newTagName?: string): void {
         tree.tags.forEach((tag, index, currentTags) => {
             if(tag.tagId === id) {         
                 this.isTagFound = true;

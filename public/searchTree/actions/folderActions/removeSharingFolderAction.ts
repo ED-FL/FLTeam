@@ -1,7 +1,7 @@
 import { ISearchTreeAction } from '../ISearchTreeAction'
 
 export class removeSharingFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number) {
+    constructor(private folderId: string) {
 
     }
 

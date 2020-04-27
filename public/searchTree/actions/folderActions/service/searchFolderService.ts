@@ -12,7 +12,7 @@ export class searchFolderService {
 
     constructor(private actionType : actionFolderTypes) {}
 
-    public executeAction(id, tree ,newfolderName?) : Promise<ISearchTree>  {
+    public executeAction(id: string, tree: ISearchTree ,newfolderName?: string) : Promise<ISearchTree>  {
         return new Promise((resolve, reject) => {
             
             this.updateTree(id, tree ,newfolderName)
@@ -26,7 +26,7 @@ export class searchFolderService {
         });
     }
 
-    private updateTree(id, tree ,newFolderName?, currentFolders?, index?) {
+    private updateTree(id: string, tree: ISearchTree ,newFolderName?: string, currentFolders?:ISearchTree[], index?: number): void {
         if(tree.folderId === id) {         
             this.isFolderFound = true;
             switch (this.actionType) {

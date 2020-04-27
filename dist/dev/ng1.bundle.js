@@ -1,4 +1,4 @@
-webpackJsonp([1],[
+webpackJsonp([2],[
 /* 0 */,
 /* 1 */,
 /* 2 */,
@@ -56,19 +56,18 @@ exports.exampleObject = new SearchTree("1", "mainFolder-1", "yuval", null, [new 
 /* 12 */,
 /* 13 */,
 /* 14 */,
-/* 15 */,
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var actionFolderTypes_1 = __webpack_require__(17);
-var editFolderAction_1 = __webpack_require__(87);
-var deleteFolderAction_1 = __webpack_require__(88);
-var addNewFolderAction_1 = __webpack_require__(89);
-var addNewTagFolderAction_1 = __webpack_require__(90);
-var duplicateFolderAction_1 = __webpack_require__(91);
+var actionFolderTypes_1 = __webpack_require__(16);
+var editFolderAction_1 = __webpack_require__(86);
+var deleteFolderAction_1 = __webpack_require__(87);
+var addNewFolderAction_1 = __webpack_require__(88);
+var addNewTagFolderAction_1 = __webpack_require__(89);
+var duplicateFolderAction_1 = __webpack_require__(90);
 var searchFolderService = (function () {
     function searchFolderService(actionType) {
         this.actionType = actionType;
@@ -123,7 +122,7 @@ exports.searchFolderService = searchFolderService;
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -140,6 +139,7 @@ var actionFolderTypes;
 
 
 /***/ }),
+/* 17 */,
 /* 18 */,
 /* 19 */,
 /* 20 */,
@@ -199,17 +199,16 @@ var typesActionTag;
 module.exports = angular;
 
 /***/ }),
-/* 58 */,
-/* 59 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var typesActionTag_1 = __webpack_require__(34);
-var editTagAction_1 = __webpack_require__(92);
-var deleteTagAction_1 = __webpack_require__(93);
-var dupicateTagAction_1 = __webpack_require__(94);
+var editTagAction_1 = __webpack_require__(91);
+var deleteTagAction_1 = __webpack_require__(92);
+var dupicateTagAction_1 = __webpack_require__(93);
 var searchTagService = (function () {
     function searchTagService(actionType) {
         this.actionType = actionType;
@@ -259,6 +258,7 @@ exports.searchTagService = searchTagService;
 
 
 /***/ }),
+/* 59 */,
 /* 60 */,
 /* 61 */,
 /* 62 */,
@@ -285,15 +285,14 @@ exports.searchTagService = searchTagService;
 /* 83 */,
 /* 84 */,
 /* 85 */,
-/* 86 */,
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var searchFolderService_1 = __webpack_require__(16);
-var actionFolderTypes_1 = __webpack_require__(17);
+var searchFolderService_1 = __webpack_require__(15);
+var actionFolderTypes_1 = __webpack_require__(16);
 var SearchTreeImplement_1 = __webpack_require__(7);
 var editFolderAction = (function () {
     function editFolderAction(folderId, newFolderName) {
@@ -313,15 +312,15 @@ exports.editFolderAction = editFolderAction;
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
-var searchFolderService_1 = __webpack_require__(16);
-var actionFolderTypes_1 = __webpack_require__(17);
+var searchFolderService_1 = __webpack_require__(15);
+var actionFolderTypes_1 = __webpack_require__(16);
 var deleteFolderAction = (function () {
     function deleteFolderAction(folderId) {
         this.folderId = folderId;
@@ -339,15 +338,15 @@ exports.deleteFolderAction = deleteFolderAction;
 
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
-var searchFolderService_1 = __webpack_require__(16);
-var actionFolderTypes_1 = __webpack_require__(17);
+var searchFolderService_1 = __webpack_require__(15);
+var actionFolderTypes_1 = __webpack_require__(16);
 var addNewFolderAction = (function () {
     function addNewFolderAction(folderId, newFolderName) {
         this.folderId = folderId;
@@ -381,15 +380,15 @@ exports.addNewFolderAction = addNewFolderAction;
 
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
-var searchFolderService_1 = __webpack_require__(16);
-var actionFolderTypes_1 = __webpack_require__(17);
+var searchFolderService_1 = __webpack_require__(15);
+var actionFolderTypes_1 = __webpack_require__(16);
 var addNewTagFolderAction = (function () {
     function addNewTagFolderAction(folderId, newTagName) {
         this.folderId = folderId;
@@ -423,15 +422,15 @@ exports.addNewTagFolderAction = addNewTagFolderAction;
 
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var searchFolderService_1 = __webpack_require__(16);
+var searchFolderService_1 = __webpack_require__(15);
 var SearchTreeImplement_1 = __webpack_require__(7);
-var actionFolderTypes_1 = __webpack_require__(17);
+var actionFolderTypes_1 = __webpack_require__(16);
 var duplicateFolderAction = (function () {
     function duplicateFolderAction(folderId) {
         this.folderId = folderId;
@@ -489,14 +488,14 @@ exports.duplicateFolderAction = duplicateFolderAction;
 
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
-var searchTagService_1 = __webpack_require__(59);
+var searchTagService_1 = __webpack_require__(58);
 var typesActionTag_1 = __webpack_require__(34);
 var editTagAction = (function () {
     function editTagAction(tagId, newTagName) {
@@ -516,13 +515,13 @@ exports.editTagAction = editTagAction;
 
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var searchTagService_1 = __webpack_require__(59);
+var searchTagService_1 = __webpack_require__(58);
 var SearchTreeImplement_1 = __webpack_require__(7);
 var typesActionTag_1 = __webpack_require__(34);
 var deleteTagAction = (function () {
@@ -542,13 +541,13 @@ exports.deleteTagAction = deleteTagAction;
 
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var searchTagService_1 = __webpack_require__(59);
+var searchTagService_1 = __webpack_require__(58);
 var typesActionTag_1 = __webpack_require__(34);
 var SearchTreeImplement_1 = __webpack_require__(7);
 var duplicteTagAction = (function () {
@@ -570,6 +569,7 @@ exports.duplicteTagAction = duplicteTagAction;
 
 
 /***/ }),
+/* 94 */,
 /* 95 */,
 /* 96 */,
 /* 97 */,
@@ -645,44 +645,43 @@ exports.duplicteTagAction = duplicteTagAction;
 /* 167 */,
 /* 168 */,
 /* 169 */,
-/* 170 */,
-/* 171 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+__webpack_require__(171);
 __webpack_require__(172);
 __webpack_require__(173);
 __webpack_require__(174);
-__webpack_require__(175);
-__webpack_require__(177);
-__webpack_require__(179);
-__webpack_require__(181);
-__webpack_require__(183);
-__webpack_require__(185);
+__webpack_require__(176);
+__webpack_require__(178);
+__webpack_require__(180);
+__webpack_require__(182);
+__webpack_require__(184);
+__webpack_require__(186);
 __webpack_require__(187);
-__webpack_require__(188);
+__webpack_require__(189);
 __webpack_require__(190);
 __webpack_require__(191);
 __webpack_require__(192);
-__webpack_require__(193);
-__webpack_require__(195);
+__webpack_require__(194);
+__webpack_require__(196);
 __webpack_require__(197);
 __webpack_require__(198);
-__webpack_require__(199);
-__webpack_require__(201);
-__webpack_require__(203);
+__webpack_require__(200);
+__webpack_require__(202);
+__webpack_require__(204);
 __webpack_require__(205);
 __webpack_require__(206);
-__webpack_require__(207);
-__webpack_require__(209);
-__webpack_require__(211);
-__webpack_require__(219);
+__webpack_require__(208);
+__webpack_require__(210);
+__webpack_require__(216);
 
 
 /***/ }),
-/* 172 */
+/* 171 */
 /***/ (function(module, exports) {
 
 (function () {
@@ -693,7 +692,7 @@ __webpack_require__(219);
 
 
 /***/ }),
-/* 173 */
+/* 172 */
 /***/ (function(module, exports) {
 
 var app = angular.module('app', ['ngRoute', 'toastr', 'ngMaterial']);
@@ -713,7 +712,7 @@ app.config(['$locationProvider', function ($locationProvider) {
 
 
 /***/ }),
-/* 174 */
+/* 173 */
 /***/ (function(module, exports) {
 
 angular.module('app').config(function ($routeProvider) {
@@ -814,11 +813,11 @@ angular.module('app').config(function ($routeProvider) {
 
 
 /***/ }),
-/* 175 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('adminLogin', {
-    template: __webpack_require__(176),
+    template: __webpack_require__(175),
     bindings: {},
     controller: function ($location, currentIdentity, auth, toastr) {
         this.loggedIn = currentIdentity.authenticated();
@@ -840,17 +839,17 @@ angular.module('app').component('adminLogin', {
 
 
 /***/ }),
-/* 176 */
+/* 175 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>Admin Login</h1>\r\n\r\n<form class=\"form\">\r\n  <div class=\"row\">\r\n  <div class=\"form-group col-sm-6\">\r\n    <input type=\"text\" autofocus placeholder=\"Email Address\" ng-model=\"$ctrl.email\" class=\"form-control\">\r\n  </div>\r\n  </div>\r\n  <div class=\"row\">\r\n  <div class=\"form-group col-sm-6\">\r\n    <input type=\"password\" placeholder=\"Password\" ng-model=\"$ctrl.password\" class=\"form-control\">\r\n  </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6\">\r\n    <button class=\"btn btn-primary\" ng-click=\"$ctrl.login()\">Login</button>\r\n    </div>\r\n  </div>\r\n</form>";
 
 /***/ }),
-/* 177 */
+/* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('results', {
-    template: __webpack_require__(178),
+    template: __webpack_require__(177),
     bindings: {
         sessionsByVoteDesc: '=allSessions'
     },
@@ -866,17 +865,17 @@ angular.module('app').component('results', {
 
 
 /***/ }),
-/* 178 */
+/* 177 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n<h1>Results</h1>\r\n\r\n<session-detail-with-votes session=\"session\" ng-repeat=\"session in $ctrl.sessionsByVoteDesc\"></session-detail-with-votes>\r\n\r\n";
 
 /***/ }),
-/* 179 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('createUsers', {
-    template: __webpack_require__(180),
+    template: __webpack_require__(179),
     bindings: {},
     controller: function (nameParser, users, toastr) {
         this.import = function () {
@@ -898,17 +897,17 @@ angular.module('app').component('createUsers', {
 
 
 /***/ }),
-/* 180 */
+/* 179 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n\r\n<h1>Create Users</h1>\r\n<p>Enter Email Addresses here. One on each line, First and Last Name Pipe Separated</p>\r\n<textarea name=\"emailAddresses\" id=\"\" cols=\"30\" rows=\"10\" class=\"form-control\" \r\n  placeholder=\"Email Addresses\" ng-model=\"$ctrl.namesblob\"></textarea>\r\n<br>\r\n<button class=\"btn btn-primary\" ng-click=\"$ctrl.import()\">Create Users</button>\r\n";
 
 /***/ }),
-/* 181 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('userList', {
-    template: __webpack_require__(182),
+    template: __webpack_require__(181),
     bindings: {
         users: '=allUsers'
     },
@@ -928,17 +927,17 @@ angular.module('app').component('userList', {
 
 
 /***/ }),
-/* 182 */
+/* 181 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n<h1>User List</h1>\r\n\r\n<a ng-href=\"#/admin/users/{{user.id}}\" zoom-in \r\n  class=\"btn btn-primary btn-spaced\" \r\n  ng-repeat=\"user in $ctrl.users\">\r\n  {{user.firstName}}\r\n  {{user.lastName}}\r\n</a>\r\n";
 
 /***/ }),
-/* 183 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('userDetails', {
-    template: __webpack_require__(184),
+    template: __webpack_require__(183),
     bindings: {
         allUsers: '='
     },
@@ -953,17 +952,17 @@ angular.module('app').component('userDetails', {
 
 
 /***/ }),
-/* 184 */
+/* 183 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n<div class=\"jumbotron\">\r\n  <h1>{{$ctrl.user.firstName}} {{$ctrl.user.lastName}}\r\n    <span class=\"badge\" ng-show=\"$ctrl.user.isAdmin\">Admin</span>\r\n  </h1>\r\n  <p>{{$ctrl.user.email}}</p>\r\n</div>";
 
 /***/ }),
-/* 185 */
+/* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('nav', {
-    template: __webpack_require__(186),
+    template: __webpack_require__(185),
     bindings: {},
     controller: function (currentIdentity, sessions, unreviewedSessionCount) {
         this.currentUser = currentIdentity.currentUser;
@@ -974,13 +973,13 @@ angular.module('app').component('nav', {
 
 
 /***/ }),
-/* 186 */
+/* 185 */
 /***/ (function(module, exports) {
 
 module.exports = "<div \r\n  class=\"navbar navbar-fixed-top navbar-inverse\">\r\n  <div class=\"container\">\r\n    <div class=\"navbar-header\"><a href=\"/\" class=\"navbar-brand\">Lightning Talks</a></div>\r\n    <div class=\"navbar-collapse collapse\">\r\n      <ul class=\"nav navbar-nav\">\r\n        <li><a href=\"#/\">Home <span class=\"badge\">{{$ctrl.unreviewedSessionCount.value}}</span> </a></li>\r\n        <li><a href=\"#/createsession\">Create Session</a></li>\r\n        <li><a href=\"#/profile\">Profile</a></li>\r\n        <li><a href=\"#/admin/createusers\" ng-show=\"$ctrl.currentUser.isAdmin\">Create Users</a></li>\r\n        <li><a href=\"#/admin/results\" ng-show=\"$ctrl.currentUser.isAdmin\">Results</a></li>\r\n        <li><a href=\"#/users\" ng-show=\"$ctrl.currentUser.isAdmin\">Users</a></li>\r\n        <li><a href=\"#/searchTree\">Search Tree</a></li>\r\n        <li><a href=\"#/logout\">Logout</a></li>\r\n      </ul>\r\n      \r\n      <ul class=\"nav navbar-right navbar nav\">\r\n        <li class=\"navbar-text\">\r\n          Welcome {{$ctrl.currentUser.firstName}} {{$ctrl.currentUser.lastName}}\r\n        </li>\r\n      </ul>\r\n    </div>\r\n  </div>\r\n</div>\r\n";
 
 /***/ }),
-/* 187 */
+/* 186 */
 /***/ (function(module, exports) {
 
 angular.module('app').component('logout', {
@@ -992,11 +991,11 @@ angular.module('app').component('logout', {
 
 
 /***/ }),
-/* 188 */
+/* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('login', {
-    template: __webpack_require__(189),
+    template: __webpack_require__(188),
     bindings: {},
     controller: (function () {
         function LoginCtrl($location, currentIdentity, auth, toastr) {
@@ -1024,13 +1023,13 @@ angular.module('app').component('login', {
 
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, exports) {
 
 module.exports = "<h1>Please Login</h1>\r\n\r\n<p>Enter your attendee email address</p>\r\n<form class=\"form\">\r\n  <div class=\"row\">\r\n    <div class=\"form-group col-sm-6\">\r\n      <input type=\"text\" autofocus placeholder=\"Email Address\" ng-model=\"$ctrl.email\" class=\"form-control\">\r\n    </div>\r\n  </div>\r\n  <div class=\"row\">\r\n    <div class=\"col-sm-6\">\r\n      <md-button ng-click=\"$ctrl.login()\">Login</md-button>\r\n    </div>\r\n  </div>\r\n</form>";
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('auth', (function () {
@@ -1099,7 +1098,7 @@ angular.module('app').service('auth', (function () {
 
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('currentIdentity', (function () {
@@ -1134,7 +1133,7 @@ angular.module('app').service('currentIdentity', (function () {
 
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('users', (function () {
@@ -1157,11 +1156,11 @@ angular.module('app').service('users', (function () {
 
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('home', {
-    template: __webpack_require__(194),
+    template: __webpack_require__(193),
     bindings: {
         userSessions: '='
     },
@@ -1197,17 +1196,17 @@ angular.module('app').component('home', {
 
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n\r\n<h2 style=\"margin-top:30px\">Unreviewed Sessions</h2>\r\n<unreviewed-talk [session]=\"$ctrl.currentSessionToReview\" (vote-no)=\"$ctrl.voteNo()\" (vote-yes)=\"$ctrl.voteYes()\"></unreviewed-talk>\r\n<hr style=\"margin-top:20px\">\r\n<h3>Your Sessions\r\n<a zoom-in class=\"btn btn-primary btn-xs\" href=\"#/createsession\">Create a New Session</a>\r\n</h3>\r\n\r\n<div ng-repeat=\"session in $ctrl.userSessions\">\r\n  <session-detail session=\"session\" initial-collapsed=\"true\"></session-detail>\r\n</div>\r\n";
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('createNewSession', {
-    template: __webpack_require__(196),
+    template: __webpack_require__(195),
     bindings: {
         userSessions: '='
     },
@@ -1230,13 +1229,13 @@ angular.module('app').component('createNewSession', {
 
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, exports) {
 
 module.exports = "<nav></nav>\r\n\r\n<h1>Create New Session</h1>\r\n\r\n<form class=\"form\">\r\n  <div class=\"form-group\">\r\n    Give your session a title\r\n    <input required type=\"text\" placeholder=\"Title\" ng-model=\"$ctrl.title\" class=\"form-control\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    Enter a length, from 2 minutes to 30 minutes\r\n    <input required type=\"number\" placeholder=\"Length in Minutes\" \r\n      ng-model=\"$ctrl.length\" class=\"form-control\" min=\"2\" max=\"30\">\r\n  </div>\r\n  <div class=\"form-group\">\r\n    Describe your session\r\n    <textarea required name=\"\" id=\"\" cols=\"30\" rows=\"4\" \r\n      ng-model=\"$ctrl.abstract\" class=\"form-control\"\r\n      placeholder=\"Abstract\"></textarea>\r\n  </div>\r\n  \r\n  <div class=\"row\">\r\n    <div class=\"col-sm-3\">\r\n      <button class=\" btn btn-primary btn-sm\" ng-click=\"$ctrl.create()\">Create</button>\r\n    </div>\r\n  </div>\r\n</form>\r\n\r\n<h2>Your Other Sessions</h2>\r\n<div ng-repeat=\"session in $ctrl.userSessions\">\r\n  <session-detail session=\"session\" initial-collapsed=\"false\"></session-detail>\r\n</div>";
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('sessions', (function () {
@@ -1282,7 +1281,7 @@ angular.module('app').service('sessions', (function () {
 
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, exports) {
 
 angular.module('app').service('unreviewedSessionCount', (function () {
@@ -1303,11 +1302,11 @@ angular.module('app').service('unreviewedSessionCount', (function () {
 
 
 /***/ }),
-/* 199 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('sessionDetail', {
-    template: __webpack_require__(200),
+    template: __webpack_require__(199),
     bindings: {
         session: '=',
         initialCollapsed: '@'
@@ -1318,17 +1317,17 @@ angular.module('app').component('sessionDetail', {
 
 
 /***/ }),
-/* 200 */
+/* 199 */
 /***/ (function(module, exports) {
 
 module.exports = "<detail-panel collapsed=\"{{$ctrl.initialCollapsed}}\" title=\"{{$ctrl.session.title}}\">\r\n  <strong>{{$ctrl.session.length | talkDuration}}</strong>\r\n  <p><small>{{$ctrl.session.abstract}}</small></p>  \r\n</detail-panel>\r\n";
 
 /***/ }),
-/* 201 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('sessionDetailWithVotes', {
-    template: __webpack_require__(202),
+    template: __webpack_require__(201),
     bindings: {
         session: '=',
         initialCollapsed: '@'
@@ -1339,18 +1338,18 @@ angular.module('app').component('sessionDetailWithVotes', {
 
 
 /***/ }),
-/* 202 */
+/* 201 */
 /***/ (function(module, exports) {
 
 module.exports = "<detail-panel collapsed=\"{{$ctrl.initialCollapsed}}\" title=\"{{$ctrl.session.title}}\">\r\n  <strong>{{$ctrl.session.voteCount}} votes</strong>\r\n  <p>{{$ctrl.session.length | talkDuration}}</p>\r\n  <p><small>{{$ctrl.session.abstract}}</small></p>  \r\n</detail-panel>\r\n";
 
 /***/ }),
-/* 203 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('detailPanel', {
     transclude: true,
-    template: __webpack_require__(204),
+    template: __webpack_require__(203),
     bindings: {
         title: '@',
         initialCollapsed: '@collapsed'
@@ -1365,13 +1364,13 @@ angular.module('app').component('detailPanel', {
 
 
 /***/ }),
-/* 204 */
+/* 203 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"panel panel-primary\">\r\n  <div class=\"panel-heading pointable\" ng-click=\"$ctrl.collapse()\">\r\n    <span>{{$ctrl.title}}</span>\r\n  </div>\r\n  <div class=\"panel-body\" ng-hide=\"$ctrl.collapsed\" ng-transclude>\r\n  </div>\r\n</div>";
 
 /***/ }),
-/* 205 */
+/* 204 */
 /***/ (function(module, exports) {
 
 angular.module('app').filter('talkDuration', function () {
@@ -1382,7 +1381,7 @@ angular.module('app').filter('talkDuration', function () {
 
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports) {
 
 angular.module('app').directive('zoomIn', function () {
@@ -1401,7 +1400,7 @@ angular.module('app').directive('zoomIn', function () {
 
 
 /***/ }),
-/* 207 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1445,7 +1444,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(57);
 var SearchTreeImplement_1 = __webpack_require__(7);
 angular.module('app').component('searchTreePerent', {
-    template: __webpack_require__(208),
+    template: __webpack_require__(207),
     bindings: {},
     controller: function () {
         var _this = this;
@@ -1468,17 +1467,17 @@ angular.module('app').component('searchTreePerent', {
 
 
 /***/ }),
-/* 208 */
+/* 207 */
 /***/ (function(module, exports) {
 
 module.exports = "<search-tree tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></search-tree>\r\n";
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 angular.module('app').component('searchTree', {
-    template: __webpack_require__(210),
+    template: __webpack_require__(209),
     bindings: {
         tree: '=',
         handleAction: "&"
@@ -1488,31 +1487,31 @@ angular.module('app').component('searchTree', {
 
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"tree-container\">    \r\n    <ul> \r\n        <li>\r\n            <folder-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction(action)\"></folder-handling>\r\n        </li>\r\n    </ul>\r\n</div>";
 
 /***/ }),
-/* 211 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(57);
-var editFolderAction_1 = __webpack_require__(87);
-var deleteFolderAction_1 = __webpack_require__(88);
-var shareFolderAction_1 = __webpack_require__(214);
-var duplicateFolderAction_1 = __webpack_require__(91);
-var removeSharingFolderAction_1 = __webpack_require__(215);
-var sharingInfoFolderAction_1 = __webpack_require__(216);
-var addNewFolderAction_1 = __webpack_require__(89);
-var removeAllLayersFolderAction_1 = __webpack_require__(217);
-var addNewTagFolderAction_1 = __webpack_require__(90);
+var editFolderAction_1 = __webpack_require__(86);
+var deleteFolderAction_1 = __webpack_require__(87);
+var shareFolderAction_1 = __webpack_require__(211);
+var duplicateFolderAction_1 = __webpack_require__(90);
+var removeSharingFolderAction_1 = __webpack_require__(212);
+var sharingInfoFolderAction_1 = __webpack_require__(213);
+var addNewFolderAction_1 = __webpack_require__(88);
+var removeAllLayersFolderAction_1 = __webpack_require__(214);
+var addNewTagFolderAction_1 = __webpack_require__(89);
 angular.module('app')
     .component('folderHandling', {
-    template: __webpack_require__(218),
+    template: __webpack_require__(215),
     bindings: {
         tree: '=',
         handleAction: "="
@@ -1590,11 +1589,9 @@ angular.module('app')
             $ctrl.handleAction(new removeSharingFolderAction_1.removeSharingFolderAction(folder.folderId));
         };
         var onAddingFolder = function (folder, newFolderName) {
-            console.log(folder, newFolderName);
             $ctrl.handleAction(new addNewFolderAction_1.addNewFolderAction(folder.folderId, newFolderName));
         };
         var onFolderEdited = function (folder, newFolderName) {
-            console.log(folder, newFolderName);
             $ctrl.handleAction(new editFolderAction_1.editFolderAction(folder.folderId, newFolderName));
         };
         var onAddingTag = function (folder, newTagName) {
@@ -1617,9 +1614,7 @@ angular.module('app')
 
 
 /***/ }),
-/* 212 */,
-/* 213 */,
-/* 214 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1639,7 +1634,7 @@ exports.shareFolderAction = shareFolderAction;
 
 
 /***/ }),
-/* 215 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1659,7 +1654,7 @@ exports.removeSharingFolderAction = removeSharingFolderAction;
 
 
 /***/ }),
-/* 216 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1679,13 +1674,13 @@ exports.sharingInfoFolderAction = sharingInfoFolderAction;
 
 
 /***/ }),
-/* 217 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var searchFolderService_1 = __webpack_require__(16);
+var searchFolderService_1 = __webpack_require__(15);
 var removeAllLayersFolderAction = (function () {
     function removeAllLayersFolderAction(folderId) {
         this.folderId = folderId;
@@ -1701,29 +1696,29 @@ exports.removeAllLayersFolderAction = removeAllLayersFolderAction;
 
 
 /***/ }),
-/* 218 */
+/* 215 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"md-icon-button tree-item\" ng-click=\"$ctrl.onFolderClicked($ctrl.tree)\">         \r\n            <div class=\"tree-item\">\r\n                <span class=\"material-icons\" ng-show=\"$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder_shared</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.isSharedFolder && ($ctrl.tree.folders[0].collapsed || $ctrl.tree.tags[0].collapsed)\">folder</span>\r\n                <span class=\"material-icons\" ng-show=\"!$ctrl.tree.folders[0].collapsed && !$ctrl.tree.tags[0].collapsed\">folder_open</span> \r\n                {{$ctrl.tree.folderName}}\r\n                <span class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            </div>\r\n        </div>\r\n        <md-menu-content>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree\">\r\n                <md-button ng-click=\"$ctrl.showEditFolderDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">edit</span>\r\n                    עריכה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree\">\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onFolderShared($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">share</span>\r\n                    שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder && !$ctrl.tree.isMainTree\">\r\n                <md-button ng-click=\"$ctrl.onFolderDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.onSharedInfo($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">info</span>\r\n                    מי שיתף איתי\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showRemoveSharingConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    הסר שיתוף\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showAddingFolderDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">add_circle_outline</span>\r\n                    הוספת תיקייה\r\n                  </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.showAddingTagDialog($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">local_offer</span>\r\n                    הוספת תגית\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedFolder\">\r\n                <md-button ng-click=\"$ctrl.removeAllLayers($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete</span>\r\n                    הסר את כל השכבות מהמפה\r\n                    </md-button>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<ul>\r\n    <li ng-repeat=\"folder in $ctrl.tree.folders track by folder.folderId\" ng-hide=\"folder.collapsed\">\r\n        <folder-handling tree=\"folder\" handle-action=\"$ctrl.handleAction\"></folder-handling>\r\n    </li>\r\n    <tags-handling tree=\"$ctrl.tree\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</ul>";
 
 /***/ }),
-/* 219 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var angular = __webpack_require__(57);
-var editTagAction_1 = __webpack_require__(92);
-var deleteTagAction_1 = __webpack_require__(93);
-var exportTagAction_1 = __webpack_require__(220);
-var displayKMLTagAction_1 = __webpack_require__(221);
-var startRuleTagAction_1 = __webpack_require__(222);
-var stopRuleTagAction_1 = __webpack_require__(223);
-var dupicateTagAction_1 = __webpack_require__(94);
+var editTagAction_1 = __webpack_require__(91);
+var deleteTagAction_1 = __webpack_require__(92);
+var exportTagAction_1 = __webpack_require__(217);
+var displayKMLTagAction_1 = __webpack_require__(218);
+var startRuleTagAction_1 = __webpack_require__(219);
+var stopRuleTagAction_1 = __webpack_require__(220);
+var dupicateTagAction_1 = __webpack_require__(93);
 angular.module('app')
     .component('tagsHandling', {
-    template: __webpack_require__(224),
+    template: __webpack_require__(221),
     bindings: {
         tree: '=',
         handleAction: '='
@@ -1732,7 +1727,7 @@ angular.module('app')
         var _this = this;
         var $ctrl = this;
         $ctrl.checkboxKML = false;
-        $ctrl.showEditTagDialog = function (ev, folder) {
+        $ctrl.showEditTagDialog = function (ev, tag) {
             var confirm = $mdDialog.prompt()
                 .title('הכנס שם חדש')
                 .placeholder('שם תגית')
@@ -1740,17 +1735,17 @@ angular.module('app')
                 .ok('עדכן שם')
                 .cancel('בטל');
             $mdDialog.show(confirm).then(function (newTagName) {
-                onTagEdited(folder, newTagName);
+                onTagEdited(tag, newTagName);
             }, function () { });
         };
-        $ctrl.showDeleteConfirm = function (event, folder) {
+        $ctrl.showDeleteConfirm = function (event, tag) {
             var confirm = $mdDialog.confirm()
                 .title('?האם אתה בטוח שברצונך למחוק את התגית')
                 .textContent('התגית תמחק לצמיתות')
                 .ok('מחק')
                 .cancel('ביטול');
             $mdDialog.show(confirm).then(function () {
-                onTagDeleted(folder);
+                onTagDeleted(tag);
             }, function () { });
         };
         var onTagEdited = function (tag, newTagName) {
@@ -1788,7 +1783,7 @@ angular.module('app')
 
 
 /***/ }),
-/* 220 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1808,7 +1803,7 @@ exports.exportTagAction = exportTagAction;
 
 
 /***/ }),
-/* 221 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1828,7 +1823,7 @@ exports.displayKMLTagAction = displayKMLTagAction;
 
 
 /***/ }),
-/* 222 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1848,7 +1843,7 @@ exports.startRuleTagAction = startRuleTagAction;
 
 
 /***/ }),
-/* 223 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1868,11 +1863,11 @@ exports.stopRuleTagAction = stopRuleTagAction;
 
 
 /***/ }),
-/* 224 */
+/* 221 */
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"tree-item\">  \r\n            <span ng-if=\"$ctrl.tree.tagName && !$ctrl.tree.isSharedTag\" class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            <apan ng-if=\"$ctrl.tree.isRule\">\r\n                <span ng-if=\"$ctrl.tree.isRuleStopped\" class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n                <span ng-if=\"!$ctrl.tree.isRuleStopped\" class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                        pause_circle_filled\r\n                </span>\r\n            </apan>\r\n            <div ng-click=\"$ctrl.onTagClicked($ctrl.tree)\">{{$ctrl.tree.tagName}}</div> \r\n        </div> \r\n\r\n        <md-menu-content>\r\n            <md-menu-item>\r\n                    <md-button ng-click=\"$ctrl.showEditTagDialog($event, $ctrl.tree)\">\r\n                        <span class=\"material-icons action-icon\">edit</span>\r\n                        עריכה\r\n                    </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedTag\">\r\n                <md-button ng-click=\"$ctrl.onTagDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">reply</span>\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
 
 /***/ })
-],[171]);
+],[170]);
 //# sourceMappingURL=ng1.bundle.js.map

@@ -2,9 +2,10 @@ import { ISearchTreeAction } from '../ISearchTreeAction'
 import { searchTagService } from './service/searchTagService';
 import { typesActionTag } from './service/typesActionTag';
 import { exampleObject, NewTag } from '../../searchTreePerent/SearchTreeImplement';
+import { INewTag } from '../../INewTag';
 
 export class duplicteTagAction implements ISearchTreeAction {
-    constructor(private tagId: number) {
+    constructor(private tagId: string) {
 
     }
 
@@ -14,7 +15,7 @@ export class duplicteTagAction implements ISearchTreeAction {
         return searchService.executeAction(this.tagId, exampleObject);
     }
 
-    public static duplicteTag(currentTags, index) {
+    public static duplicteTag(currentTags: INewTag[], index: number): void {
 
         let duplictedTag = new NewTag(
             Math.floor(Math.random()*100).toString(),

@@ -5,7 +5,7 @@ import { searchFolderService } from './service/searchFolderService';
 import { actionFolderTypes } from './service/actionFolderTypes';
 
 export class addNewFolderAction implements ISearchTreeAction {
-    constructor(private folderId: number, private newFolderName: string) {
+    constructor(private folderId: string, private newFolderName: string) {
 
     }
 
@@ -14,15 +14,15 @@ export class addNewFolderAction implements ISearchTreeAction {
         return searchService.executeAction(this.folderId, exampleObject ,this.newFolderName);
     }
     
-    public static addNewFolder(tree ,newFolderName, perentId) {
+    public static addNewFolder(tree: ISearchTree ,newFolderName: string, perentId: string): void {
 
-        let collapsedNewFolder = false;
+        let collapsedNewFolder: boolean = false;
         collapsedNewFolder = this.checkForCollapsedDisplay(tree);
 
         tree.folders.push(new SearchTree(`adeed-1${Math.random()}`, newFolderName, 'owner', perentId, [], [], collapsedNewFolder, false, false));   
     }
     
-    private static checkForCollapsedDisplay(tree) {
+    private static checkForCollapsedDisplay(tree: ISearchTree): boolean {
 
         if(tree.folders.length > 0) {
             if(tree.folders[0].collapsed) {
