@@ -2,6 +2,7 @@ import { ISearchTreeAction } from '../ISearchTreeAction'
 import { searchFolderService } from './service/searchFolderService';
 import { exampleObject, SearchTree, NewTag } from '../../searchTreePerent/SearchTreeImplement';
 import { actionFolderTypes } from './service/actionFolderTypes';
+import _ from 'underscore';
 
 export class duplicateFolderAction implements ISearchTreeAction {
     constructor(private folderId: number) {
@@ -15,13 +16,13 @@ export class duplicateFolderAction implements ISearchTreeAction {
     }
 
     public static duplicteFolder(currentFolders, index) {
-        
+
         var duplictedFolder = this.cloneObject(currentFolders[index]);
         currentFolders.push(duplictedFolder);
     }
 
     private static cloneObject(obj) {
-        var copy;
+        let copy;
         
         // Handle the 3 simple types, and null or undefined
         if (null == obj || "object" != typeof obj) return obj;
@@ -40,9 +41,11 @@ export class duplicateFolderAction implements ISearchTreeAction {
             if(obj instanceof SearchTree) {
                 copy = {};
                 for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) copy[attr] = this.cloneObject(obj[attr]);
+                    if (obj.hasOwnProperty(attr)) {
+                        copy[attr] = this.cloneObject(obj[attr]);                        
+                    }
                 }
-                let dup = new SearchTree(
+                let copyTree = new SearchTree(
                     Math.floor(Math.random()*100).toString(),
                     copy.folderName,
                     copy.owner,
@@ -51,19 +54,20 @@ export class duplicateFolderAction implements ISearchTreeAction {
                     copy.tags,
                     copy.collapsed,
                     copy.isSharedFolder,
-                    false,
-                );
-                return dup;
+                    false);
+                return copyTree;
             }
 
             if(obj instanceof NewTag) {
 
                 copy = {};
                 for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) copy[attr] = this.cloneObject(obj[attr]);
+                    if (obj.hasOwnProperty(attr)) { 
+                        copy[attr] = this.cloneObject(obj[attr]);
+                    }
                 }
 
-                let dup = new NewTag(
+                let copyTag = new NewTag(
                     Math.floor(Math.random()*100).toString(),
                     copy.tagName,
                     copy.queryId,
@@ -76,7 +80,7 @@ export class duplicateFolderAction implements ISearchTreeAction {
                     copy.hasKml,
                     copy.isSharedTag);
 
-                return dup;
+                return copyTag;
             }
         }
     

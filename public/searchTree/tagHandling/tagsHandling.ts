@@ -46,11 +46,11 @@ angular.module('app')
         };
 
         const onTagEdited = (tag, newTagName) => {
-            let getNewTag = $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));             
+            $ctrl.handleAction(new editTagAction(tag.tagId, newTagName));             
         }
 
         const onTagDeleted = (tag) => {            
-            let getNewTag = $ctrl.handleAction(new deleteTagAction(tag.tagId));            
+            $ctrl.handleAction(new deleteTagAction(tag.tagId));            
         }
 
         $ctrl.onTagClicked = (tag): void => {

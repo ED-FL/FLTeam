@@ -1,4 +1,5 @@
 import * as angular from "angular";
+import ISearchTree from "../ISearchTree";
 import { editFolderAction } from "../actions/folderActions/editFolderAction";
 import { deleteFolderAction } from "../actions/folderActions/deleteFolderAction";
 import { shareFolderAction } from "../actions/folderActions/shareFolderAction";
@@ -6,7 +7,6 @@ import { duplicateFolderAction } from "../actions/folderActions/duplicateFolderA
 import { removeSharingFolderAction } from "../actions/folderActions/removeSharingFolderAction";
 import { sharingInfoFolderAction } from "../actions/folderActions/sharingInfoFolderAction";
 import { addNewFolderAction } from "../actions/folderActions/addNewFolderAction";
-import ISearchTree from "../ISearchTree";
 import { removeAllLayersFolderAction } from "../actions/folderActions/removeAllLayersFolderAction";
 import { addNewTagFolderAction } from "../actions/folderActions/addNewTagFolderAction";
 

@@ -14,7 +14,6 @@ export class editFolderAction implements ISearchTreeAction {
         return searchService.executeAction(this.folderId, exampleObject, this.newFolderName);
     }
 
-    
     public static editFolder(tree ,newFolderName) {
         tree.folderName = newFolderName;      
     }
