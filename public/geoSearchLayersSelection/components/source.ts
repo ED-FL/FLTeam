@@ -1,4 +1,7 @@
-import { ISouceListItems } from "../interfaces/ISoucesListItems";
+import {
+  ISouceListItems,
+  ILayersListItems,
+} from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
 const EXPAND_OPTIONS = {
@@ -38,7 +41,7 @@ angular.module("app").component("source", {
       this.onExpand();
     }
 
-    public toggleAll() {
+    private toggleAll() {
       if (this.source.sourceData.isSelected) {
         this.selectAll({ source: this.source, selection: false });
       } else {
@@ -62,6 +65,23 @@ angular.module("app").component("source", {
       let currExpand = this.isExpanded.toString();
       this.expandIcon = EXPAND_OPTIONS[currExpand].icon;
       this.expandClass = EXPAND_OPTIONS[currExpand].style;
+    }
+
+    private getSuitableLayersByText(): ILayersListItems {
+      if (!this.searchText) {
+        return this.source.layers;
+      } else {
+        return Object.keys(this.source.layers).reduce((filtered, key) => {
+          return this.getFilteredLayers(key, filtered);
+        }, {});
+      }
+    }
+
+    private getFilteredLayers(layerId, filtered) {
+      if (this.source.layers[layerId].displayName.includes(this.searchText)) {
+        filtered[layerId] = this.source.layers[layerId];
+      }
+      return filtered;
     }
   },
 });

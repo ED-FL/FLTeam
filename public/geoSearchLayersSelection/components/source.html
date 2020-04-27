@@ -13,7 +13,7 @@
 <div
   class="layers"
   ng-class="$ctrl.expandClass"
-  ng-repeat="(key,value) in $ctrl.source.layers"
+  ng-repeat="(key,value) in $ctrl.getSuitableLayersByText()"
 >
   <md-checkbox
     ng-disabled="value.isDisabled"
