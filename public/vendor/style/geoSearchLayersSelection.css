@@ -3,20 +3,38 @@
 .dialog-container {
   max-width: 100%;
   width: 450px;
-  height: 500px;
+  height: 450px;
 }
 
 .dialog-title {
+  height: 10%;
   margin-top: 22px;
   margin-right: 10px;
+  /* background-color: violet;*/
+}
+
+.dialog-static-content {
+  height: 20%;
+  /* background-color: mediumturquoise; */
+}
+
+.dialog-dynamic-content {
+  height: 60%;
+  margin-top: 5px;
+  /* background-color: springgreen; */
 }
 
 .dialog-actions {
-  margin-top: 5px;
-  margin-bottom: 15px;
+  min-height: 20px;
+  height: 10%;
+  position: fixed;
+  bottom: 15px;
+  /* display: block; */
+  /* background-color: orange; */
 }
 
 .all-sources-actions {
+  margin-top: 5px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -59,4 +77,8 @@ md-dialog {
 md-dialog-content {
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+md-dialog-actions {
+  /* background-color: salmon; */
 }
