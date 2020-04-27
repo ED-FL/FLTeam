@@ -17,14 +17,13 @@
 }
 
 .dialog-dynamic-content {
-  height: 60%;
+  height: 65%;
   margin-top: 7px;
 }
 
 .dialog-actions {
-  min-height: 20px;
-  height: 10%;
-  margin-bottom: 30px;
+  height: 5%;
+  margin-bottom: 40px;
 }
 
 .all-sources-actions {
