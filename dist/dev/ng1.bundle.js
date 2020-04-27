@@ -347,6 +347,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
 var searchFolderService_1 = __webpack_require__(15);
 var actionFolderTypes_1 = __webpack_require__(16);
+var helper_1 = __webpack_require__(230);
 var addNewFolderAction = (function () {
     function addNewFolderAction(folderId, newFolderName) {
         this.folderId = folderId;
@@ -358,21 +359,8 @@ var addNewFolderAction = (function () {
     };
     addNewFolderAction.addNewFolder = function (tree, newFolderName, perentId) {
         var collapsedNewFolder = false;
-        collapsedNewFolder = this.checkForCollapsedDisplay(tree);
-        tree.folders.push(new SearchTreeImplement_1.SearchTree("adeed-1" + Math.random(), newFolderName, 'owner', perentId, [], [], collapsedNewFolder, false, false));
-    };
-    addNewFolderAction.checkForCollapsedDisplay = function (tree) {
-        if (tree.folders.length > 0) {
-            if (tree.folders[0].collapsed) {
-                return true;
-            }
-        }
-        if (tree.tags.length > 0) {
-            if (tree.tags[0].collapsed) {
-                return true;
-            }
-        }
-        return false;
+        collapsedNewFolder = helper_1.helper.checkForCollapsedDisplay(tree);
+        tree.folders.push(new SearchTreeImplement_1.SearchTree(helper_1.helper.generateId(), newFolderName, 'owner', perentId, [], [], collapsedNewFolder, false, false));
     };
     return addNewFolderAction;
 }());
@@ -389,6 +377,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var SearchTreeImplement_1 = __webpack_require__(7);
 var searchFolderService_1 = __webpack_require__(15);
 var actionFolderTypes_1 = __webpack_require__(16);
+var helper_1 = __webpack_require__(230);
 var addNewTagFolderAction = (function () {
     function addNewTagFolderAction(folderId, newTagName) {
         this.folderId = folderId;
@@ -400,21 +389,8 @@ var addNewTagFolderAction = (function () {
     };
     addNewTagFolderAction.addNewTag = function (tree, newTagName, perentId) {
         var collapsedNewTag = false;
-        collapsedNewTag = this.checkForCollapsedDisplay(tree);
-        tree.tags.push(new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), newTagName, "extraInfo", null, null, perentId, collapsedNewTag, true, false, false, false));
-    };
-    addNewTagFolderAction.checkForCollapsedDisplay = function (tree) {
-        if (tree.folders.length > 0) {
-            if (tree.folders[0].collapsed) {
-                return true;
-            }
-        }
-        if (tree.tags.length > 0) {
-            if (tree.tags[0].collapsed) {
-                return true;
-            }
-        }
-        return false;
+        collapsedNewTag = helper_1.helper.checkForCollapsedDisplay(tree);
+        tree.tags.push(new SearchTreeImplement_1.NewTag(helper_1.helper.generateId(), newTagName, "extraInfo", null, null, perentId, collapsedNewTag, true, false, false, false));
     };
     return addNewTagFolderAction;
 }());
@@ -431,6 +407,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var searchFolderService_1 = __webpack_require__(15);
 var SearchTreeImplement_1 = __webpack_require__(7);
 var actionFolderTypes_1 = __webpack_require__(16);
+var angular = __webpack_require__(57);
+var helper_1 = __webpack_require__(230);
 var duplicateFolderAction = (function () {
     function duplicateFolderAction(folderId) {
         this.folderId = folderId;
@@ -441,46 +419,36 @@ var duplicateFolderAction = (function () {
         return searchService.executeAction(this.folderId, SearchTreeImplement_1.exampleObject);
     };
     duplicateFolderAction.duplicteFolder = function (currentFolders, index) {
-        var duplictedFolder = this.cloneObject(currentFolders[index]);
-        currentFolders.push(duplictedFolder);
+        var copiedTree = this.cloneTree(currentFolders[index]);
+        currentFolders.push(copiedTree);
     };
-    duplicateFolderAction.cloneObject = function (obj) {
-        var copy;
-        // Handle the 3 simple types, and null or undefined
-        if (null == obj || "object" != typeof obj)
-            return obj;
-        // Handle Array
-        if (obj instanceof Array) {
-            copy = [];
-            for (var i = 0, len = obj.length; i < len; i++) {
-                copy[i] = this.cloneObject(obj[i]);
-            }
-            return copy;
+    duplicateFolderAction.cloneTree = function (tree) {
+        var copiedFolder = angular.copy(tree);
+        copiedFolder.folderId = helper_1.helper.generateId();
+        copiedFolder.tags = this.cloneTags(tree.tags);
+        if (tree.folders.length === 0) {
+            return copiedFolder;
         }
-        // Handle Object
-        if (obj instanceof Object) {
-            if (obj instanceof SearchTreeImplement_1.SearchTree) {
-                copy = {};
-                for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) {
-                        copy[attr] = this.cloneObject(obj[attr]);
-                    }
-                }
-                var copyTree = new SearchTreeImplement_1.SearchTree(Math.floor(Math.random() * 100).toString(), copy.folderName, copy.owner, copy.parentFolderId, copy.folders, copy.tags, copy.collapsed, copy.isSharedFolder, false);
-                return copyTree;
-            }
-            if (obj instanceof SearchTreeImplement_1.NewTag) {
-                copy = {};
-                for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) {
-                        copy[attr] = this.cloneObject(obj[attr]);
-                    }
-                }
-                var copyTag = new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), copy.tagName, copy.queryId, copy.extraInfo, copy.type, copy.parentFolderId, copy.collapsed, copy.isRule, copy.isRuleStopped, copy.hasKml, copy.isSharedTag);
-                return copyTag;
-            }
-        }
-        throw new Error("Unable to copy obj! Its type isn't supported.");
+        copiedFolder.folders = this.cloneFolders(tree.folders);
+        return copiedFolder;
+    };
+    duplicateFolderAction.cloneFolders = function (folders) {
+        var _this = this;
+        var copiedFolders = [];
+        folders.forEach(function (folder) {
+            var copiedFolder = _this.cloneTree(folder);
+            copiedFolders.push(copiedFolder);
+        });
+        return copiedFolders;
+    };
+    duplicateFolderAction.cloneTags = function (tags) {
+        var copiedTags = [];
+        tags.forEach(function (tag) {
+            var copyTag = angular.copy(tag);
+            copyTag.tagId = helper_1.helper.generateId();
+            copiedTags.push(copyTag);
+        });
+        return copiedTags;
     };
     return duplicateFolderAction;
 }());
@@ -550,6 +518,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var searchTagService_1 = __webpack_require__(58);
 var typesActionTag_1 = __webpack_require__(34);
 var SearchTreeImplement_1 = __webpack_require__(7);
+var angular = __webpack_require__(57);
+var helper_1 = __webpack_require__(230);
 var duplicteTagAction = (function () {
     function duplicteTagAction(tagId) {
         this.tagId = tagId;
@@ -560,7 +530,8 @@ var duplicteTagAction = (function () {
         return searchService.executeAction(this.tagId, SearchTreeImplement_1.exampleObject);
     };
     duplicteTagAction.duplicteTag = function (currentTags, index) {
-        var duplictedTag = new SearchTreeImplement_1.NewTag(Math.floor(Math.random() * 100).toString(), currentTags[index].tagName, currentTags[index].queryId, currentTags[index].extraInfo, currentTags[index].type, currentTags[index].parentFolderId, currentTags[index].collapsed, currentTags[index].isRule, currentTags[index].isRuleStopped, currentTags[index].hasKml, currentTags[index].isSharedTag);
+        var duplictedTag = angular.copy(currentTags[index]);
+        duplictedTag.tagId = helper_1.helper.generateId();
         currentTags.push(duplictedTag);
     };
     return duplicteTagAction;
@@ -1457,6 +1428,7 @@ angular.module('app').component('searchTreePerent', {
                     case 0: return [4 /*yield*/, action.visit()];
                     case 1:
                         tree = _a.sent();
+                        console.log(tree);
                         $ctrl.tree = tree;
                         return [2 /*return*/];
                 }
@@ -1867,6 +1839,45 @@ exports.stopRuleTagAction = stopRuleTagAction;
 /***/ (function(module, exports) {
 
 module.exports = "<div ng-cloak>       \r\n    <md-menu>\r\n        <div class=\"tree-item\">  \r\n            <span ng-if=\"$ctrl.tree.tagName && !$ctrl.tree.isSharedTag\" class=\"material-icons menu-icon\" ng-click=\"$ctrl.openMenu($mdMenu, $event)\">more_vert</span>\r\n            <apan ng-if=\"$ctrl.tree.isRule\">\r\n                <span ng-if=\"$ctrl.tree.isRuleStopped\" class=\"material-icons play-icon\" ng-click=\"$ctrl.onTagRuleStarted($ctrl.tree)\" title=\"הפעל חוק\">\r\n                    play_circle_filled\r\n                </span>\r\n                <span ng-if=\"!$ctrl.tree.isRuleStopped\" class=\"material-icons pause-icon\" ng-click=\"$ctrl.onTagRuleStoped($ctrl.tree)\" title=\"הפסק חוק\">\r\n                        pause_circle_filled\r\n                </span>\r\n            </apan>\r\n            <div ng-click=\"$ctrl.onTagClicked($ctrl.tree)\">{{$ctrl.tree.tagName}}</div> \r\n        </div> \r\n\r\n        <md-menu-content>\r\n            <md-menu-item>\r\n                    <md-button ng-click=\"$ctrl.showEditTagDialog($event, $ctrl.tree)\">\r\n                        <span class=\"material-icons action-icon\">edit</span>\r\n                        עריכה\r\n                    </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.showDeleteConfirm($event, $ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">delete_outline</span>\r\n                    מחיקה\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"!$ctrl.tree.isSharedTag\">\r\n                <md-button ng-click=\"$ctrl.onTagDuplicated($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">filter_none</span>\r\n                    שכפול\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item>\r\n                <md-button ng-click=\"$ctrl.onTagExported($ctrl.tree)\">\r\n                    <span class=\"material-icons action-icon\">reply</span>\r\n                    ייצוא לרמזור\r\n                </md-button>\r\n            </md-menu-item>\r\n            <md-menu-item ng-if=\"$ctrl.tree.hasKml\">\r\n                <md-checkbox ng-checked=\"$ctrl.checkboxKML\" ng-click=\"$ctrl.onDisplayKmlTag($ctrl.tree)\" aria-label=\"checkboxKML\">\r\n                    הצג ישויות\r\n                </md-checkbox>\r\n            </md-menu-item>\r\n        </md-menu-content>\r\n    </md-menu>\r\n</div>\r\n<li ng-repeat=\"tag in $ctrl.tree.tags track by tag.tagId\" ng-hide=\"tag.collapsed\">\r\n    <tags-handling tree=\"tag\" handle-action=\"$ctrl.handleAction\"></tags-handling>\r\n</li>";
+
+/***/ }),
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var helper = (function () {
+    function helper() {
+    }
+    helper.generateId = function () {
+        return Math.random().toString();
+    };
+    helper.checkForCollapsedDisplay = function (tree) {
+        if (tree.folders.length > 0) {
+            if (tree.folders[0].collapsed) {
+                return true;
+            }
+        }
+        if (tree.tags.length > 0) {
+            if (tree.tags[0].collapsed) {
+                return true;
+            }
+        }
+        return false;
+    };
+    return helper;
+}());
+exports.helper = helper;
+
 
 /***/ })
 ],[170]);

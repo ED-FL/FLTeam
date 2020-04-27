@@ -12,6 +12,7 @@ angular.module('app').component('searchTreePerent', {
 
     $ctrl.handleAction = async (action: ISearchTreeAction): Promise<any> => {
       let tree = await action.visit();
+      console.log(tree);
       $ctrl.tree = tree;
     };
   }

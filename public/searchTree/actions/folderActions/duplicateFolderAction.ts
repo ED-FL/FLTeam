@@ -2,8 +2,10 @@ import { ISearchTreeAction } from '../ISearchTreeAction'
 import { searchFolderService } from './service/searchFolderService';
 import { exampleObject, SearchTree, NewTag } from '../../searchTreePerent/SearchTreeImplement';
 import { actionFolderTypes } from './service/actionFolderTypes';
-import _ from 'underscore';
 import ISearchTree from '../../ISearchTree';
+import * as angular from 'angular'
+import { INewTag } from '../../INewTag';
+import { helper } from '../helper/helper';
 
 export class duplicateFolderAction implements ISearchTreeAction {
     constructor(private folderId: string) {
@@ -18,73 +20,46 @@ export class duplicateFolderAction implements ISearchTreeAction {
 
     public static duplicteFolder(currentFolders: ISearchTree[], index: number): void {
 
-        var duplictedFolder = this.cloneObject(currentFolders[index]);
-        currentFolders.push(duplictedFolder);
+        var copiedTree = this.cloneTree(currentFolders[index])
+        currentFolders.push(copiedTree);
     }
 
-    private static cloneObject(obj) {
-        let copy;
+    private static cloneTree(tree: ISearchTree) {
+
+        let copiedFolder: ISearchTree = angular.copy(tree);
+        copiedFolder.folderId = helper.generateId();
+        copiedFolder.tags = this.cloneTags(tree.tags);
+
+        if(tree.folders.length === 0) {            
+            return copiedFolder;
+        }
+
+        copiedFolder.folders = this.cloneFolders(tree.folders);
+        return copiedFolder;
+    }
+
+    private static cloneFolders(folders: ISearchTree[]) {
         
-        // Handle the 3 simple types, and null or undefined
-        if (null == obj || "object" != typeof obj) return obj;
-    
-        // Handle Array
-        if (obj instanceof Array) {
-            copy = [];
-            for (var i = 0, len = obj.length; i < len; i++) {
-                copy[i] = this.cloneObject(obj[i]);
-            }
-            return copy;
-        }
-    
-        // Handle Object
-        if (obj instanceof Object) {
-            if(obj instanceof SearchTree) {
-                copy = {};
-                for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) {
-                        copy[attr] = this.cloneObject(obj[attr]);                        
-                    }
-                }
-                let copyTree = new SearchTree(
-                    Math.floor(Math.random()*100).toString(),
-                    copy.folderName,
-                    copy.owner,
-                    copy.parentFolderId,
-                    copy.folders,
-                    copy.tags,
-                    copy.collapsed,
-                    copy.isSharedFolder,
-                    false);
-                return copyTree;
-            }
+        let copiedFolders: ISearchTree[] = [];
+        
+        folders.forEach(folder => {
+            let copiedFolder = this.cloneTree(folder);
+            copiedFolders.push(copiedFolder);
+        });
+        
+        return copiedFolders;
+    }
 
-            if(obj instanceof NewTag) {
+    private static cloneTags(tags: INewTag[]) {
+        
+        let copiedTags: INewTag[] = [];
 
-                copy = {};
-                for (var attr in obj) {
-                    if (obj.hasOwnProperty(attr)) { 
-                        copy[attr] = this.cloneObject(obj[attr]);
-                    }
-                }
+        tags.forEach(tag => {
+            let copyTag = angular.copy(tag);
+            copyTag.tagId = helper.generateId();    
+            copiedTags.push(copyTag);
+        });
 
-                let copyTag = new NewTag(
-                    Math.floor(Math.random()*100).toString(),
-                    copy.tagName,
-                    copy.queryId,
-                    copy.extraInfo,
-                    copy.type,
-                    copy.parentFolderId,
-                    copy.collapsed,
-                    copy.isRule,
-                    copy.isRuleStopped,
-                    copy.hasKml,
-                    copy.isSharedTag);
-
-                return copyTag;
-            }
-        }
-    
-        throw new Error("Unable to copy obj! Its type isn't supported.");
+        return copiedTags;
     }
 }
