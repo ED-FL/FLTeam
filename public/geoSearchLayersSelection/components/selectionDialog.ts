@@ -114,6 +114,8 @@ angular.module("app").component("selectionDialog", {
         if (source.maxSelectedLayers == source.numSelectedLayers) {
           this.disableLayers(source, true);
         }
+
+        this.changeSourceSelection(source);
       }
     }
 
@@ -127,12 +129,21 @@ angular.module("app").component("selectionDialog", {
       ) {
         this.disableLayers(source, false);
       }
+
+      this.changeSourceSelection(source);
     }
 
     private disableLayers(source: ISouceListItems, disable: boolean) {
       for (let layerId in source.layers) {
         let layer = source.layers[layerId];
         if (!layer.isSelected) layer.isDisabled = disable;
+      }
+    }
+
+    private changeSourceSelection(source: ISouceListItems) {
+      if (source.canSelectAll) {
+        source.sourceData.isSelected =
+          source.numSelectedLayers === Object.keys(source.layers).length;
       }
     }
   },
