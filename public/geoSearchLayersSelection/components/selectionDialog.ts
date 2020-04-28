@@ -94,13 +94,15 @@ angular.module("app").component("selectionDialog", {
     }
 
     private onSource(source: ISouceListItems, selection: boolean) {
-      if (source.canSelectAll || !selection) {
+      // if (source.canSelectAll || !selection) {
+      if (!(selection && source.sourceData.isSelected)) {
         source.sourceData.isSelected = selection;
         for (let layerId in source.layers) {
           if (selection) this.onSingleLayerSelected(source, layerId);
           else this.onSingleLayerUnSelected(source, layerId);
         }
       }
+      // }
     }
 
     private onSingleLayerSelected(source: ISouceListItems, layerId: string) {
