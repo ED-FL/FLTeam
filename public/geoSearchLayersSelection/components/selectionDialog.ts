@@ -85,8 +85,10 @@ angular.module("app").component("selectionDialog", {
     }
 
     private selectFirstLayers(source: ISouceListItems) {
+      const sourceLayers = Object.keys(source.layers);
+
       for (let i = 0; i < source.maxSelectedLayers; i++) {
-        let layerId = Object.keys(source.layers)[i];
+        let layerId = sourceLayers[i];
         if (!source.layers[layerId].isSelected) {
           this.onSingleLayerSelected(source, layerId);
         }
