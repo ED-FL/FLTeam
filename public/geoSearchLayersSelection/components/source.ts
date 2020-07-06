@@ -1,8 +1,4 @@
-import {
-  ISouceListItems,
-  ILayersListItems,
-  IListItem,
-} from "../interfaces/ISoucesListItems";
+import { ISouceListItems, IListItem } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
 const EXPAND_OPTIONS = {

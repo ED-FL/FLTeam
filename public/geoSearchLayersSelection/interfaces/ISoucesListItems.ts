@@ -11,7 +11,3 @@ export interface ISouceListItems {
   maxSelectedLayers?: number;
   layers?: Dictionery<IListItem>;
 }
-
-export interface ISoucesListItems {
-  [sourceId: string]: ISouceListItems;
-}

@@ -1,13 +1,7 @@
-import { ISourcesOptions } from "../interfaces/ISourceOptions";
-import {
-  ISourcesSelections,
-  ISelection,
-} from "../interfaces/ISourceSelections";
-import {
-  ISoucesListItems,
-  ISouceListItems,
-} from "../interfaces/ISoucesListItems";
+import { ISelection } from "../interfaces/ISourceSelections";
+import { ISouceListItems } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
+import { ISourceOption } from "../interfaces/ISourceOptions";
 
 angular.module("app").component("selectionDialog", {
   templateUrl: "./selectionDialog.html",
@@ -17,7 +11,7 @@ angular.module("app").component("selectionDialog", {
     converterService;
     dialog;
 
-    sources: ISoucesListItems;
+    sources: Dictionery<ISouceListItems>;
     searchText: string;
 
     constructor(layerSelectionService, objectConverterService, $mdDialog) {
@@ -34,13 +28,13 @@ angular.module("app").component("selectionDialog", {
       this.dialog.cancel();
     }
 
-    private initAllSources(): ISoucesListItems {
-      let sources: ISourcesOptions = this.selectionService.getAllSources();
+    private initAllSources(): Dictionery<ISouceListItems> {
+      let sources: Dictionery<ISourceOption> = this.selectionService.getAllSources();
       return this.converterService.convertOptionsToListItems(sources);
     }
 
     private onSave() {
-      let reasults: ISourcesSelections = {};
+      let reasults: Dictionery<ISelection> = {};
       for (let sourceId in this.sources) {
         let source = this.sources[sourceId];
         if (source.sourceData.isSelected && source.canSelectAll) {
