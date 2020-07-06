@@ -1,6 +1,7 @@
 import {
   ISouceListItems,
   ILayersListItems,
+  IListItem,
 } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
@@ -67,7 +68,7 @@ angular.module("app").component("source", {
       this.expandClass = EXPAND_OPTIONS[currExpand].style;
     }
 
-    private getSuitableLayersByText(): ILayersListItems {
+    private getSuitableLayersByText(): Dictionery<IListItem> {
       if (!this.searchText) {
         return this.source.layers;
       } else {
