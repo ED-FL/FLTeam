@@ -19,6 +19,8 @@ describe("source testing", () => {
     unSelectLayer = null;
   });
 
+  // ToDo: use ObjectUtils
+
   function initSource() {
     source = {
       sourceData: {
@@ -263,10 +265,4 @@ describe("source testing", () => {
       });
     });
   });
-
-  beforeEach(() => {});
-
-  describe("", () => {});
-
-  it("", () => {});
 });
