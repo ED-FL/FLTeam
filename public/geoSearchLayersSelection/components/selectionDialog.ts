@@ -34,6 +34,12 @@ angular.module("app").component("selectionDialog", {
     }
 
     private onSave() {
+      let reasults: Dictionery<ISelection> = this.getUserFinelSelection();
+      this.selectionService.geoSeachLayesrSelected(reasults);
+      this.closeDialog();
+    }
+
+    private getUserFinelSelection(): Dictionery<ISelection> {
       let reasults: Dictionery<ISelection> = {};
       for (let sourceId in this.sources) {
         let source = this.sources[sourceId];
@@ -43,8 +49,7 @@ angular.module("app").component("selectionDialog", {
           reasults[sourceId] = this.saveSelectedLayers(source);
         }
       }
-      this.selectionService.geoSeachLayesrSelected(reasults);
-      this.closeDialog();
+      return reasults;
     }
 
     private saveAllLayers(): ISelection {
