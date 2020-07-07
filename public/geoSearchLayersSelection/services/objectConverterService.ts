@@ -1,12 +1,5 @@
-import {
-  ISourcesOptions,
-  ISourceOption,
-  ILayerOption,
-} from "../interfaces/ISourceOptions";
-import {
-  ISoucesListItems,
-  ILayersListItems,
-} from "../interfaces/ISoucesListItems";
+import { ISourceOption, ILayerOption } from "../interfaces/ISourceOptions";
+import { ISouceListItems, IListItem } from "../interfaces/ISoucesListItems";
 import * as angular from "angular";
 
 angular.module("app").service(
@@ -15,9 +8,9 @@ angular.module("app").service(
     constructor() {}
 
     public convertOptionsToListItems(
-      sources: ISourcesOptions
-    ): ISoucesListItems {
-      let listItemsSources: ISoucesListItems = {};
+      sources: ISourceOption
+    ): Dictionery<ISouceListItems> {
+      let listItemsSources: Dictionery<ISouceListItems> = {};
       for (let source in sources) {
         let value = sources[source];
         this.convertSourceToListItem(source, value, listItemsSources);
@@ -29,7 +22,7 @@ angular.module("app").service(
     private convertSourceToListItem(
       sourceId: string,
       source: ISourceOption,
-      listItemsSources: ISoucesListItems
+      listItemsSources: Dictionery<ISouceListItems>
     ) {
       listItemsSources[sourceId] = {
         sourceData: {
@@ -44,8 +37,10 @@ angular.module("app").service(
       };
     }
 
-    private convertLayersToListItems(layers: ILayerOption): ILayersListItems {
-      let listItems: ILayersListItems = {};
+    private convertLayersToListItems(
+      layers: Dictionery<ILayerOption>
+    ): Dictionery<IListItem> {
+      let listItems: Dictionery<IListItem> = {};
 
       for (let layer in layers) {
         let value = layers[layer];
