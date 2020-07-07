@@ -10,7 +10,7 @@ angular.module("app").component("messagesList", {
     messageTypes;
     lastMessageIcon: string;
     lastMessageStyle: string;
-    currentalarmType: ALARM_TYPE;
+    currentAlarmType: ALARM_TYPE;
     numMessages: number;
     lastMessageContent: string;
 
@@ -32,15 +32,15 @@ angular.module("app").component("messagesList", {
 
     private doAction(num, type) {
       this.numMessages = num;
-      this.currentalarmType = type;
+      this.currentAlarmType = type;
     }
 
     public showOnlyAlarm() {
-      return this.currentalarmType == ALARM_TYPE.NO;
+      return this.currentAlarmType == ALARM_TYPE.NO;
     }
 
     public showLastMessage() {
-      if (this.currentalarmType == ALARM_TYPE.LAST) {
+      if (this.currentAlarmType == ALARM_TYPE.LAST) {
         let numHiddenLoading = this.messagesHistory.getHiddenLoadingMessages()
           .length;
 
